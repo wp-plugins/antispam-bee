@@ -14,7 +14,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 = At a Glance =
 * Quick & Dirty: activate, done!
 * Spam may be marked or deleted immediately
-* Saves no data in the database, accordingly no connection.
+* Saves no data in the database, accordingly no connection
 * WordPress 2.7 ready: Design and as well as technical
 * Very, very fast execution
 * No need to adjust any templates
