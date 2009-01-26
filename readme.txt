@@ -21,6 +21,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+= What's New in Antispam Bee 0.3 =
+* Trackback and Pingback spam protection
+
 Please visit the [Antispam Bee homepage](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Bee homepage") for more information.
 
 == Installation ==

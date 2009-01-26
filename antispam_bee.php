@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 Author: Sergej M&uuml;ller
-Version: 0.2
+Version: 0.3
 Author URI: http://www.wpseo.org
 */
 
@@ -161,29 +161,40 @@ if (isset($_POST['comment']) && isset($_POST[$this->protect]) && empty($_POST['c
 $_POST['comment'] = $_POST[$this->protect];
 unset($_POST[$this->protect]);
 } else {
-if (get_option('antispam_bee_flag_spam')) {
-$_POST['is_spam'] = 1;
-} else {
-unset($_POST['comment']);
-}
+$_POST['bee_spam'] = 1;
 }
 }
 }
 function mark($comment) {
 if (strpos($_SERVER['REQUEST_URI'], 'wp-comments-post.php') !== false && isset($_POST) && !empty($_POST)) {
-if (isset($_POST['comment']) && isset($_POST[$this->protect]) && isset($_POST['is_spam']) && !empty($_POST['is_spam'])) {
+if (isset($_POST['bee_spam']) && !empty($_POST['bee_spam'])) {
+unset($_POST['bee_spam']);
+return $this->filter($comment);
+}
+} else if (in_array($comment['comment_type'], array('pingback', 'trackback'))) {
+if (@empty($_SERVER['REMOTE_ADDR']) || @empty($comment['comment_author_url']) || @empty($comment['comment_content'])) {
+return $this->filter($comment);
+} else {
+$parse_url = parse_url($comment['comment_author_url']);
+if (gethostbyname($parse_url['host']) != $_SERVER['REMOTE_ADDR']) {
+return $this->filter($comment);
+} 
+}
+}
+return $comment;
+}
+function filter($comment) {
+if (get_option('antispam_bee_flag_spam')) {
 add_filter(
 'pre_comment_approved',
 create_function(
-'$a',
+'',
 'return "spam";'
 )
 );
 $comment['comment_content'] = "[MARKED FOR SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
-unset($_POST['is_spam']);
-}
-}
 return $comment;
+}
 }
 }
 if (class_exists('Antispam_Bee') && function_exists('is_admin')) {
