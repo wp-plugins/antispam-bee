@@ -1,7 +1,7 @@
 === Antispam Bee ===
 Contributors: stalkerX
 Tags: antispam, spam, comment, akismet
-Requires at least: 2.3
+Requires at least: 2.1
 Tested up to: 2.7
 Stable tag: trunk
 
