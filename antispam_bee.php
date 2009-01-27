@@ -4,8 +4,8 @@ Plugin Name: Antispam Bee
 Plugin URI: http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 Author: Sergej M&uuml;ller
-Version: 0.3
-Author URI: http://www.wpseo.org
+Version: 0.4
+Author URI: http://wp-coder.de
 */
 
 
@@ -80,6 +80,7 @@ return $links;
 }
 function activate() {
 add_option('antispam_bee_flag_spam');
+add_option('antispam_bee_ignore_pings');
 }
 function setup() {
 add_options_page(
@@ -102,6 +103,10 @@ check_admin_referer('antispam_bee');
 update_option(
 'antispam_bee_flag_spam',
 (@$_POST['antispam_bee_flag_spam'] ? intval($_POST['antispam_bee_flag_spam']) : '')
+);
+update_option(
+'antispam_bee_ignore_pings',
+(@$_POST['antispam_bee_ignore_pings'] ? intval($_POST['antispam_bee_ignore_pings']) : '')
 ); ?>
 <div id="message" class="updated fade">
 <p>
@@ -132,6 +137,14 @@ Antispam Bee
 <label for="antispam_bee_flag_spam">
 <input type="checkbox" name="antispam_bee_flag_spam" id="antispam_bee_flag_spam" value="1" <?php echo (get_option('antispam_bee_flag_spam')) ? 'checked="checked"' : '' ?> />
 <?php echo (get_locale() == 'de_DE' ? 'Spam markieren, nicht löschen' : 'Mark as Spam, do not delete') ?>
+</label>
+</td>
+</tr>
+<tr>
+<td>
+<label for="antispam_bee_ignore_pings">
+<input type="checkbox" name="antispam_bee_ignore_pings" id="antispam_bee_ignore_pings" value="1" <?php echo (get_option('antispam_bee_ignore_pings')) ? 'checked="checked"' : '' ?> />
+<?php echo (get_locale() == 'de_DE' ? 'Track- und Pingbacks nicht pr&uuml;fen' : 'Do not check trackbacks / pingbacks') ?>
 </label>
 </td>
 </tr>
@@ -171,7 +184,7 @@ if (isset($_POST['bee_spam']) && !empty($_POST['bee_spam'])) {
 unset($_POST['bee_spam']);
 return $this->filter($comment);
 }
-} else if (in_array($comment['comment_type'], array('pingback', 'trackback'))) {
+} else if (!get_option('antispam_bee_ignore_pings') && in_array($comment['comment_type'], array('pingback', 'trackback'))) {
 if (@empty($_SERVER['REMOTE_ADDR']) || @empty($comment['comment_author_url']) || @empty($comment['comment_content'])) {
 return $this->filter($comment);
 } else {
