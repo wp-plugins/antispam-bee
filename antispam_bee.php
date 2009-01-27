@@ -174,14 +174,17 @@ if (isset($_POST['comment']) && isset($_POST[$this->protect]) && empty($_POST['c
 $_POST['comment'] = $_POST[$this->protect];
 unset($_POST[$this->protect]);
 } else {
+if (get_option('antispam_bee_flag_spam')) {
 $_POST['bee_spam'] = 1;
+} else {
+unset($_POST['comment']);
+}
 }
 }
 }
 function mark($comment) {
 if (strpos($_SERVER['REQUEST_URI'], 'wp-comments-post.php') !== false && isset($_POST) && !empty($_POST)) {
 if (isset($_POST['bee_spam']) && !empty($_POST['bee_spam'])) {
-unset($_POST['bee_spam']);
 return $this->filter($comment);
 }
 } else if (!get_option('antispam_bee_ignore_pings') && in_array($comment['comment_type'], array('pingback', 'trackback'))) {
