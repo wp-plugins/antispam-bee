@@ -174,11 +174,7 @@ if (isset($_POST['comment']) && isset($_POST[$this->protect]) && empty($_POST['c
 $_POST['comment'] = $_POST[$this->protect];
 unset($_POST[$this->protect]);
 } else {
-if (get_option('antispam_bee_flag_spam')) {
 $_POST['bee_spam'] = 1;
-} else {
-unset($_POST['comment']);
-}
 }
 }
 }
@@ -210,6 +206,8 @@ create_function(
 );
 $comment['comment_content'] = "[MARKED FOR SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
 return $comment;
+} else {
+die('Spam deleted.');
 }
 }
 }
