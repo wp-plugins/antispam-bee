@@ -9,7 +9,7 @@ Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 
 == Description ==
 = Easy and effective Antispam Plugin =
-Protects your blog from spam by replacing the comment field. With Trackback and Pingback spam protection. It's easy to use and extremely effective. Really!
+Protects your blog from spam by replacing the comment field. It's easy to use and extremely effective. Really!
 
 = At a Glance =
 * Quick & Dirty: activate, done!
@@ -20,6 +20,9 @@ Protects your blog from spam by replacing the comment field. With Trackback and 
 * No need to adjust any templates
 * Clean up after uninstall the plugin
 * Anonymous and independent
+
+= What's New in Antispam Bee 0.6 =
+* Language support for English, German, Russian
 
 = What's New in Antispam Bee 0.5 =
 * Workaround for empty comments

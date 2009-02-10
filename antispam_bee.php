@@ -2,9 +2,9 @@
 /*
 Plugin Name: Antispam Bee
 Plugin URI: http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/
-Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress.
+Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress. With Trackback and Pingback spam protection.
 Author: Sergej M&uuml;ller
-Version: 0.5
+Version: 0.6
 Author URI: http://wp-coder.de
 */
 
@@ -13,6 +13,11 @@ class Antispam_Bee {
 function Antispam_Bee() {
 $this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 if (is_admin()) {
+if (!defined('WP_PLUGIN_DIR')) {
+load_plugin_textdomain('antispam_bee', str_replace(ABSPATH, '', dirname(__FILE__)). '/lang');
+} else {
+load_plugin_textdomain('antispam_bee', false, dirname(plugin_basename(__FILE__)). '/lang');
+}
 add_action(
 'admin_menu',
 array(
@@ -136,7 +141,7 @@ Antispam Bee
 <td>
 <label for="antispam_bee_flag_spam">
 <input type="checkbox" name="antispam_bee_flag_spam" id="antispam_bee_flag_spam" value="1" <?php echo (get_option('antispam_bee_flag_spam')) ? 'checked="checked"' : '' ?> />
-<?php echo (get_locale() == 'de_DE' ? 'Spam markieren, nicht löschen' : 'Mark as Spam, do not delete') ?>
+<?php _e('Mark as Spam, do not delete', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
@@ -144,7 +149,7 @@ Antispam Bee
 <td>
 <label for="antispam_bee_ignore_pings">
 <input type="checkbox" name="antispam_bee_ignore_pings" id="antispam_bee_ignore_pings" value="1" <?php echo (get_option('antispam_bee_ignore_pings')) ? 'checked="checked"' : '' ?> />
-<?php echo (get_locale() == 'de_DE' ? 'Track- und Pingbacks nicht pr&uuml;fen' : 'Do not check trackbacks / pingbacks') ?>
+<?php _e('Do not check trackbacks / pingbacks', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
