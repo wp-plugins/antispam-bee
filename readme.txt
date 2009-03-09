@@ -14,12 +14,18 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 = At a Glance =
 * Quick & Dirty: activate, done!
 * Spam may be marked or deleted immediately
+* Automatically cleanup the spam folder
 * Saves no data in the database, accordingly no connection
 * WordPress 2.7 ready: Design and as well as technical
 * Very, very fast execution
 * No need to adjust any templates
 * Clean up after uninstall the plugin
 * Anonymous and independent
+
+= What's New in Antispam Bee 0.7 =
+* Spam folder cleanup after X days
+* Optional hide the &quot;MARKED FOR SPAM&quot; note
+* Language support for Italian
 
 = What's New in Antispam Bee 0.6 =
 * Language support for English, German, Russian

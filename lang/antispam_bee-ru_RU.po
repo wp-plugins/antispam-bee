@@ -18,6 +18,21 @@ msgstr ""
 msgid "Mark as Spam, do not delete"
 msgstr "Отметить как спам, не удалять"
 
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Spam nach %s Tagen automatisch löschen"
+
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Не проверять trackbacks и pingbacks"
+
+msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
+msgstr "Скрыть замечание &quot;MARKED FOR SPAM&quot;"
+
+msgid "Last"
+msgstr "Последний раз"
+
+msgid "About"
+msgstr "О плагине"
+
+msgid "Donate"
+msgstr "Поддержи проект"
 

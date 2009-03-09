@@ -18,6 +18,21 @@ msgstr ""
 msgid "Mark as Spam, do not delete"
 msgstr "Spam markieren, nicht löschen"
 
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Spam nach %s Tagen automatisch löschen"
+
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Track- und Pingbacks nicht prüfen"
+
+msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
+msgstr "Hinweis &quot;MARKED FOR SPAM&quot; unterdrücken"
+
+msgid "Last"
+msgstr "Zuletzt"
+
+msgid "About"
+msgstr "Über"
+
+msgid "Donate"
+msgstr "Spende"
 
