@@ -256,17 +256,17 @@ Antispam Bee
 </tr>
 <tr>
 <td>
-<label for="antispam_bee_ignore_pings">
-<input type="checkbox" name="antispam_bee_ignore_pings" id="antispam_bee_ignore_pings" value="1" <?php checked(get_option('antispam_bee_ignore_pings'), 1) ?> />
-<?php _e('Do not check trackbacks / pingbacks', 'antispam_bee') ?>
+<label for="antispam_bee_no_notice">
+<input type="checkbox" name="antispam_bee_no_notice" id="antispam_bee_no_notice" value="1" <?php checked(get_option('antispam_bee_no_notice'), 1) ?> />
+<?php _e('Hide the &quot;MARKED AS SPAM&quot; note', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
 <tr>
 <td>
-<label for="antispam_bee_no_notice">
-<input type="checkbox" name="antispam_bee_no_notice" id="antispam_bee_no_notice" value="1" <?php checked(get_option('antispam_bee_no_notice'), 1) ?> />
-<?php _e('Hide the &quot;MARKED AS SPAM&quot; note', 'antispam_bee') ?>
+<label for="antispam_bee_ignore_pings">
+<input type="checkbox" name="antispam_bee_ignore_pings" id="antispam_bee_ignore_pings" value="1" <?php checked(get_option('antispam_bee_ignore_pings'), 1) ?> />
+<?php _e('Do not check trackbacks / pingbacks', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
