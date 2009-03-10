@@ -24,8 +24,8 @@ msgstr "Spami %s gün sonra otomatikmen sil"
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Track- ve Pingbackleri kontrol etme"
 
-msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
-msgstr "&quot;MARKED FOR SPAM&quot; işaretini gösterme"
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "&quot;MARKED AS SPAM&quot; işaretini gösterme"
 
 msgid "Last"
 msgstr "en son"

@@ -24,8 +24,8 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 = What's New in Antispam Bee 0.7 =
 * Spam folder cleanup after X days
-* Optional hide the &quot;MARKED FOR SPAM&quot; note
-* Language support for Italian
+* Optional hide the &quot;MARKED AS SPAM&quot; note
+* Language support for Italian and Turkish
 
 = What's New in Antispam Bee 0.6 =
 * Language support for English, German, Russian

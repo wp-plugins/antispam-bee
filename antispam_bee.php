@@ -266,7 +266,7 @@ Antispam Bee
 <td>
 <label for="antispam_bee_no_notice">
 <input type="checkbox" name="antispam_bee_no_notice" id="antispam_bee_no_notice" value="1" <?php checked(get_option('antispam_bee_no_notice'), 1) ?> />
-<?php _e('Hide the &quot;MARKED FOR SPAM&quot; note', 'antispam_bee') ?>
+<?php _e('Hide the &quot;MARKED AS SPAM&quot; note', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
@@ -339,7 +339,7 @@ create_function(
 )
 );
 if (!get_option('antispam_bee_no_notice')) {
-$comment['comment_content'] = "[MARKED FOR SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
+$comment['comment_content'] = "[MARKED AS SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
 }
 return $comment;
 }

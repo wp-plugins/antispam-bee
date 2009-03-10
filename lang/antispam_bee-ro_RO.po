@@ -21,7 +21,7 @@ msgstr "Şterge spam în mod automat după %s zile"
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Trackback-uri şi pingback-uri nu vor fi verificate"
 
-msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Nu afişează apelul &quot;MARCAT CA SPAM&quot;"
 
 msgid "Last"
