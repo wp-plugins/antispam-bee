@@ -301,8 +301,8 @@ create_function(
 }
 }
 function precheck_comment_request() {
-if (strpos($_SERVER['REQUEST_URI'], 'wp-comments-post.php') !== false && isset($_POST) && !empty($_POST) && isset($_POST['comment']) && isset($_POST[$this->protect])) {
-if (empty($_POST['comment']) && !empty($_POST[$this->protect])) {
+if (strpos($_SERVER['REQUEST_URI'], 'wp-comments-post.php') !== false && isset($_POST) && !empty($_POST)) {
+if (isset($_POST['comment']) && isset($_POST[$this->protect]) && empty($_POST['comment']) && !empty($_POST[$this->protect])) {
 $_POST['comment'] = $_POST[$this->protect];
 unset($_POST[$this->protect]);
 } else {
