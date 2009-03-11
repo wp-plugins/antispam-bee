@@ -22,6 +22,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+= What's New in Antispam Bee 0.8 =
+* Optical adjustments of the settings page
+
 = What's New in Antispam Bee 0.7 =
 * Spam folder cleanup after X days
 * Optional hide the &quot;MARKED AS SPAM&quot; note
