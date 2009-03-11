@@ -31,7 +31,7 @@ msgid "Last"
 msgstr "Zuletzt"
 
 msgid "About"
-msgstr "Über"
+msgstr "Information"
 
 msgid "Donate"
 msgstr "Spende"

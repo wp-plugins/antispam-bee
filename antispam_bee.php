@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress. With Trackback and Pingback spam protection.
 Author: Sergej M&uuml;ller
-Version: 0.7
+Version: 0.8
 Author URI: http://wp-coder.de
 */
 
@@ -180,17 +180,36 @@ __('Donate', 'antispam_bee')
 );
 }
 function show_plugin_head() {
-if ($_REQUEST['page'] == PLUGINBASE && $this->check_plugins_url()) { ?>
+if ($_REQUEST['page'] != PLUGINBASE) {
+return false;
+}
+wp_enqueue_script('jquery'); ?>
 <style type="text/css">
-.icon32 {
+<?php if ($this->check_plugins_url()) { ?>
+div.icon32 {
 background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
 }
-.small-text {
+<?php } ?>
+input.small-text {
 margin: -5px 0;
 }
-</style>
-<?php }
+td.shift {
+padding-left: 30px;
 }
+</style>
+<script type="text/javascript">
+jQuery(document).ready(
+function($) {
+function flag_spam() {
+var id = 'antispam_bee_flag_spam';
+$('#' + id).parents('.form-table').find('input[id!="' + id + '"]').attr('disabled', !$('#' + id).attr('checked'));
+}
+$('#antispam_bee_flag_spam').click(flag_spam);
+flag_spam();
+}
+);
+</script>
+<?php }
 function show_admin_menu() {
 if (isset($_POST) && !empty($_POST)) {
 $this->check_user_can();
@@ -248,20 +267,22 @@ Antispam Bee
 </td>
 </tr>
 <tr>
-<td>
-<input type="checkbox" name="antispam_bee_cronjob_enable" value="1" <?php checked(get_option('antispam_bee_cronjob_enable'), 1) ?> />
+<td class="shift">
+<input type="checkbox" name="antispam_bee_cronjob_enable" id="antispam_bee_cronjob_enable" value="1" <?php checked(get_option('antispam_bee_cronjob_enable'), 1) ?> />
 <?php echo sprintf(__('Spam will be automatically deleted after %s days', 'antispam_bee'), '<input type="text" name="antispam_bee_cronjob_interval" value="' .get_option('antispam_bee_cronjob_interval'). '" class="small-text" />') ?>
 <?php echo (get_option('antispam_bee_cronjob_timestamp') ? ('&nbsp;<span class="setting-description">(' .__('Last', 'antispam_bee'). ': '. date_i18n('d.m.Y H:i:s', get_option('antispam_bee_cronjob_timestamp')). ')</span>') : '') ?>
 </td>
 </tr>
 <tr>
-<td>
+<td class="shift">
 <label for="antispam_bee_no_notice">
 <input type="checkbox" name="antispam_bee_no_notice" id="antispam_bee_no_notice" value="1" <?php checked(get_option('antispam_bee_no_notice'), 1) ?> />
 <?php _e('Hide the &quot;MARKED AS SPAM&quot; note', 'antispam_bee') ?>
 </label>
 </td>
 </tr>
+</table>
+<table class="form-table">
 <tr>
 <td>
 <label for="antispam_bee_ignore_pings">
