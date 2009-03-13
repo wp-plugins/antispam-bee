@@ -24,6 +24,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 = What's New in Antispam Bee 0.8 =
 * Optical adjustments of the settings page
+* Language support for Simplified Chinese
 
 = What's New in Antispam Bee 0.7 =
 * Spam folder cleanup after X days
