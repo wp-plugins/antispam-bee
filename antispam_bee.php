@@ -15,8 +15,8 @@ $this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 if (!defined('PLUGINDIR')) {
 define('PLUGINDIR', 'wp-content/plugins');
 }
-if (!defined('PLUGINBASE')) {
-define('PLUGINBASE', plugin_basename(__FILE__));
+if (!defined('ASBASENAME')) {
+define('ASBASENAME', plugin_basename(__FILE__));
 }
 if (is_admin()) {
 load_plugin_textdomain(
@@ -34,7 +34,7 @@ $this,
 )
 );
 add_action(
-'activate_' .PLUGINBASE,
+'activate_' .ASBASENAME,
 array(
 $this,
 'init_plugin_options'
@@ -94,12 +94,12 @@ $this,
 }
 }
 function init_action_links($links, $file) {
-if ($file == PLUGINBASE) {
+if ($file == ASBASENAME) {
 return array_merge(
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-PLUGINBASE,
+ASBASENAME,
 __('Settings')
 )
 ),
@@ -180,7 +180,7 @@ __('Donate', 'antispam_bee')
 );
 }
 function show_plugin_head() {
-if ($_REQUEST['page'] != PLUGINBASE) {
+if ($_REQUEST['page'] != ASBASENAME) {
 return false;
 }
 wp_enqueue_script('jquery'); ?>
@@ -211,8 +211,8 @@ flag_spam();
 </script>
 <?php }
 function show_admin_menu() {
-if (isset($_POST) && !empty($_POST)) {
 $this->check_user_can();
+if (isset($_POST) && !empty($_POST)) {
 check_admin_referer('antispam_bee');
 $fields = array(
 'antispam_bee_flag_spam',
