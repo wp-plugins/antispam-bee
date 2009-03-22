@@ -312,7 +312,7 @@ Antispam Bee
 </div>
 <?php }
 function replace_comment_textarea() {
-if (is_singular()) {
+if (is_singular() && strpos(TEMPLATEPATH, 'wptouch') === false) {
 ob_start(
 create_function(
 '$input',
