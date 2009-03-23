@@ -15,9 +15,6 @@ $this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 if (!defined('PLUGINDIR')) {
 define('PLUGINDIR', 'wp-content/plugins');
 }
-if (!defined('ASBASENAME')) {
-define('ASBASENAME', plugin_basename(__FILE__));
-}
 if (is_admin()) {
 load_plugin_textdomain(
 'antispam_bee',
@@ -34,7 +31,7 @@ $this,
 )
 );
 add_action(
-'activate_' .ASBASENAME,
+'activate_' .plugin_basename(__FILE__),
 array(
 $this,
 'init_plugin_options'
@@ -94,12 +91,12 @@ $this,
 }
 }
 function init_action_links($links, $file) {
-if ($file == ASBASENAME) {
+if ($file == plugin_basename(__FILE__)) {
 return array_merge(
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-ASBASENAME,
+plugin_basename(__FILE__),
 __('Settings')
 )
 ),
@@ -127,7 +124,7 @@ add_option('antispam_bee_cronjob_timestamp');
 function init_admin_menu() {
 add_options_page(
 'Antispam Bee',
-($this->check_plugins_url() ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
+($this->is_wp_27() ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
 9,
 __FILE__,
 array(
@@ -158,8 +155,8 @@ $days
 )
 );
 }
-function check_plugins_url() {
-return version_compare($GLOBALS['wp_version'], '2.6.999', '>') && function_exists('plugins_url');
+function is_wp_27() {
+return version_compare($GLOBALS['wp_version'], '2.6.999', '>');
 }
 function check_user_can() {
 if (current_user_can('manage_options') === false || current_user_can('edit_plugins') === false || !is_user_logged_in()) {
@@ -180,12 +177,12 @@ __('Donate', 'antispam_bee')
 );
 }
 function show_plugin_head() {
-if ($_REQUEST['page'] != ASBASENAME) {
+if ($_REQUEST['page'] != plugin_basename(__FILE__)) {
 return false;
 }
 wp_enqueue_script('jquery'); ?>
 <style type="text/css">
-<?php if ($this->check_plugins_url()) { ?>
+<?php if ($this->is_wp_27()) { ?>
 div.icon32 {
 background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
 }
@@ -243,7 +240,7 @@ update_option(
 </div>
 <?php } ?>
 <div class="wrap">
-<?php if ($this->check_plugins_url()) { ?>
+<?php if ($this->is_wp_27()) { ?>
 <div class="icon32"><br /></div>
 <?php } ?>
 <h2>
