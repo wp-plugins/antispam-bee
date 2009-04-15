@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Antispam Bee
-Plugin URI: http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/
+Plugin URI: http://antispambee.com
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress. With Trackback and Pingback spam protection.
 Author: Sergej M&uuml;ller
-Version: 0.8
-Author URI: http://wp-coder.de
+Version: 0.9
+Author URI: http://wpcoder.de
 */
 
 
@@ -116,6 +116,8 @@ wp_schedule_event(time(), 'daily', 'antispam_bee_daily_cronjob');
 }
 add_option('antispam_bee_flag_spam');
 add_option('antispam_bee_ignore_pings');
+add_option('antispam_bee_ignore_filter');
+add_option('antispam_bee_ignore_type');
 add_option('antispam_bee_no_notice');
 add_option('antispam_bee_cronjob_enable');
 add_option('antispam_bee_cronjob_interval');
@@ -166,14 +168,13 @@ wp_die('You do not have permission to access!');
 function show_plugin_info() {
 $data = get_plugin_data(__FILE__);
 echo sprintf(
-'%1$s: %2$s | %3$s: %4$s | %5$s: %6$s | %7$s: <a href="http://playground.ebiene.de/donate/">PayPal</a><br />',
+'%1$s: %2$s | %3$s: %4$s | %5$s: %6$s | WordPress SEO: <a href="http://www.wpseo.org">wpSEO</a><br />',
 __('Plugin'),
 'Antispam Bee',
 __('Version'),
 $data['Version'],
 __('Author'),
-$data['Author'],
-__('Donate', 'antispam_bee')
+$data['Author']
 );
 }
 function show_plugin_head() {
@@ -186,7 +187,16 @@ wp_enqueue_script('jquery'); ?>
 div.icon32 {
 background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
 }
+div.inside {
+background: url(<?php echo plugins_url('antispam-bee/img/icon270.png') ?>) no-repeat right 30px;
+}
+div.less {
+background: none;
+}
 <?php } ?>
+select {
+margin: 0 0 -3px;
+}
 input.small-text {
 margin: -5px 0;
 }
@@ -214,6 +224,8 @@ check_admin_referer('antispam_bee');
 $fields = array(
 'antispam_bee_flag_spam',
 'antispam_bee_ignore_pings',
+'antispam_bee_ignore_filter',
+'antispam_bee_ignore_type',
 'antispam_bee_no_notice',
 'antispam_bee_cronjob_enable',
 'antispam_bee_cronjob_interval'
@@ -265,6 +277,17 @@ Antispam Bee
 </tr>
 <tr>
 <td class="shift">
+<input type="checkbox" name="antispam_bee_ignore_filter" id="antispam_bee_ignore_filter" value="1" <?php checked(get_option('antispam_bee_ignore_filter'), 1) ?> />
+<?php _e('Limit on', 'antispam_bee') ?> <select name="antispam_bee_ignore_type"><?php foreach(array(1 => __('Comments'), 2 => __('Pings')) as $key => $value) {
+echo '<option value="' .$key. '" ';
+selected(get_option('antispam_bee_ignore_type'), $key);
+echo '>' .$value. '</option>';
+} ?>
+</select>
+</td>
+</tr>
+<tr>
+<td class="shift">
 <input type="checkbox" name="antispam_bee_cronjob_enable" id="antispam_bee_cronjob_enable" value="1" <?php checked(get_option('antispam_bee_cronjob_enable'), 1) ?> />
 <?php echo sprintf(__('Spam will be automatically deleted after %s days', 'antispam_bee'), '<input type="text" name="antispam_bee_cronjob_interval" value="' .get_option('antispam_bee_cronjob_interval'). '" class="small-text" />') ?>
 <?php echo (get_option('antispam_bee_cronjob_timestamp') ? ('&nbsp;<span class="setting-description">(' .__('Last', 'antispam_bee'). ': '. date_i18n('d.m.Y H:i:s', get_option('antispam_bee_cronjob_timestamp')). ')</span>') : '') ?>
@@ -298,7 +321,7 @@ Antispam Bee
 <h3>
 <?php _e('About', 'antispam_bee') ?>
 </h3>
-<div class="inside">
+<div class="inside less">
 <p>
 <?php $this->show_plugin_info() ?>
 </p>
@@ -348,6 +371,11 @@ return $comment;
 function mark_comment_request($comment) {
 if (!get_option('antispam_bee_flag_spam')) {
 die('Spam deleted.');
+}
+$ignore_type = get_option('antispam_bee_ignore_type');
+$is_ping = in_array($comment['comment_type'], array('pingback', 'trackback'));
+if (get_option('antispam_bee_ignore_filter') && (($ignore_type == 1 && $is_ping) || ($ignore_type == 2 && !$is_ping))) {
+die('Spam deleted.'); 
 }
 add_filter(
 'pre_comment_approved',

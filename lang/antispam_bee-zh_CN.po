@@ -18,6 +18,9 @@ msgstr ""
 msgid "Mark as Spam, do not delete"
 msgstr "标记垃圾评论，但并不删除"
 
+msgid "Limit on"
+msgstr "Limit on"
+
 msgid "Spam will be automatically deleted after %s days"
 msgstr "垃圾评论会在 %s 天后自动删除"
 
@@ -32,7 +35,4 @@ msgstr "最新一次执行于"
 
 msgid "About"
 msgstr "关于"
-
-msgid "Donate"
-msgstr "捐助"
 

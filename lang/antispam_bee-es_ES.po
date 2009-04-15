@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Antispam Bee\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sergej Müller <smueller@ebiene.de>\n"
+"Last-Translator: Sergej Müller\n"
 "Language-Team: Sergej Müller\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -17,6 +17,9 @@ msgstr ""
 
 msgid "Mark as Spam, do not delete"
 msgstr "Marcar com Spam, no borrar."
+
+msgid "Limit on"
+msgstr "Limit on"
 
 msgid "Spam will be automatically deleted after %s days"
 msgstr "El Spam será automáticamente eliminado después de %s días"
@@ -32,7 +35,4 @@ msgstr "Último"
 
 msgid "About"
 msgstr "Acerca de"
-
-msgid "Donate"
-msgstr "Donación"
 

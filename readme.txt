@@ -22,6 +22,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+= What's New in Antispam Bee 0.9 =
+* Mark as spam only comments or only pings
+
 = What's New in Antispam Bee 0.8 =
 * Optical adjustments of the settings page
 * Translation for Simplified Chinese, Spanish and Catalan
@@ -43,7 +46,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 = What's New in Antispam Bee 0.3 =
 * Trackback and Pingback spam protection
 
-Please visit the [Antispam Bee homepage](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Bee homepage") for more information.
+Please visit the [Antispam Bee homepage](http://antispambee.com "Antispam Bee homepage").
 
 == Installation ==
 1. Download *Antispam Bee* plugin
@@ -54,4 +57,4 @@ Please visit the [Antispam Bee homepage](http://playground.ebiene.de/1137/antisp
 1. Edit settings
 1. Ready
 
-Please visit the [Antispam Bee homepage](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Bee homepage") for further details.
+Please visit the [Antispam Bee homepage](http://antispambee.com "Antispam Bee homepage").

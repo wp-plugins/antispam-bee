@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Antispam Bee\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Sergej Müller <smueller@ebiene.de>\n"
+"Last-Translator: Sergej Müller\n"
 "Language-Team: Sergej Müller\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -16,7 +16,10 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 msgid "Mark as Spam, do not delete"
-msgstr "Seganala come Spam, non eliminare"
+msgstr "Segnala come Spam, non eliminare"
+
+msgid "Limit on"
+msgstr "Limit on"
 
 msgid "Spam will be automatically deleted after %s days"
 msgstr "I messaggi contrassegnati come spam verranno cancellati automaticamente dopo %s giorni"
@@ -24,15 +27,12 @@ msgstr "I messaggi contrassegnati come spam verranno cancellati automaticamente 
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Non controllare i trackback / pingback"
 
-msgid "Hide the &quot;MARKED AS SPAM&quot; note"
-msgstr "Nascondi la nota &quot;MARKED AS SPAM&quot;"
+msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
+msgstr "Nascondi la nota  &quot;MARKED FOR SPAM&quot;"
 
 msgid "Last"
 msgstr "Ultimo"
 
 msgid "About"
-msgstr "Informazioni"
-
-msgid "Donate"
-msgstr "Donazione"
+msgstr "Info"
 

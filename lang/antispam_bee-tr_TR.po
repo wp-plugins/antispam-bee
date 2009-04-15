@@ -18,6 +18,9 @@ msgstr ""
 msgid "Mark as Spam, do not delete"
 msgstr "Spam olarak işaretle, silme"
 
+msgid "Limit on"
+msgstr "Limit on"
+
 msgid "Spam will be automatically deleted after %s days"
 msgstr "Spami %s gün sonra otomatikmen sil"
 
@@ -32,7 +35,4 @@ msgstr "en son"
 
 msgid "About"
 msgstr "bilgi"
-
-msgid "Donate"
-msgstr "bağış"
 
