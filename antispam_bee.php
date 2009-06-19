@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress. With Trackback and Pingback spam protection.
 Author: Sergej M&uuml;ller
-Version: 0.9
+Version: 1.0
 Author URI: http://wpcoder.de
 */
 
@@ -44,6 +44,17 @@ $this,
 'show_plugin_head'
 )
 );
+if ($this->is_min_wp('2.8')) {
+add_filter(
+'plugin_row_meta',
+array(
+$this,
+'init_row_meta'
+),
+10,
+2
+);
+} else {
 add_filter(
 'plugin_action_links',
 array(
@@ -53,6 +64,7 @@ $this,
 10,
 2
 );
+}
 } else {
 add_action(
 'template_redirect',
@@ -91,16 +103,33 @@ $this,
 }
 }
 function init_action_links($links, $file) {
-if ($file == plugin_basename(__FILE__)) {
+$plugin = plugin_basename(__FILE__);
+if ($file == $plugin) {
 return array_merge(
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-plugin_basename(__FILE__),
+$plugin,
 __('Settings')
 )
 ),
 $links
+);
+}
+return $links;
+}
+function init_row_meta($links, $file) {
+$plugin = plugin_basename(__FILE__);
+if ($file == $plugin) {
+return array_merge(
+$links,
+array(
+sprintf(
+'<a href="options-general.php?page=%s">%s</a>',
+$plugin,
+__('Settings')
+)
+)
 );
 }
 return $links;
@@ -126,7 +155,7 @@ add_option('antispam_bee_cronjob_timestamp');
 function init_admin_menu() {
 add_options_page(
 'Antispam Bee',
-($this->is_wp_27() ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
+($this->is_min_wp('2.7') ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
 9,
 __FILE__,
 array(
@@ -139,7 +168,10 @@ function exe_daily_cronjob() {
 if (!get_option('antispam_bee_cronjob_enable') || (get_option('antispam_bee_cronjob_timestamp') + (60 * 60) > time())) {
 return;
 }
-update_option('antispam_bee_cronjob_timestamp', time());
+update_option(
+'antispam_bee_cronjob_timestamp',
+time()
+);
 $this->delete_spam_comments(
 get_option('antispam_bee_cronjob_interval')
 );
@@ -157,8 +189,12 @@ $days
 )
 );
 }
-function is_wp_27() {
-return version_compare($GLOBALS['wp_version'], '2.6.999', '>');
+function is_min_wp($version) {
+return version_compare(
+$GLOBALS['wp_version'],
+$version. 'alpha',
+'>='
+);
 }
 function check_user_can() {
 if (current_user_can('manage_options') === false || current_user_can('edit_plugins') === false || !is_user_logged_in()) {
@@ -178,12 +214,12 @@ $data['Author']
 );
 }
 function show_plugin_head() {
-if ($_REQUEST['page'] != plugin_basename(__FILE__)) {
+if (!isset($_REQUEST['page']) || $_REQUEST['page'] != plugin_basename(__FILE__)) {
 return false;
 }
 wp_enqueue_script('jquery'); ?>
 <style type="text/css">
-<?php if ($this->is_wp_27()) { ?>
+<?php if ($this->is_min_wp('2.7')) { ?>
 div.icon32 {
 background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
 }
@@ -207,12 +243,12 @@ padding-left: 30px;
 <script type="text/javascript">
 jQuery(document).ready(
 function($) {
-function flag_spam() {
+function manage_options() {
 var id = 'antispam_bee_flag_spam';
 $('#' + id).parents('.form-table').find('input[id!="' + id + '"]').attr('disabled', !$('#' + id).attr('checked'));
 }
-$('#antispam_bee_flag_spam').click(flag_spam);
-flag_spam();
+$('#antispam_bee_flag_spam').click(manage_options);
+manage_options();
 }
 );
 </script>
@@ -252,7 +288,7 @@ update_option(
 </div>
 <?php } ?>
 <div class="wrap">
-<?php if ($this->is_wp_27()) { ?>
+<?php if ($this->is_min_wp('2.7')) { ?>
 <div class="icon32"><br /></div>
 <?php } ?>
 <h2>

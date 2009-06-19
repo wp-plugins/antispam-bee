@@ -22,6 +22,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+= What's New in Antispam Bee 1.0 =
+* WordPress 2.8 support
+
 = What's New in Antispam Bee 0.9 =
 * Mark as spam only comments or only pings
 
