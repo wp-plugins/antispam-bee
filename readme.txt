@@ -49,8 +49,6 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 = What's New in Antispam Bee 0.3 =
 * Trackback and Pingback spam protection
 
-Please visit the [Homepage of the Antispam Plugin for WordPress](http://antispambee.com "Homepage of the Antispam Plugin for WordPress").
-
 == Installation ==
 1. Download *Antispam Bee* plugin
 1. Unzip the archive
@@ -59,5 +57,3 @@ Please visit the [Homepage of the Antispam Plugin for WordPress](http://antispam
 1. Activate *Antispam Bee*
 1. Edit settings
 1. Ready
-
-Please visit the [Homepage of the Antispam Plugin for WordPress](http://antispambee.com "Homepage of the Antispam Plugin for WordPress").
