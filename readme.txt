@@ -16,7 +16,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Spam may be marked or deleted immediately
 * Automatically cleanup the spam folder
 * Saves no data in the database, accordingly no connection
-* WordPress 2.8 ready: Design and as well as technical
+* WordPress 2.8 ready: Design as well as technical
 * Very, very fast execution
 * No need to adjust any templates
 * Clean up after uninstall the plugin
