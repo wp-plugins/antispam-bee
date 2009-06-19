@@ -168,7 +168,7 @@ wp_die('You do not have permission to access!');
 function show_plugin_info() {
 $data = get_plugin_data(__FILE__);
 echo sprintf(
-'%1$s: %2$s | %3$s: %4$s | %5$s: %6$s | WordPress SEO: <a href="http://www.wpseo.org">wpSEO</a><br />',
+'%1$s: %2$s | %3$s: %4$s | %5$s: %6$s<br />',
 __('Plugin'),
 'Antispam Bee',
 __('Version'),
@@ -336,7 +336,7 @@ if (is_singular() && strpos(TEMPLATEPATH, 'wptouch') === false) {
 ob_start(
 create_function(
 '$input',
-'return preg_replace("#textarea(.*?)name=([\"\'])comment([\"\'])(.+)</textarea>#", "textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
+'return preg_replace("#textarea(.*?)name=([\"\'])comment([\"\'])(.+)</textarea>#s", "textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
 )
 );
 }
