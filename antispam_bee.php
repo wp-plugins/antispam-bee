@@ -372,7 +372,7 @@ if (is_singular() && strpos(TEMPLATEPATH, 'wptouch') === false) {
 ob_start(
 create_function(
 '$input',
-'return preg_replace("#textarea(.*?)name=([\"\'])comment([\"\'])(.+)</textarea>#s", "textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
+'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+)</textarea>#s", "<textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
 )
 );
 }
