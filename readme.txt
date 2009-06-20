@@ -22,31 +22,32 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
-= What's New in Antispam Bee 1.0 =
+== Changelog == 
+= 1.0 =
 * WordPress 2.8 support
 
-= What's New in Antispam Bee 0.9 =
+= 0.9 =
 * Mark as spam only comments or only pings
 
-= What's New in Antispam Bee 0.8 =
+= 0.8 =
 * Optical adjustments of the settings page
 * Translation for Simplified Chinese, Spanish and Catalan
 
-= What's New in Antispam Bee 0.7 =
+= 0.7 =
 * Spam folder cleanup after X days
 * Optional hide the &quot;MARKED AS SPAM&quot; note
 * Language support for Italian and Turkish
 
-= What's New in Antispam Bee 0.6 =
+= 0.6 =
 * Language support for English, German, Russian
 
-= What's New in Antispam Bee 0.5 =
+= 0.5 =
 * Workaround for empty comments
 
-= What's New in Antispam Bee 0.4 =
+= 0.4 =
 * Option for Trackback and Pingback protection
 
-= What's New in Antispam Bee 0.3 =
+= 0.3 =
 * Trackback and Pingback spam protection
 
 == Installation ==
