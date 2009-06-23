@@ -22,7 +22,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
-== Changelog == 
+== Changelog ==
 = 1.0 =
 * WordPress 2.8 support
 

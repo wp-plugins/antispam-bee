@@ -9,20 +9,19 @@ Author URI: http://wpcoder.de
 */
 
 
+if (!function_exists ('is_admin')) {
+header('Status: 403 Forbidden');
+header('HTTP/1.1 403 Forbidden');
+exit();
+}
 class Antispam_Bee {
 function Antispam_Bee() {
-$this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 if (!defined('PLUGINDIR')) {
 define('PLUGINDIR', 'wp-content/plugins');
 }
+$this->plugin_basename = plugin_basename(__FILE__);
+$this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 if (is_admin()) {
-load_plugin_textdomain(
-'antispam_bee',
-sprintf(
-'%s/antispam-bee/lang',
-PLUGINDIR
-)
-);
 add_action(
 'admin_menu',
 array(
@@ -30,18 +29,36 @@ $this,
 'init_admin_menu'
 )
 );
-add_action(
-'activate_' .plugin_basename(__FILE__),
-array(
-$this,
-'init_plugin_options'
-)
-);
+if ($this->is_current_page('home')) {
 add_action(
 'admin_head',
 array(
 $this,
 'show_plugin_head'
+)
+);
+load_plugin_textdomain(
+'antispam_bee',
+sprintf(
+'%s/antispam-bee/lang',
+PLUGINDIR
+)
+);
+} else if ($this->is_current_page('plugins')) {
+if (!$this->is_min_wp('2.1')) {
+add_action(
+'admin_notices',
+array(
+$this,
+'show_plugin_notices'
+)
+);
+}
+add_action(
+'activate_' .$this->plugin_basename,
+array(
+$this,
+'init_plugin_options'
 )
 );
 if ($this->is_min_wp('2.8')) {
@@ -64,6 +81,7 @@ $this,
 10,
 2
 );
+}
 }
 } else {
 add_action(
@@ -103,13 +121,12 @@ $this,
 }
 }
 function init_action_links($links, $file) {
-$plugin = plugin_basename(__FILE__);
-if ($file == $plugin) {
+if ($this->plugin_basename == $file) {
 return array_merge(
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-$plugin,
+$this->plugin_basename,
 __('Settings')
 )
 ),
@@ -119,14 +136,13 @@ $links
 return $links;
 }
 function init_row_meta($links, $file) {
-$plugin = plugin_basename(__FILE__);
-if ($file == $plugin) {
+if ($this->plugin_basename == $file) {
 return array_merge(
 $links,
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-$plugin,
+$this->plugin_basename,
 __('Settings')
 )
 )
@@ -196,10 +212,33 @@ $version. 'alpha',
 '>='
 );
 }
+function is_current_page($page) {
+switch($page) {
+case 'home':
+return (isset($_REQUEST['page']) && $_REQUEST['page'] == $this->plugin_basename);
+case 'index':
+case 'plugins':
+return ($GLOBALS['pagenow'] == sprintf('%s.php', $page));
+}
+return false;
+}
 function check_user_can() {
 if (current_user_can('manage_options') === false || current_user_can('edit_plugins') === false || !is_user_logged_in()) {
 wp_die('You do not have permission to access!');
 }
+}
+function show_plugin_notices() {
+load_plugin_textdomain(
+'antispam_bee',
+sprintf(
+'%s/antispam-bee/lang',
+PLUGINDIR
+)
+);
+echo sprintf(
+'<div class="error"><p><strong>Antispam Bee</strong> %s</p></div>',
+__('requires at least WordPress 2.1', 'antispam_bee')
+);
 }
 function show_plugin_info() {
 $data = get_plugin_data(__FILE__);
@@ -214,9 +253,6 @@ $data['Author']
 );
 }
 function show_plugin_head() {
-if (!isset($_REQUEST['page']) || $_REQUEST['page'] != plugin_basename(__FILE__)) {
-return false;
-}
 wp_enqueue_script('jquery'); ?>
 <style type="text/css">
 <?php if ($this->is_min_wp('2.7')) { ?>
@@ -372,7 +408,7 @@ if (is_singular() && strpos(TEMPLATEPATH, 'wptouch') === false) {
 ob_start(
 create_function(
 '$input',
-'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+)</textarea>#s", "<textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
+'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input);'
 )
 );
 }
@@ -426,6 +462,4 @@ $comment['comment_content'] = "[MARKED AS SPAM BY ANTISPAM BEE]\n" .$comment['co
 return $comment;
 }
 }
-if (class_exists('Antispam_Bee') && function_exists('is_admin')) {
-$GLOBALS['Antispam_Bee'] = new Antispam_Bee();
-}
+new Antispam_Bee();

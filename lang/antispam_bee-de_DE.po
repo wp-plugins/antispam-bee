@@ -36,3 +36,6 @@ msgstr "Zuletzt"
 msgid "About"
 msgstr "Information"
 
+msgid "requires at least WordPress 2.1"
+msgstr "benötigt WordPress 2.1"
+

@@ -36,3 +36,6 @@ msgstr "Последний раз"
 msgid "About"
 msgstr "О плагине"
 
+msgid "requires at least WordPress 2.1"
+msgstr "нужен WordPress 2.1"
+
