@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee - The easy and effective Antispam Plugin for WordPress. With Trackback and Pingback spam protection.
 Author: Sergej M&uuml;ller
-Version: 1.0
+Version: 1.1
 Author URI: http://wpcoder.de
 */
 
