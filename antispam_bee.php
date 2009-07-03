@@ -169,7 +169,7 @@ add_option('antispam_bee_cronjob_interval');
 add_option('antispam_bee_cronjob_timestamp');
 }
 function init_cron_job() {
-if (function_exists('wp_schedule_event') === true) {
+if (function_exists('wp_schedule_event')) {
 if (!wp_next_scheduled('antispam_bee_daily_cronjob')) {
 wp_schedule_event(time(), 'daily', 'antispam_bee_daily_cronjob');
 }
