@@ -1,11 +1,9 @@
 <?php
 if (defined('WP_UNINSTALL_PLUGIN')) {
 	/* Cronjob löschen */
-	if (function_exists('wp_schedule_event') === true) {
-		if (wp_next_scheduled('antispam_bee_daily_cronjob')) {
-			wp_clear_scheduled_hook('antispam_bee_daily_cronjob');
-		}
- 	}
+	if (wp_next_scheduled('antispam_bee_daily_cronjob')) {
+		wp_clear_scheduled_hook('antispam_bee_daily_cronjob');
+	}
  	
  	/* Optionen löschen */
 	delete_option('antispam_bee_flag_spam');

@@ -61,6 +61,13 @@ $this,
 'init_plugin_options'
 )
 );
+add_action(
+'deactivate_' .$this->plugin_basename,
+array(
+$this,
+'clear_cron_job'
+)
+);
 if ($this->is_min_wp('2.8')) {
 add_filter(
 'plugin_row_meta',
@@ -151,14 +158,7 @@ __('Settings')
 return $links;
 }
 function init_plugin_options() {
-if (function_exists('wp_schedule_event') === true) {
-if (wp_next_scheduled('antispam_bee_daily_cronjob_hook')) {
-wp_clear_scheduled_hook('antispam_bee_daily_cronjob_hook');
-}
-if (!wp_next_scheduled('antispam_bee_daily_cronjob_hook')) {
-wp_schedule_event(time(), 'daily', 'antispam_bee_daily_cronjob');
-}
-}
+$this->init_cron_job();
 add_option('antispam_bee_flag_spam');
 add_option('antispam_bee_ignore_pings');
 add_option('antispam_bee_ignore_filter');
@@ -167,6 +167,20 @@ add_option('antispam_bee_no_notice');
 add_option('antispam_bee_cronjob_enable');
 add_option('antispam_bee_cronjob_interval');
 add_option('antispam_bee_cronjob_timestamp');
+}
+function init_cron_job() {
+if (function_exists('wp_schedule_event') === true) {
+if (!wp_next_scheduled('antispam_bee_daily_cronjob')) {
+wp_schedule_event(time(), 'daily', 'antispam_bee_daily_cronjob');
+}
+}
+}
+function clear_cron_job() {
+if (function_exists('wp_schedule_event')) {
+if (wp_next_scheduled('antispam_bee_daily_cronjob')) {
+wp_clear_scheduled_hook('antispam_bee_daily_cronjob');
+}
+}
 }
 function init_admin_menu() {
 add_options_page(
