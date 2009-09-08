@@ -2,7 +2,7 @@
 Contributors: stalkerX
 Tags: antispam, spam, comment, akismet
 Requires at least: 2.1
-Tested up to: 2.8.1
+Tested up to: 2.8.4
 Stable tag: trunk
 
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
