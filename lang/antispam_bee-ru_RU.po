@@ -30,12 +30,24 @@ msgstr "Не проверять trackbacks и pingbacks"
 msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Скрыть замечание &quot;MARKED AS SPAM&quot;"
 
+msgid "Display blocked comments count on the dashboard"
+msgstr "Заблокированный спам показать на приборной панели"
+
 msgid "Last"
 msgstr "Последний раз"
 
 msgid "About"
 msgstr "О плагине"
 
-msgid "requires at least WordPress 2.1"
-msgstr "нужен WordPress 2.1"
+msgid "requires at least WordPress 2.3"
+msgstr "нужен WordPress 2.3"
+
+msgid "Blocked"
+msgstr "Блокированные"
+
+msgid "Learn about wpSEO"
+msgstr "Узнать о wpSEO"
+
+msgid "Follow on Twitter"
+msgstr "Следить на Twitterе"
 

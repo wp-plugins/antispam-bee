@@ -36,6 +36,6 @@ msgstr "Últim"
 msgid "About"
 msgstr "Quant a"
 
-msgid "requires at least WordPress 2.1"
-msgstr "requires at least WordPress 2.1"
+msgid "requires at least WordPress 2.3"
+msgstr "requires at least WordPress 2.3"
 

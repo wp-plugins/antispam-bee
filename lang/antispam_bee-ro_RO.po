@@ -33,9 +33,5 @@ msgstr "Anterior"
 msgid "About"
 msgstr "Despre"
 
-msgid "requires at least WordPress 2.1"
-msgstr "necesită min. WordPress 2.1"
-
-#~ msgid "Donate"
-#~ msgstr "Donaţi"
-
+msgid "requires at least WordPress 2.3"
+msgstr "necesită min. WordPress 2.3"

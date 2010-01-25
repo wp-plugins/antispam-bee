@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee is the easy and productive antispam plugin for WordPress. Trackback and pingback spam protection included.
 Author: Sergej M&uuml;ller
-Version: 1.1
+Version: 1.2
 Author URI: http://www.wpSEO.org
 */
 
@@ -30,13 +30,6 @@ $this,
 )
 );
 if ($this->is_current_page('home')) {
-add_action(
-'admin_head',
-array(
-$this,
-'show_plugin_head'
-)
-);
 load_plugin_textdomain(
 'antispam_bee',
 sprintf(
@@ -44,8 +37,32 @@ sprintf(
 PLUGINDIR
 )
 );
+add_action(
+'admin_head',
+array(
+$this,
+'show_plugin_head'
+)
+);
+} else if ($this->is_current_page('index')) {
+if ($this->is_min_wp('2.7') && get_option('antispam_bee_dashboard_count')) {
+load_plugin_textdomain(
+'antispam_bee',
+sprintf(
+'%s/antispam-bee/lang',
+PLUGINDIR
+)
+);
+add_action(
+'right_now_table_end',
+array(
+$this,
+'show_dashboard_count'
+)
+);
+}
 } else if ($this->is_current_page('plugins')) {
-if (!$this->is_min_wp('2.1')) {
+if (!$this->is_min_wp('2.3')) {
 add_action(
 'admin_notices',
 array(
@@ -159,14 +176,28 @@ return $links;
 }
 function init_plugin_options() {
 $this->init_cron_job();
-add_option('antispam_bee_flag_spam');
-add_option('antispam_bee_ignore_pings');
-add_option('antispam_bee_ignore_filter');
-add_option('antispam_bee_ignore_type');
-add_option('antispam_bee_no_notice');
-add_option('antispam_bee_cronjob_enable');
-add_option('antispam_bee_cronjob_interval');
-add_option('antispam_bee_cronjob_timestamp');
+$options = array(
+'antispam_bee_flag_spam',
+'antispam_bee_ignore_pings',
+'antispam_bee_ignore_filter',
+'antispam_bee_ignore_type',
+'antispam_bee_no_notice',
+'antispam_bee_cronjob_enable',
+'antispam_bee_cronjob_interval',
+'antispam_bee_cronjob_timestamp',
+'antispam_bee_spam_count',
+'antispam_bee_dashboard_count',
+'',
+'',
+);
+foreach($options as $option) {
+add_option(
+$option,
+'',
+'',
+'no'
+);
+}
 }
 function init_cron_job() {
 if (function_exists('wp_schedule_event')) {
@@ -205,6 +236,7 @@ time()
 $this->delete_spam_comments(
 get_option('antispam_bee_cronjob_interval')
 );
+$this->init_spam_count();
 }
 function delete_spam_comments($days) {
 $days = intval($days);
@@ -241,6 +273,18 @@ if (current_user_can('manage_options') === false || current_user_can('edit_plugi
 wp_die('You do not have permission to access!');
 }
 }
+function show_dashboard_count() {
+echo sprintf(
+'<tr>
+<td class="first b b-tags"></td>
+<td class="t tags"></td>
+<td class="b b-spam" style="font-size:18px">%d</td>
+<td class="last t">%s</td>
+</tr>',
+$this->get_spam_count(),
+__('Blocked', 'antispam_bee')
+);
+}
 function show_plugin_notices() {
 load_plugin_textdomain(
 'antispam_bee',
@@ -251,19 +295,21 @@ PLUGINDIR
 );
 echo sprintf(
 '<div class="error"><p><strong>Antispam Bee</strong> %s</p></div>',
-__('requires at least WordPress 2.1', 'antispam_bee')
+__('requires at least WordPress 2.3', 'antispam_bee')
 );
 }
 function show_plugin_info() {
 $data = get_plugin_data(__FILE__);
 echo sprintf(
-'%1$s: %2$s | %3$s: %4$s | %5$s: %6$s<br />',
+'%1$s: %2$s | %3$s: %4$s | %5$s: <a href="http://eBiene.de" target="_blank">Sergej Müller</a> | <a href="http://twitter.com/wpSEO" target="_blank">%6$s</a> | <a href="%7$s" target="_blank">%8$s</a><br />',
 __('Plugin'),
 'Antispam Bee',
 __('Version'),
 $data['Version'],
 __('Author'),
-$data['Author']
+__('Follow on Twitter', 'antispam_bee'),
+(get_locale() == 'de_DE' ? 'http://simple.wpSEO.de' : 'http://www.wpSEO.org'),
+__('Learn about wpSEO', 'antispam_bee')
 );
 }
 function show_plugin_head() {
@@ -314,7 +360,8 @@ $fields = array(
 'antispam_bee_ignore_type',
 'antispam_bee_no_notice',
 'antispam_bee_cronjob_enable',
-'antispam_bee_cronjob_interval'
+'antispam_bee_cronjob_interval',
+'antispam_bee_dashboard_count'
 );
 foreach($fields as $field) {
 update_option(
@@ -397,6 +444,16 @@ echo '>' .$value. '</option>';
 </label>
 </td>
 </tr>
+<?php if ($this->is_min_wp('2.7')) { ?>
+<tr>
+<td>
+<label for="antispam_bee_dashboard_count">
+<input type="checkbox" name="antispam_bee_dashboard_count" id="antispam_bee_dashboard_count" value="1" <?php checked(get_option('antispam_bee_dashboard_count'), 1) ?> />
+<?php _e('Display blocked comments count on the dashboard', 'antispam_bee') ?>
+</label>
+</td>
+</tr>
+<?php } ?>
 </table>
 <p>
 <input type="submit" name="antispam_bee_submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
@@ -455,6 +512,7 @@ return $this->mark_comment_request($comment);
 return $comment;
 }
 function mark_comment_request($comment) {
+$this->update_spam_count();
 if (!get_option('antispam_bee_flag_spam')) {
 die('Spam deleted.');
 }
@@ -475,5 +533,33 @@ $comment['comment_content'] = "[MARKED AS SPAM BY ANTISPAM BEE]\n" .$comment['co
 }
 return $comment;
 }
+function init_spam_count() {
+$count = intval(get_option('antispam_bee_spam_count'));
+wp_cache_set(
+'antispam_bee_spam_count',
+$count
+);
+return $count;
 }
-new Antispam_Bee();
+function get_spam_count() {
+if (!$count = wp_cache_get('antispam_bee_spam_count')) {
+$count = $this->init_spam_count();
+}
+return number_format_i18n($count);
+}
+function the_spam_count() {
+echo $this->get_spam_count();
+}
+function update_spam_count() {
+$count = intval(get_option('antispam_bee_spam_count')) + 1;
+update_option(
+'antispam_bee_spam_count',
+$count
+);
+wp_cache_set(
+'antispam_bee_spam_count',
+$count
+);
+}
+}
+$GLOBALS['Antispam_Bee'] = new Antispam_Bee();

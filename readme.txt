@@ -1,6 +1,6 @@
 === Antispam Bee ===
 Contributors: stalkerX
-Tags: antispam, spam, comment, akismet
+Tags: antispam, spam, comment, akismet, trackback
 Requires at least: 2.3
 Tested up to: 2.9.1
 Stable tag: trunk
@@ -12,6 +12,7 @@ Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 Protects your blog from spam by replacing the comment field. It's easy to use and extremely effective. Really!
 
 = At a Glance =
+* Antispam Bee spam counter on dashboard
 * Quick & Dirty: activate, done!
 * Spam may be marked or deleted immediately
 * Automatically cleanup the spam folder
@@ -23,6 +24,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Anonymous and independent
 
 == Changelog ==
+= 1.2 =
+* Antispam Bee spam counter on dashboard
+
 = 1.1 =
 * Adds support for WordPress new changelog readme.txt standard
 * Various changes for more speed, usability and security

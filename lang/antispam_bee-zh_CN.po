@@ -23,8 +23,8 @@ msgid "Settings"
 msgstr "设置"
 
 #: antispam_bee.php:254
-msgid "requires at least WordPress 2.1"
-msgstr "需要至少WordPres 2.1 或更新版本"
+msgid "requires at least WordPress 2.3"
+msgstr "需要至少WordPres 2.3 或更新版本"
 
 #: antispam_bee.php:261
 msgid "Plugin"
