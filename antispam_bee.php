@@ -278,7 +278,7 @@ echo sprintf(
 '<tr>
 <td class="first b b-tags"></td>
 <td class="t tags"></td>
-<td class="b b-spam" style="font-size:18px">%d</td>
+<td class="b b-spam" style="font-size:18px">%s</td>
 <td class="last t">%s</td>
 </tr>',
 $this->get_spam_count(),
