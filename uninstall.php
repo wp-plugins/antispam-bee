@@ -5,8 +5,10 @@ if (defined('WP_UNINSTALL_PLUGIN')) {
 		wp_clear_scheduled_hook('antispam_bee_daily_cronjob');
 	}
 	
-	/* DB bereinigen */
-	$GLOBALS['wpdb']->query("DELETE FROM `" .$GLOBALS['wpdb']->options. "` WHERE option_name LIKE 'antispam_bee_%'");
+	/* Option löschen */
+	delete_option('antispam_bee');
+	
+	/* DB reinigen */
 	$GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->options. "`");
 }
 ?>

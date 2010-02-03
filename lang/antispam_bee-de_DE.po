@@ -24,6 +24,9 @@ msgstr "Beschränken auf"
 msgid "Spam will be automatically deleted after %s days"
 msgstr "Spam nach %s Tagen automatisch löschen"
 
+msgid "Send an admin email when new spam item incoming"
+msgstr "Bei Neuzugängen via E-Mail benachrichtigen"
+
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Track- und Pingbacks nicht prüfen"
 
@@ -31,7 +34,16 @@ msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Hinweis &quot;MARKED AS SPAM&quot; unterdrücken"
 
 msgid "Display blocked comments count on the dashboard"
-msgstr "Anzahl der blockierten Kommentare auf dem Dashboard zeigen"
+msgstr "Anzahl blockierter Kommentare auf dem Dashboard anzeigen"
+
+msgid "Comments are not only on posts and pages allowed"
+msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
+
+msgid "Comment marked as spam"
+msgstr "Kommentar als Spam markiert"
+
+msgid "Spam list"
+msgstr "Spamliste"
 
 msgid "Last"
 msgstr "Zuletzt"

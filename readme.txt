@@ -1,29 +1,46 @@
 === Antispam Bee ===
 Contributors: stalkerX
-Tags: antispam, spam, comment, akismet, trackback
+Tags: antispam, spam, comments, akismet, trackback, pings, protect
 Requires at least: 2.3
 Tested up to: 2.9.1
 Stable tag: trunk
 
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 
+
 == Description ==
 = Easy and effective Antispam Plugin =
 Protects your blog from spam by replacing the comment field. It's easy to use and extremely effective. Really!
 
+
 = At a Glance =
-* Antispam Bee spam counter on dashboard
-* Quick & Dirty: activate, done!
+* Email notifications about new spam comments
+* Trackback and pingback check
+* Spam counter on dashboard
+* Quick & Dirty: activate, set settings, done!
 * Spam may be marked or deleted immediately
 * Automatically cleanup the spam folder
-* Saves no data in the database, accordingly no connection
+* Saves no data in the database
+* Accordingly no outgoing connection
 * WordPress 2.9.x ready: Design as well as technical
 * Very, very fast execution
 * No need to adjust any templates
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+
+= Misc =
+* [Plugin documentation in German](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Bee")
+* [Follow us on Twitter for updates](http://twitter.com/wpSEO "wpSEO on Twitter")
+* [Other author plugins](http://wordpress.org/extend/plugins/profile/stalkerx "Other author plugins")
+
+
 == Changelog ==
+= 1.3 =
+* New code structure
+* Email notifications about new spam comments
+* Novel Algorithm: Advanced spam checking
+
 = 1.2 =
 * Antispam Bee spam counter on dashboard
 
@@ -53,10 +70,16 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Workaround for empty comments
 
 = 0.4 =
-* Option for Trackback and Pingback protection
+* Option for trackback and pingback protection
 
 = 0.3 =
 * Trackback and Pingback spam protection
+
+
+== Screenshots ==
+
+1. Antispam Bee settings
+
 
 == Installation ==
 1. Download *Antispam Bee* plugin
