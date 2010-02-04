@@ -107,18 +107,14 @@ add_action(
 array(
 $this,
 'replace_comment_field'
-),
-1,
-1
+)
 );
 add_action(
 'init',
 array(
 $this,
 'precheck_comment_request'
-),
-1,
-1
+)
 );
 add_action(
 'preprocess_comment',
@@ -126,8 +122,7 @@ array(
 $this,
 'verify_comment_request'
 ),
-1,
-1
+-99
 );
 if ($this->get_plugin_option('cronjob_enable')) {
 add_action(
@@ -442,13 +437,29 @@ die('Spam deleted.');
 }
 add_filter(
 'pre_comment_approved',
-create_function(
-'',
-'return "spam";'
+array(
+$this,
+'i_am_spam'
 )
 );
+if ($spam_notice) {
+$comment['comment_content'] = "[MARKED AS SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
+}
+return $comment;
+}
+function i_am_spam($approved) {
 if ($this->get_plugin_option('email_notify')) {
-if ($email = get_bloginfo('admin_email')) {
+$this->send_email_notify($GLOBALS['commentdata']);
+}
+return 'spam';
+}
+function send_email_notify($comment) {
+$email = get_bloginfo('admin_email');
+$blog = get_bloginfo('name');
+$body = @$comment['comment_content'];
+if (empty($email) || empty($blog) || empty($body)) {
+return;
+}
 load_plugin_textdomain(
 'antispam_bee',
 sprintf(
@@ -460,22 +471,16 @@ wp_mail(
 $email,
 sprintf(
 '[%s] %s',
-get_bloginfo('name'),
+$blog,
 __('Comment marked as spam', 'antispam_bee')
 ),
 sprintf(
 "%s\n\n%s: %s",
-$comment['comment_content'],
+$body,
 __('Spam list', 'antispam_bee'),
 $this->get_admin_page('edit-comments.php?comment_status=spam')
 )
 );
-}
-}
-if ($spam_notice) {
-$comment['comment_content'] = "[MARKED AS SPAM BY ANTISPAM BEE]\n" .$comment['comment_content'];
-}
-return $comment;
 }
 function get_spam_count() {
 return number_format_i18n(
