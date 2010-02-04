@@ -367,7 +367,15 @@ return admin_url($page);
 return (get_option('siteurl'). '/wp-admin/' .$page);
 }
 function replace_comment_field() {
-if ((is_singular() || $this->get_plugin_option('always_allowed')) && strpos(TEMPLATEPATH, 'wptouch') === false) {
+if (is_feed() || is_trackback()) {
+return;
+}
+if (!is_singular() && !$this->get_plugin_option('always_allowed')) {
+return;
+}
+if (strpos(TEMPLATEPATH, 'wptouch') !== false) {
+return;
+}
 ob_start(
 create_function(
 '$input',
@@ -375,12 +383,14 @@ create_function(
 )
 );
 }
-}
 function precheck_comment_request() {
+if (is_feed() || is_trackback()) {
+return;
+}
 $request_url = @$_SERVER['REQUEST_URI'];
 $hidden_field = @$_POST['comment'];
 $plugin_field = @$_POST[$this->protect];
-if (empty($request_url) || strpos($request_url, 'wp-comments-post.php') === false || empty($_POST)) {
+if (empty($_POST) || empty($request_url) || strpos($request_url, 'wp-comments-post.php') === false) {
 return;
 }
 if (empty($hidden_field) && !empty($plugin_field)) {
