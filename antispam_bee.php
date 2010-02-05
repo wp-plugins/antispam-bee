@@ -122,7 +122,7 @@ array(
 $this,
 'verify_comment_request'
 ),
--99
+1
 );
 if ($this->get_plugin_option('cronjob_enable')) {
 add_action(
