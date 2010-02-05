@@ -361,6 +361,15 @@ return admin_url($page);
 }
 return (get_option('siteurl'). '/wp-admin/' .$page);
 }
+function get_prepare_ip($ip) {
+if (!empty($ip)) {
+return str_replace(
+strrchr($ip, '.'),
+'',
+$ip
+);
+}
+}
 function replace_comment_field() {
 if (is_feed() || is_trackback()) {
 return;
@@ -411,7 +420,10 @@ $comment_parse = parse_url($comment_url);
 $comment_host = @$comment_parse['host'];
 }
 if (strpos($request_url, 'wp-comments-post.php') !== false && isset($_POST)) {
-if (!empty($_POST['bee_spam']) || gethostbyname(gethostbyaddr($request_ip)) != $request_ip) {
+if (!empty($_POST['bee_spam'])) {
+return $this->flag_comment_request($comment);
+}
+if (strpos($request_ip, $this->get_prepare_ip(gethostbyname(gethostbyaddr($request_ip)))) === false) {
 return $this->flag_comment_request($comment);
 }
 } else if (!empty($comment_type) && in_array($comment_type, $ping_types) && $ping_allowed) {
