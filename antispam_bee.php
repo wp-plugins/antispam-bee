@@ -361,7 +361,7 @@ return admin_url($page);
 }
 return (get_option('siteurl'). '/wp-admin/' .$page);
 }
-function get_prepare_ip($ip) {
+function cut_ip_address($ip) {
 if (!empty($ip)) {
 return str_replace(
 strrchr($ip, '.'),
@@ -423,7 +423,7 @@ if (strpos($request_url, 'wp-comments-post.php') !== false && isset($_POST)) {
 if (!empty($_POST['bee_spam'])) {
 return $this->flag_comment_request($comment);
 }
-if (strpos($request_ip, $this->get_prepare_ip(gethostbyname(gethostbyaddr($request_ip)))) === false) {
+if (strpos($request_ip, $this->cut_ip_address(gethostbyname(gethostbyaddr($request_ip)))) === false) {
 return $this->flag_comment_request($comment);
 }
 } else if (!empty($comment_type) && in_array($comment_type, $ping_types) && $ping_allowed) {
