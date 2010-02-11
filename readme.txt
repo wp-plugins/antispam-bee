@@ -14,6 +14,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = At a Glance =
+* Optional strict check for incomming comments
 * Email notifications about new spam comments
 * Trackback and pingback check
 * Spam counter on dashboard
@@ -36,6 +37,10 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 == Changelog ==
+= 1.4 =
+* Enable stricter inspection for incomming comments
+* Do not check if the author has already commented and approved
+
 = 1.3 =
 * New code structure
 * Email notifications about new spam comments

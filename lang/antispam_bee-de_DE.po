@@ -36,8 +36,14 @@ msgstr "Hinweis &quot;MARKED AS SPAM&quot; unterdrücken"
 msgid "Display blocked comments count on the dashboard"
 msgstr "Anzahl blockierter Kommentare auf dem Dashboard anzeigen"
 
-msgid "Comments are not only on posts and pages allowed"
+msgid "Comments are also used outside of posts and pages"
 msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
+
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Schärfere Prüfung für eingehende Kommentare anwenden"
+
+msgid "Do not check if the author has already commented and approved"
+msgstr "Autoren mit bereits genehmigten Kommentaren vertrauen"
 
 msgid "Comment marked as spam"
 msgstr "Kommentar als Spam markiert"

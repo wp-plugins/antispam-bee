@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee is the easy and productive antispam plugin for WordPress. Trackback and pingback spam protection included.
 Author: Sergej M&uuml;ller
-Version: 1.3
+Version: 1.4
 Author URI: http://www.wpSEO.org
 */
 
@@ -413,18 +413,26 @@ return $this->flag_comment_request($comment);
 $comment_type = @$comment['comment_type'];
 $comment_url = @$comment['comment_author_url'];
 $comment_body = @$comment['comment_content'];
+$comment_email = @$comment['comment_author_email'];
 $ping_types = array('pingback', 'trackback', 'pings');
 $ping_allowed = !$this->get_plugin_option('ignore_pings');
 if (!empty($comment_url)) {
 $comment_parse = parse_url($comment_url);
 $comment_host = @$comment_parse['host'];
 }
-if (strpos($request_url, 'wp-comments-post.php') !== false && isset($_POST)) {
+if (strpos($request_url, 'wp-comments-post.php') !== false && !empty($_POST)) {
+if ($this->get_plugin_option('already_commented')) {
+if ($GLOBALS['wpdb']->get_var("SELECT COUNT(comment_ID) FROM `" .$GLOBALS['wpdb']->comments. "` WHERE `comment_author_email` = '" .$comment_email. "' AND `comment_approved` = '1' LIMIT 1")) {
+return $comment;
+}
+}
 if (!empty($_POST['bee_spam'])) {
 return $this->flag_comment_request($comment);
 }
+if ($this->get_plugin_option('advanced_check')) {
 if (strpos($request_ip, $this->cut_ip_address(gethostbyname(gethostbyaddr($request_ip)))) === false) {
 return $this->flag_comment_request($comment);
+}
 }
 } else if (!empty($comment_type) && in_array($comment_type, $ping_types) && $ping_allowed) {
 if (empty($comment_url) || empty($comment_body)) {
@@ -472,6 +480,7 @@ $body = @$comment['comment_content'];
 if (empty($email) || empty($blog) || empty($body)) {
 return;
 }
+$body = stripslashes(strip_tags($body));
 load_plugin_textdomain(
 'antispam_bee',
 sprintf(
@@ -525,7 +534,7 @@ div.icon32 {
 background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
 }
 div.inside {
-background: url(<?php echo plugins_url('antispam-bee/img/icon270.png') ?>) no-repeat right 30px;
+background: url(<?php echo plugins_url('antispam-bee/img/icon270.png') ?>) no-repeat right bottom;
 }
 div.less {
 background: none;
@@ -568,6 +577,8 @@ $options = array(
 'cronjob_enable'=> (isset($_POST['antispam_bee_cronjob_enable']) ? (int)$_POST['antispam_bee_cronjob_enable'] : 0),
 'cronjob_interval'=> (isset($_POST['antispam_bee_cronjob_interval']) ? (int)$_POST['antispam_bee_cronjob_interval'] : 0),
 'dashboard_count'=> (isset($_POST['antispam_bee_dashboard_count']) ? (int)$_POST['antispam_bee_dashboard_count'] : 0),
+'advanced_check'=> (isset($_POST['antispam_bee_advanced_check']) ? (int)$_POST['antispam_bee_advanced_check'] : 0),
+'already_commented'=> (isset($_POST['antispam_bee_already_commented']) ? (int)$_POST['antispam_bee_already_commented'] : 0),
 'always_allowed'=> (isset($_POST['antispam_bee_always_allowed']) ? (int)$_POST['antispam_bee_always_allowed'] : 0)
 );
 if (empty($options['cronjob_interval'])) {
@@ -667,9 +678,25 @@ echo '>' .$value. '</option>';
 <?php } ?>
 <tr>
 <td>
+<label for="antispam_bee_advanced_check">
+<input type="checkbox" name="antispam_bee_advanced_check" id="antispam_bee_advanced_check" value="1" <?php checked($this->get_plugin_option('advanced_check'), 1) ?> />
+<?php _e('Enable stricter inspection for incomming comments', 'antispam_bee') ?> <?php $this->show_help_link('advanced_check') ?>
+</label>
+</td>
+</tr>
+<tr>
+<td>
+<label for="antispam_bee_already_commented">
+<input type="checkbox" name="antispam_bee_already_commented" id="antispam_bee_already_commented" value="1" <?php checked($this->get_plugin_option('already_commented'), 1) ?> />
+<?php _e('Do not check if the author has already commented and approved', 'antispam_bee') ?> <?php $this->show_help_link('already_commented') ?>
+</label>
+</td>
+</tr>
+<tr>
+<td>
 <label for="antispam_bee_always_allowed">
 <input type="checkbox" name="antispam_bee_always_allowed" id="antispam_bee_always_allowed" value="1" <?php checked($this->get_plugin_option('always_allowed'), 1) ?> />
-<?php _e('Comments are not only on posts and pages allowed', 'antispam_bee') ?> <?php $this->show_help_link('always_allowed') ?>
+<?php _e('Comments are also used outside of posts and pages', 'antispam_bee') ?> <?php $this->show_help_link('always_allowed') ?>
 </label>
 </td>
 </tr>

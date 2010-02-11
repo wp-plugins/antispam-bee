@@ -24,6 +24,9 @@ msgstr "Ограничить на"
 msgid "Spam will be automatically deleted after %s days"
 msgstr "Спам машинально удалять через %s дней"
 
+msgid "Send an admin email when new spam item incoming"
+msgstr "Отправить емайл при новом спаме"
+
 msgid "Do not check trackbacks / pingbacks"
 msgstr "Не проверять trackbacks и pingbacks"
 
@@ -32,6 +35,21 @@ msgstr "Скрыть замечание &quot;MARKED AS SPAM&quot;"
 
 msgid "Display blocked comments count on the dashboard"
 msgstr "Заблокированный спам показать на приборной панели"
+
+msgid "Comments are also used outside of posts and pages"
+msgstr "Комментарии также используются вне постов и страниц"
+
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Включите строгий контроль на входящие комментарии"
+
+msgid "Do not check if the author has already commented and approved"
+msgstr "Не проверять, если автор уже комментировал и был утвержден"
+
+msgid "Comment marked as spam"
+msgstr "Комментарии помечено как спам"
+
+msgid "Spam list"
+msgstr "Спам список"
 
 msgid "Last"
 msgstr "Последний раз"
