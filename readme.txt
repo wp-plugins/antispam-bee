@@ -31,7 +31,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = Misc =
-* [Plugin documentation in German](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Bee")
+* [Plugin documentation in German](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Biene für WordPress")
 * [Follow us on Twitter for updates](http://twitter.com/wpSEO "wpSEO on Twitter")
 * [Other author plugins](http://wordpress.org/extend/plugins/profile/stalkerx "Other author plugins")
 
