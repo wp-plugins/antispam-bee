@@ -417,7 +417,7 @@ $comment_email = @$comment['comment_author_email'];
 $ping_types = array('pingback', 'trackback', 'pings');
 $ping_allowed = !$this->get_plugin_option('ignore_pings');
 if (!empty($comment_url)) {
-$comment_parse = parse_url($comment_url);
+$comment_parse = @parse_url($comment_url);
 $comment_host = @$comment_parse['host'];
 }
 if (strpos($request_url, 'wp-comments-post.php') !== false && !empty($_POST)) {
