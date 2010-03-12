@@ -31,7 +31,8 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 = Antispam Bee counter =
 `
-<?php do_action('antispam_bee_count') ?> spam comments blocked.
+<?php do_action('antispam_bee_count') ?> spam comments blocked by
+<a href="http://antispambee.com">Antispam Bee</a>
 `
 Please adjust the text accordingly.
 
@@ -43,7 +44,7 @@ Please adjust the text accordingly.
 
 == Changelog ==
 = 1.5 =
-* No antispam check if WPtouch theme is active
+* Compatibility with WPtouch
 * Add support for do_action
 
 = 1.4 =
