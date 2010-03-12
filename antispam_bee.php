@@ -19,6 +19,9 @@ var $basename;
 var $protect;
 var $locale;
 function Antispam_Bee() {
+if (strpos(TEMPLATEPATH, 'wptouch') !== false) {
+return;
+}
 $this->basename = plugin_basename(__FILE__);
 $this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 $this->locale = get_locale();
@@ -123,6 +126,13 @@ $this,
 'verify_comment_request'
 ),
 1
+);
+add_action(
+'antispam_bee_count',
+array(
+$this,
+'the_spam_count'
+)
 );
 if ($this->get_plugin_option('cronjob_enable')) {
 add_action(
@@ -375,9 +385,6 @@ if (is_feed() || is_trackback()) {
 return;
 }
 if (!is_singular() && !$this->get_plugin_option('always_allowed')) {
-return;
-}
-if (strpos(TEMPLATEPATH, 'wptouch') !== false) {
 return;
 }
 ob_start(
