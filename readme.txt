@@ -31,7 +31,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 = Antispam Bee counter =
 `
-<?php do_action('antispam_bee_count') ?> spam comments blocked by Antispam Bee
+<?php do_action('antispam_bee_count') ?> spam comments blocked.
 `
 Please adjust the text accordingly.
 
