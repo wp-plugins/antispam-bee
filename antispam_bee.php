@@ -19,9 +19,6 @@ var $basename;
 var $protect;
 var $locale;
 function Antispam_Bee() {
-if (strpos(TEMPLATEPATH, 'wptouch') !== false) {
-return;
-}
 $this->basename = plugin_basename(__FILE__);
 $this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
 $this->locale = get_locale();
@@ -221,7 +218,7 @@ wp_cache_set(
 $options
 );
 }
-return $options[$field];
+return @$options[$field];
 }
 function set_plugin_option($field, $value) {
 if (empty($field)) {
@@ -315,6 +312,9 @@ $version. 'alpha',
 '>='
 );
 }
+function is_wp_touch() {
+return strpos(TEMPLATEPATH, 'wptouch');
+}
 function is_current_page($page) {
 switch($page) {
 case 'home':
@@ -381,7 +381,7 @@ $ip
 }
 }
 function replace_comment_field() {
-if (is_feed() || is_trackback()) {
+if (is_feed() || is_trackback() || $this->is_wp_touch()) {
 return;
 }
 if (!is_singular() && !$this->get_plugin_option('always_allowed')) {
@@ -395,7 +395,7 @@ create_function(
 );
 }
 function precheck_comment_request() {
-if (is_feed() || is_trackback()) {
+if (is_feed() || is_trackback() || $this->is_wp_touch()) {
 return;
 }
 $request_url = @$_SERVER['REQUEST_URI'];
