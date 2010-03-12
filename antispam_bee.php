@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee is the easy and productive antispam plugin for WordPress. Trackback and pingback spam protection included.
 Author: Sergej M&uuml;ller
-Version: 1.4
+Version: 1.5
 Author URI: http://www.wpSEO.org
 */
 
@@ -20,7 +20,7 @@ var $protect;
 var $locale;
 function Antispam_Bee() {
 $this->basename = plugin_basename(__FILE__);
-$this->protect = 'comment-' .substr(md5(get_bloginfo('home')), 0, 5);
+$this->protect = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
 $this->locale = get_locale();
 if (is_admin()) {
 add_action(
@@ -143,6 +143,13 @@ $this,
 }
 }
 function load_plugin_lang() {
+if ($this->is_min_wp('2.7')) {
+load_plugin_textdomain(
+'antispam_bee',
+false,
+'antispam-bee/lang'
+);
+} else {
 if (!defined('PLUGINDIR')) {
 define('PLUGINDIR', 'wp-content/plugins');
 }
@@ -153,6 +160,7 @@ sprintf(
 PLUGINDIR
 )
 );
+}
 }
 function init_action_links($links, $file) {
 if ($this->basename == $file) {
@@ -488,13 +496,7 @@ if (empty($email) || empty($blog) || empty($body)) {
 return;
 }
 $body = stripslashes(strip_tags($body));
-load_plugin_textdomain(
-'antispam_bee',
-sprintf(
-'%s/antispam-bee/lang',
-PLUGINDIR
-)
-);
+$this->load_plugin_lang();
 wp_mail(
 $email,
 sprintf(

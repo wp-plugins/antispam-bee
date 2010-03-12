@@ -29,14 +29,23 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Clean up after uninstall the plugin
 * Anonymous and independent
 
+= Antispam Bee counter =
+`
+<?php do_action('antispam_bee_count') ?> spam comments blocked by Antispam Bee
+`
+Please adjust the text accordingly.
 
-= Misc =
+= Documentation =
 * [Plugin documentation in German](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Biene für WordPress")
 * [Follow us on Twitter for updates](http://twitter.com/wpSEO "wpSEO on Twitter")
 * [Other author plugins](http://wordpress.org/extend/plugins/profile/stalkerx "Other author plugins")
 
 
 == Changelog ==
+= 1.5 =
+* No antispam check if WPtouch theme is active
+* Add support for do_action
+
 = 1.4 =
 * Enable stricter inspection for incomming comments
 * Do not check if the author has already commented and approved
