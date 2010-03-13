@@ -46,6 +46,7 @@ Please adjust the text accordingly.
 = 1.5 =
 * Compatibility with WPtouch
 * Add support for do_action
+* Translation to Portuguese of Brazil
 
 = 1.4 =
 * Enable stricter inspection for incomming comments
