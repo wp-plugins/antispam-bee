@@ -284,7 +284,7 @@ function init_admin_menu() {
 add_options_page(
 'Antispam Bee',
 ($this->is_min_wp('2.7') ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
-9,
+($this->is_min_wp('2.8') ? 'manage_options' : 9),
 __FILE__,
 array(
 $this,
