@@ -28,7 +28,7 @@ msgid "Send an admin email when new spam item incoming"
 msgstr "Envoyer une E-mail pour les nouveaux spams"
 
 msgid "Do not check trackbacks / pingbacks"
-msgstr "Ne pas vérififier les Track- und Pingbacks"
+msgstr "Ne pas vérifier les Track- und Pingbacks"
 
 msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Cacher le  &quot;MARKED AS SPAM&quot;"
