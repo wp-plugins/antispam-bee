@@ -1,0 +1,1 @@
+jQuery(document).ready(function($){function manage_options(){var id='antispam_bee_flag_spam';$('#'+id).parents('.form-table').find('input[id!="'+id+'"]').attr('disabled',!$('#'+id).attr('checked'));}$('#antispam_bee_flag_spam').click(manage_options);manage_options();});

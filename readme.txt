@@ -43,6 +43,11 @@ Please adjust the text accordingly.
 
 
 == Changelog ==
+= 1.6 =
+* Support for WordPress 3.0
+* System requirements: WordPress 2.7
+* Code optimizations
+
 = 1.5 =
 * Compatibility with WPtouch
 * Add support for do_action

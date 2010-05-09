@@ -4,7 +4,7 @@ Plugin Name: Antispam Bee
 Plugin URI: http://antispambee.com
 Description: Antispam Bee is the easy and productive antispam plugin for WordPress. Trackback and pingback spam protection included.
 Author: Sergej M&uuml;ller
-Version: 1.5
+Version: 1.6
 Author URI: http://www.wpSEO.org
 */
 
@@ -19,9 +19,10 @@ var $basename;
 var $protect;
 var $locale;
 function Antispam_Bee() {
-$this->basename = plugin_basename(__FILE__);
-$this->protect = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
-$this->locale = get_locale();
+$this->base_name = plugin_basename(__FILE__);
+$this->dir_url = WP_PLUGIN_URL. '/' .dirname($this->base_name);
+$this->protect_sign = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
+$this->locale_lang = get_locale();
 if (is_admin()) {
 add_action(
 'init',
@@ -39,24 +40,34 @@ $this,
 );
 if ($this->is_current_page('home')) {
 add_action(
-'admin_head',
+'admin_init',
 array(
 $this,
-'show_plugin_head'
+'add_plugin_sources'
 )
 );
 } else if ($this->is_current_page('index')) {
-if ($this->is_min_wp('2.7') && $this->get_plugin_option('dashboard_count')) {
+if ($this->get_plugin_option('dashboard_count')) {
+if ($this->is_min_wp('3.0')) {
+add_action(
+'right_now_discussion_table_end',
+array(
+$this,
+'add_discussion_table_end'
+)
+);
+} else {
 add_action(
 'right_now_table_end',
 array(
 $this,
-'show_dashboard_count'
+'add_table_end'
 )
 );
 }
+}
 } else if ($this->is_current_page('plugins')) {
-if (!$this->is_min_wp('2.3')) {
+if (!$this->is_min_wp('2.7')) {
 add_action(
 'admin_notices',
 array(
@@ -66,14 +77,14 @@ $this,
 );
 }
 add_action(
-'activate_' .$this->basename,
+'activate_' .$this->base_name,
 array(
 $this,
 'init_plugin_options'
 )
 );
 add_action(
-'deactivate_' .$this->basename,
+'deactivate_' .$this->base_name,
 array(
 $this,
 'clear_scheduled_hook'
@@ -143,32 +154,19 @@ $this,
 }
 }
 function load_plugin_lang() {
-if ($this->is_min_wp('2.7')) {
 load_plugin_textdomain(
 'antispam_bee',
 false,
 'antispam-bee/lang'
 );
-} else {
-if (!defined('PLUGINDIR')) {
-define('PLUGINDIR', 'wp-content/plugins');
-}
-load_plugin_textdomain(
-'antispam_bee',
-sprintf(
-'%s/antispam-bee/lang',
-PLUGINDIR
-)
-);
-}
 }
 function init_action_links($links, $file) {
-if ($this->basename == $file) {
+if ($this->base_name == $file) {
 return array_merge(
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-$this->basename,
+$this->base_name,
 __('Settings')
 )
 ),
@@ -178,13 +176,13 @@ $links
 return $links;
 }
 function init_row_meta($links, $file) {
-if ($this->basename == $file) {
+if ($this->base_name == $file) {
 return array_merge(
 $links,
 array(
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
-$this->basename,
+$this->base_name,
 __('Settings')
 )
 )
@@ -217,6 +215,27 @@ if (wp_next_scheduled('antispam_bee_daily_cronjob')) {
 wp_clear_scheduled_hook('antispam_bee_daily_cronjob');
 }
 }
+}
+function exe_daily_cronjob() {
+$this->delete_spam_comments();
+$this->set_plugin_option(
+'cronjob_timestamp',
+time()
+);
+}
+function delete_spam_comments() {
+$days = intval($this->get_plugin_option('cronjob_interval'));
+if (empty($days)) {
+return false;
+}
+$GLOBALS['wpdb']->query(
+sprintf(
+"DELETE FROM %s WHERE comment_approved = 'spam' AND SUBDATE(NOW(), %s) > comment_date_gmt",
+$GLOBALS['wpdb']->comments,
+$days
+)
+);
+$GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->comments. "`");
 }
 function get_plugin_option($field) {
 if (!$options = wp_cache_get('antispam_bee')) {
@@ -281,9 +300,9 @@ $GLOBALS['wpdb']->query("DELETE FROM `" .$GLOBALS['wpdb']->options. "` WHERE opt
 $GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->options. "`");
 }
 function init_admin_menu() {
-add_options_page(
+$page = add_options_page(
 'Antispam Bee',
-($this->is_min_wp('2.7') ? '<img src="' .plugins_url('antispam-bee/img/icon.png'). '" width="11" height="9" border="0" alt="Antispam Bee" />' : ''). 'Antispam Bee',
+'<img src="' .plugins_url('antispam-bee/img/icon.png'). '" id="ab_icon" alt="Antispam Bee" />Antispam Bee',
 ($this->is_min_wp('2.8') ? 'manage_options' : 9),
 __FILE__,
 array(
@@ -291,27 +310,20 @@ $this,
 'show_admin_menu'
 )
 );
-}
-function exe_daily_cronjob() {
-$this->delete_spam_comments();
-$this->set_plugin_option(
-'cronjob_timestamp',
-time()
-);
-}
-function delete_spam_comments() {
-$days = intval($this->get_plugin_option('cronjob_interval'));
-if (empty($days)) {
-return false;
-}
-$GLOBALS['wpdb']->query(
-sprintf(
-"DELETE FROM %s WHERE comment_approved = 'spam' AND SUBDATE(NOW(), %s) > comment_date_gmt",
-$GLOBALS['wpdb']->comments,
-$days
+add_action(
+'admin_print_scripts-' . $page,
+array(
+$this,
+'add_enqueue_script'
 )
 );
-$GLOBALS['wpdb']->query("OPTIMIZE TABLE `" .$GLOBALS['wpdb']->comments. "`");
+add_action(
+'admin_print_styles-' . $page,
+array(
+$this,
+'add_enqueue_style'
+)
+);
 }
 function is_min_wp($version) {
 return version_compare(
@@ -326,19 +338,38 @@ return strpos(TEMPLATEPATH, 'wptouch');
 function is_current_page($page) {
 switch($page) {
 case 'home':
-return (isset($_REQUEST['page']) && $_REQUEST['page'] == $this->basename);
+return (isset($_REQUEST['page']) && $_REQUEST['page'] == $this->base_name);
 case 'index':
 case 'plugins':
 return ($GLOBALS['pagenow'] == sprintf('%s.php', $page));
 }
 return false;
 }
+function get_admin_page($page) {
+if (empty($page)) {
+return;
+}
+if (function_exists('admin_url')) {
+return admin_url($page);
+}
+return (get_option('siteurl'). '/wp-admin/' .$page);
+}
 function check_user_can() {
 if (current_user_can('manage_options') === false || current_user_can('edit_plugins') === false || !is_user_logged_in()) {
 wp_die('You do not have permission to access!');
 }
 }
-function show_dashboard_count() {
+function add_discussion_table_end() {
+echo sprintf(
+'<tr>
+<td class="b b-spam" style="font-size:18px">%s</td>
+<td class="last t">%s</td>
+</tr>',
+$this->get_spam_count(),
+__('Blocked', 'antispam_bee')
+);
+}
+function add_table_end() {
 echo sprintf(
 '<tr>
 <td class="first b b-tags"></td>
@@ -353,7 +384,7 @@ __('Blocked', 'antispam_bee')
 function show_plugin_notices() {
 echo sprintf(
 '<div class="error"><p><strong>Antispam Bee</strong> %s</p></div>',
-__('requires at least WordPress 2.3', 'antispam_bee')
+__('requires at least WordPress 2.7', 'antispam_bee')
 );
 }
 function show_plugin_info() {
@@ -366,18 +397,9 @@ __('Version'),
 $data['Version'],
 __('Author'),
 __('Follow on Twitter', 'antispam_bee'),
-($this->locale == 'de_DE' ? 'de' : 'org'),
+($this->locale_lang == 'de_DE' ? 'de' : 'org'),
 __('Learn about wpSEO', 'antispam_bee')
 );
-}
-function get_admin_page($page) {
-if (empty($page)) {
-return;
-}
-if (function_exists('admin_url')) {
-return admin_url($page);
-}
-return (get_option('siteurl'). '/wp-admin/' .$page);
 }
 function cut_ip_address($ip) {
 if (!empty($ip)) {
@@ -398,7 +420,7 @@ return;
 ob_start(
 create_function(
 '$input',
-'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2' .$this->protect. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input, 1);'
+'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2' .$this->protect_sign. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input, 1);'
 )
 );
 }
@@ -408,13 +430,13 @@ return;
 }
 $request_url = @$_SERVER['REQUEST_URI'];
 $hidden_field = @$_POST['comment'];
-$plugin_field = @$_POST[$this->protect];
+$plugin_field = @$_POST[$this->protect_sign];
 if (empty($_POST) || empty($request_url) || strpos($request_url, 'wp-comments-post.php') === false) {
 return;
 }
 if (empty($hidden_field) && !empty($plugin_field)) {
 $_POST['comment'] = $plugin_field;
-unset($_POST[$this->protect]);
+unset($_POST[$this->protect_sign]);
 } else {
 $_POST['bee_spam'] = 1;
 }
@@ -527,7 +549,7 @@ intval($this->get_plugin_option('spam_count') + 1)
 );
 }
 function show_help_link($anchor) {
-if ($this->locale != 'de_DE') {
+if ($this->locale_lang != 'de_DE') {
 return '';
 }
 echo sprintf(
@@ -535,60 +557,44 @@ echo sprintf(
 $anchor
 );
 }
-function show_plugin_head() {
-wp_enqueue_script('jquery'); ?>
-<style type="text/css">
-<?php if ($this->is_min_wp('2.7')) { ?>
-div.icon32 {
-background: url(<?php echo plugins_url('antispam-bee/img/icon32.png') ?>) no-repeat;
-}
-div.inside {
-background: url(<?php echo plugins_url('antispam-bee/img/icon270.png') ?>) no-repeat right bottom;
-}
-div.less {
-background: none;
-}
-<?php } ?>
-select {
-margin: 0 0 -3px;
-}
-input.small-text {
-margin: -5px 0;
-}
-td.shift {
-padding-left: 30px;
-}
-</style>
-<script type="text/javascript">
-jQuery(document).ready(
-function($) {
-function manage_options() {
-var id = 'antispam_bee_flag_spam';
-$('#' + id).parents('.form-table').find('input[id!="' + id + '"]').attr('disabled', !$('#' + id).attr('checked'));
-}
-$('#antispam_bee_flag_spam').click(manage_options);
-manage_options();
-}
+function add_plugin_sources() {
+$data = get_plugin_data(__FILE__);
+wp_register_script(
+'ab_script',
+$this->dir_url. '/js/script.js',
+array('jquery'),
+$data['Version']
 );
-</script>
-<?php }
+wp_register_style(
+'ab_style',
+$this->dir_url. '/css/style.css',
+array(),
+$data['Version']
+);
+}
+function add_enqueue_script() {
+wp_enqueue_script('ab_script');
+}
+function add_enqueue_style() {
+wp_enqueue_style('ab_style');
+}
 function show_admin_menu() {
 $this->check_user_can();
 if (!empty($_POST)) {
 check_admin_referer('antispam_bee');
 $options = array(
-'flag_spam'=> (isset($_POST['antispam_bee_flag_spam']) ? (int)$_POST['antispam_bee_flag_spam'] : 0),
-'ignore_pings'=> (isset($_POST['antispam_bee_ignore_pings']) ? (int)$_POST['antispam_bee_ignore_pings'] : 0),
-'ignore_filter'=> (isset($_POST['antispam_bee_ignore_filter']) ? (int)$_POST['antispam_bee_ignore_filter'] : 0),
-'ignore_type'=> (isset($_POST['antispam_bee_ignore_type']) ? (int)$_POST['antispam_bee_ignore_type'] : 0),
-'no_notice'=> (isset($_POST['antispam_bee_no_notice']) ? (int)$_POST['antispam_bee_no_notice'] : 0),
-'email_notify'=> (isset($_POST['antispam_bee_email_notify']) ? (int)$_POST['antispam_bee_email_notify'] : 0),
-'cronjob_enable'=> (isset($_POST['antispam_bee_cronjob_enable']) ? (int)$_POST['antispam_bee_cronjob_enable'] : 0),
-'cronjob_interval'=> (isset($_POST['antispam_bee_cronjob_interval']) ? (int)$_POST['antispam_bee_cronjob_interval'] : 0),
-'dashboard_count'=> (isset($_POST['antispam_bee_dashboard_count']) ? (int)$_POST['antispam_bee_dashboard_count'] : 0),
-'advanced_check'=> (isset($_POST['antispam_bee_advanced_check']) ? (int)$_POST['antispam_bee_advanced_check'] : 0),
-'already_commented'=> (isset($_POST['antispam_bee_already_commented']) ? (int)$_POST['antispam_bee_already_commented'] : 0),
-'always_allowed'=> (isset($_POST['antispam_bee_always_allowed']) ? (int)$_POST['antispam_bee_always_allowed'] : 0)
+'flag_spam'=> (int)(!empty($_POST['antispam_bee_flag_spam'])),
+'ignore_pings'=> (int)(!empty($_POST['antispam_bee_ignore_pings'])),
+'ignore_filter'=> (int)(!empty($_POST['antispam_bee_ignore_filter'])),
+'ignore_type'=> (int)(@$_POST['antispam_bee_ignore_type']),
+'no_notice'=> (int)(!empty($_POST['antispam_bee_no_notice'])),
+'email_notify'=> (int)(!empty($_POST['antispam_bee_email_notify'])),
+'cronjob_enable'=> (int)(!empty($_POST['antispam_bee_cronjob_enable'])),
+'cronjob_interval'=> (int)(@$_POST['antispam_bee_cronjob_interval']),
+'dashboard_count'=> (int)(!empty($_POST['antispam_bee_dashboard_count'])),
+'advanced_check'=> (int)(!empty($_POST['antispam_bee_advanced_check'])),
+'already_commented'=> (int)(!empty($_POST['antispam_bee_already_commented'])),
+'always_allowed'=> (int)(!empty($_POST['antispam_bee_always_allowed']))
 );
 if (empty($options['cronjob_interval'])) {
 $options['cronjob_enable'] = 0;
@@ -608,15 +614,13 @@ $this->set_plugin_options($options); ?>
 </div>
 <?php } ?>
 <div class="wrap">
-<?php if ($this->is_min_wp('2.7')) { ?>
-<div class="icon32"><br /></div>
-<?php } ?>
+<div class="icon32"></div>
 <h2>
 Antispam Bee
 </h2>
 <form method="post" action="">
 <?php wp_nonce_field('antispam_bee') ?>
-<div id="poststuff" class="ui-sortable">
+<div id="poststuff">
 <div class="postbox">
 <h3>
 <?php _e('Settings') ?>
@@ -675,7 +679,6 @@ echo '>' .$value. '</option>';
 </label>
 </td>
 </tr>
-<?php if ($this->is_min_wp('2.7')) { ?>
 <tr>
 <td>
 <label for="antispam_bee_dashboard_count">
@@ -684,7 +687,6 @@ echo '>' .$value. '</option>';
 </label>
 </td>
 </tr>
-<?php } ?>
 <tr>
 <td>
 <label for="antispam_bee_advanced_check">
@@ -719,7 +721,7 @@ echo '>' .$value. '</option>';
 <h3>
 <?php _e('About', 'antispam_bee') ?>
 </h3>
-<div class="inside less">
+<div class="inside">
 <p>
 <?php $this->show_plugin_info() ?>
 </p>
