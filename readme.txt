@@ -1,8 +1,8 @@
 === Antispam Bee ===
 Contributors: stalkerX
 Tags: antispam, spam, comments, akismet, trackback, pings, protect
-Requires at least: 2.3
-Tested up to: 2.9.2
+Requires at least: 2.7
+Tested up to: 3.0
 Stable tag: trunk
 
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
