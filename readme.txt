@@ -14,6 +14,7 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = At a Glance =
+* WordPress 3.x ready: Design as well as technical
 * Optional strict check for incomming comments
 * Email notifications about new spam comments
 * Trackback and pingback check
@@ -23,7 +24,6 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 * Automatically cleanup the spam folder
 * Saves no data in the database
 * Accordingly no outgoing connection
-* WordPress 2.9.x ready: Design as well as technical
 * Very, very fast execution
 * No need to adjust any templates
 * Clean up after uninstall the plugin
