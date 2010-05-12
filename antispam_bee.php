@@ -15,14 +15,15 @@ header('HTTP/1.1 403 Forbidden');
 exit();
 }
 class Antispam_Bee {
-var $basename;
-var $protect;
-var $locale;
+var $base_name;
+var $dir_url;
+var $md5_sign;
+var $wp_lang;
 function Antispam_Bee() {
 $this->base_name = plugin_basename(__FILE__);
 $this->dir_url = WP_PLUGIN_URL. '/' .dirname($this->base_name);
-$this->protect_sign = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
-$this->locale_lang = get_locale();
+$this->md5_sign = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
+$this->wp_lang = get_locale();
 if (is_admin()) {
 add_action(
 'init',
@@ -397,7 +398,7 @@ __('Version'),
 $data['Version'],
 __('Author'),
 __('Follow on Twitter', 'antispam_bee'),
-($this->locale_lang == 'de_DE' ? 'de' : 'org'),
+($this->wp_lang == 'de_DE' ? 'de' : 'org'),
 __('Learn about wpSEO', 'antispam_bee')
 );
 }
@@ -420,7 +421,7 @@ return;
 ob_start(
 create_function(
 '$input',
-'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2' .$this->protect_sign. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input, 1);'
+'return preg_replace("#<textarea(.*?)name=([\"\'])comment([\"\'])(.+?)</textarea>#s", "<textarea$1name=$2' .$this->md5_sign. '$3$4</textarea><textarea name=\"comment\" rows=\"1\" cols=\"1\" style=\"display:none\"></textarea>", $input, 1);'
 )
 );
 }
@@ -430,13 +431,13 @@ return;
 }
 $request_url = @$_SERVER['REQUEST_URI'];
 $hidden_field = @$_POST['comment'];
-$plugin_field = @$_POST[$this->protect_sign];
+$plugin_field = @$_POST[$this->md5_sign];
 if (empty($_POST) || empty($request_url) || strpos($request_url, 'wp-comments-post.php') === false) {
 return;
 }
 if (empty($hidden_field) && !empty($plugin_field)) {
 $_POST['comment'] = $plugin_field;
-unset($_POST[$this->protect_sign]);
+unset($_POST[$this->md5_sign]);
 } else {
 $_POST['bee_spam'] = 1;
 }
@@ -549,7 +550,7 @@ intval($this->get_plugin_option('spam_count') + 1)
 );
 }
 function show_help_link($anchor) {
-if ($this->locale_lang != 'de_DE') {
+if ($this->wp_lang != 'de_DE') {
 return '';
 }
 echo sprintf(
