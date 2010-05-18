@@ -20,6 +20,9 @@ var $dir_url;
 var $md5_sign;
 var $wp_lang;
 function Antispam_Bee() {
+if (defined('DOING_AJAX')) {
+return;
+}
 $this->base_name = plugin_basename(__FILE__);
 $this->dir_url = WP_PLUGIN_URL. '/' .dirname($this->base_name);
 $this->md5_sign = 'comment-' .substr(md5(get_bloginfo('url')), 0, 5);
@@ -360,9 +363,11 @@ if (current_user_can('manage_options') === false || current_user_can('edit_plugi
 wp_die('You do not have permission to access!');
 }
 }
-function add_discussion_table_end() {
+function add_table_end() {
 echo sprintf(
 '<tr>
+<td class="first b b-tags"></td>
+<td class="t tags"></td>
 <td class="b b-spam" style="font-size:18px">%s</td>
 <td class="last t">%s</td>
 </tr>',
@@ -370,11 +375,9 @@ $this->get_spam_count(),
 __('Blocked', 'antispam_bee')
 );
 }
-function add_table_end() {
+function add_discussion_table_end() {
 echo sprintf(
 '<tr>
-<td class="first b b-tags"></td>
-<td class="t tags"></td>
 <td class="b b-spam" style="font-size:18px">%s</td>
 <td class="last t">%s</td>
 </tr>',
