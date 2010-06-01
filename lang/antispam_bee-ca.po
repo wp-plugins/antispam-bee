@@ -30,12 +30,12 @@ msgstr "No marquis vincles / pingbacks"
 msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Amaga la nota &quot;MARCAT COM SPAM&quot;"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Últim"
 
 msgid "About"
 msgstr "Quant a"
 
-msgid "requires at least WordPress 2.3"
-msgstr "requires at least WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "requires at least WordPress 2.7"
 

@@ -23,8 +23,8 @@ msgid "Settings"
 msgstr "设置"
 
 #: antispam_bee.php:254
-msgid "requires at least WordPress 2.3"
-msgstr "需要至少WordPres 2.3 或更新版本"
+msgid "requires at least WordPress 2.7"
+msgstr "需要至少WordPres 2.7 或更新版本"
 
 #: antispam_bee.php:261
 msgid "Plugin"
@@ -64,7 +64,7 @@ msgid "Spam will be automatically deleted after %s days"
 msgstr "垃圾评论会在 %s 天后自动删除"
 
 #: antispam_bee.php:379
-msgid "Last"
+msgid "Last check"
 msgstr "最新一次执行于"
 
 #: antispam_bee.php:386

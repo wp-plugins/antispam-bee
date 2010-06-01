@@ -51,14 +51,14 @@ msgstr "Комментарии помечено как спам"
 msgid "Spam list"
 msgstr "Спам список"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Последний раз"
 
 msgid "About"
 msgstr "О плагине"
 
-msgid "requires at least WordPress 2.3"
-msgstr "нужен WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "нужен WordPress 2.7"
 
 msgid "Blocked"
 msgstr "Блокированные"
@@ -68,4 +68,7 @@ msgstr "Узнать о wpSEO"
 
 msgid "Follow on Twitter"
 msgstr "Следить на Twitterе"
+
+msgid "by"
+msgstr "от"
 

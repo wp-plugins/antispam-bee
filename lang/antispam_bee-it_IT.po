@@ -30,12 +30,12 @@ msgstr "Non controllare i trackback / pingback"
 msgid "Hide the &quot;MARKED FOR SPAM&quot; note"
 msgstr "Nascondi la nota  &quot;MARKED FOR SPAM&quot;"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Ultimo"
 
 msgid "About"
 msgstr "Info"
 
-msgid "requires at least WordPress 2.3"
-msgstr "requires at least WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "requires at least WordPress 2.7"
 

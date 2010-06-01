@@ -30,12 +30,12 @@ msgstr "No marcar vínculos / pingbacks"
 msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Esconder la nota &quot;MARCADO COMO SPAM&quot;"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Último"
 
 msgid "About"
 msgstr "Acerca de"
 
-msgid "requires at least WordPress 2.3"
-msgstr "requires at least WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "requires at least WordPress 2.7"
 

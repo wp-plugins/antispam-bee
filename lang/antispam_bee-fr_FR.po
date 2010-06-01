@@ -51,14 +51,14 @@ msgstr "Commentaire marqué en spam"
 msgid "Spam list"
 msgstr "Liste des spams"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Dernièrement"
 
 msgid "About"
 msgstr "Information"
 
-msgid "requires at least WordPress 2.3"
-msgstr "Nécessite au moins WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "Nécessite au moins WordPress 2.7"
 
 msgid "Blocked"
 msgstr "Bloqué"

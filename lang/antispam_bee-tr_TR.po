@@ -36,6 +36,6 @@ msgstr "en son"
 msgid "About"
 msgstr "bilgi"
 
-msgid "requires at least WordPress 2.3"
-msgstr "requires at least WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "requires at least WordPress 2.7"
 

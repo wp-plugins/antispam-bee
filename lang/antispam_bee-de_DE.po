@@ -42,23 +42,83 @@ msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
 msgid "Enable stricter inspection for incomming comments"
 msgstr "Schärfere Prüfung für eingehende Kommentare anwenden"
 
-msgid "Do not check if the author has already commented and approved"
+msgid "Do not check if the comment author has already approved"
 msgstr "Autoren mit bereits genehmigten Kommentaren vertrauen"
 
 msgid "Comment marked as spam"
 msgstr "Kommentar als Spam markiert"
 
+msgid "New spam comment on your post"
+msgstr "Neuer Spam-Kommentar zum Artikel"
+
+msgid "Block comments and pings from specific countries"
+msgstr "Kommentare und Pings aus bestimmten Ländern verhindern"
+
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Project Honey Pot als Spammer-Quelle heranziehen"
+
+msgid "get free"
+msgstr "anfordern"
+
+msgid "Spam Reason"
+msgstr "Spamgrund"
+
+msgid "Empty Data"
+msgstr "Leere Daten"
+
+msgid "CSS Hack"
+msgstr "CSS Hack"
+
+msgid "Server IP"
+msgstr "Server IP"
+
+msgid "Country Check"
+msgstr "Ländercode"
+
+msgid "Honey Pot"
+msgstr "Honey Pot"
+
+msgid "Blacklist"
+msgstr "Blacklist"
+
+msgid "Whitelist"
+msgstr "Whitelist"
+
+msgid "iso codes"
+msgstr "ISO Codes"
+
+msgid "IP Locator"
+msgstr "IP Locator"
+
+msgid "Approve it"
+msgstr "Freigeben"
+
+msgid "Delete it"
+msgstr "Löschen"
+
+msgid "Trash it"
+msgstr "In Papierkorb"
+
 msgid "Spam list"
 msgstr "Spamliste"
 
-msgid "Last"
+msgid "Notify message by Antispam Bee"
+msgstr "Benachrichtigung von Antispam Bee"
+
+msgid "http://antispambee.com"
+msgstr "http://antispambee.de"
+
+msgid "or"
+msgstr "oder"
+
+msgid "Last check"
 msgstr "Zuletzt"
 
 msgid "About"
 msgstr "Information"
 
-msgid "requires at least WordPress 2.3"
-msgstr "benötigt WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "benötigt WordPress 2.7"
 
 msgid "Blocked"
 msgstr "Blockiert"
@@ -68,4 +128,7 @@ msgstr "wpSEO kennenlernen"
 
 msgid "Follow on Twitter"
 msgstr "Auf Twitter folgen"
+
+msgid "by"
+msgstr "von"
 

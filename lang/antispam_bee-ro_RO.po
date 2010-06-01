@@ -27,11 +27,12 @@ msgstr "Trackbackuri / Pingbackuri nu vor fi verificate"
 msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Ascunde apelul &quot;MARCAT CA SPAM&quot;"
 
-msgid "Last"
+msgid "Last check"
 msgstr "Anterior"
 
 msgid "About"
 msgstr "Despre"
 
-msgid "requires at least WordPress 2.3"
-msgstr "necesită min. WordPress 2.3"
+msgid "requires at least WordPress 2.7"
+msgstr "necesită min. WordPress 2.7"
+

@@ -83,7 +83,7 @@ msgid "Spam will be automatically deleted after %s days"
 msgstr "Spam será automaticamente excluído após %s dias"
 
 #: D:\www\wordpress\wp-content\plugins\antispam-bee/antispam_bee.php:649
-msgid "Last"
+msgid "Last check"
 msgstr "Último"
 
 #: D:\www\wordpress\wp-content\plugins\antispam-bee/antispam_bee.php:656
