@@ -1,11 +1,13 @@
 <?php
 /*
 Plugin Name: Antispam Bee
-Plugin URI: http://antispambee.com
-Description: Antispam Bee is the easy and productive spam-fighting plugin for WordPress. Trackback and pingback spam protection included.
+Text Domain: antispam_bee
+Domain Path: /lang
+Description: Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam.
 Author: Sergej M&uuml;ller
-Version: 1.7
 Author URI: http://www.wpSEO.org
+Plugin URI: http://antispambee.com
+Version: 1.7
 */
 
 
