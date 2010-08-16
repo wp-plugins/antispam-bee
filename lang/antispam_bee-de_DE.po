@@ -105,9 +105,6 @@ msgstr "Spamliste"
 msgid "Notify message by Antispam Bee"
 msgstr "Benachrichtigung von Antispam Bee"
 
-msgid "http://antispambee.com"
-msgstr "http://antispambee.de"
-
 msgid "or"
 msgstr "oder"
 
@@ -134,4 +131,7 @@ msgstr "von"
 
 msgid "Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam."
 msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentaren. Datenschutzkonform, funktionsreich und unkompliziert."
+
+msgid "http://antispambee.com"
+msgstr "http://antispambee.de"
 
