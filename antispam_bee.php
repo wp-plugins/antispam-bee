@@ -741,9 +741,8 @@ $body
 return $id;
 }
 function get_spam_count() {
-return number_format_i18n(
-$this->get_option('spam_count')
-);
+$count = $this->get_option('spam_count');
+return (get_locale() == 'de_DE' ? number_format($count, 0, '', '.') : number_format_i18n($count));
 }
 function the_spam_count() {
 echo $this->get_spam_count();
