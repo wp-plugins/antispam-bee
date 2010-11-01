@@ -21,7 +21,7 @@ var $base_name;
 var $md5_sign;
 var $spam_reason;
 function Antispam_Bee() {
-if (defined('DOING_AJAX')) {
+if ((defined('DOING_AJAX') && DOING_AJAX) || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)) {
 return;
 }
 $this->base_name = plugin_basename(__FILE__);
