@@ -2,7 +2,7 @@
 Contributors: stalkerX
 Tags: antispam, spam, comments, akismet, trackback, pings, protect
 Requires at least: 2.7
-Tested up to: 3.0.1
+Tested up to: 3.1
 Stable tag: trunk
 
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
@@ -46,6 +46,9 @@ Please adjust the text accordingly.
 
 
 == Changelog ==
+= 1.8 =
+* Support for the new IPInfoDB API (including API Key)
+
 = 1.7 =
 * Black and whitelisting for specific countries
 * "Project Honey Pot" as a optional spammer source

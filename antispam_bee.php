@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://antispambee.com
-Version: 1.7
+Version: 1.8
 */
 
 
@@ -463,7 +463,8 @@ create_function(
 );
 }
 function check_country_code($ip) {
-if (empty($ip)) {
+$key = $this->get_option('ipinfodb_key');
+if (empty($ip) || empty($key)) {
 return false;
 }
 $white = preg_split(
@@ -481,7 +482,13 @@ PREG_SPLIT_NO_EMPTY
 if (empty($white) && empty($black)) {
 return true;
 }
-$response = wp_remote_get('http://ipinfodb.com/ip_query_country.php?ip=' .$ip);
+$response = wp_remote_get(
+sprintf(
+'http://api.ipinfodb.com/v2/ip_query_country.php?key=%s&ip=%s',
+$key,
+$ip
+)
+);
 if (is_wp_error($response)) {
 return true;
 }
@@ -785,7 +792,8 @@ $options = array(
 'honey_key'=> (string)(@$_POST['antispam_bee_honey_key']),
 'country_code'=> (int)(!empty($_POST['antispam_bee_country_code'])),
 'country_black'=> (string)(@$_POST['antispam_bee_country_black']),
-'country_white'=> (string)(@$_POST['antispam_bee_country_white'])
+'country_white'=> (string)(@$_POST['antispam_bee_country_white']),
+'ipinfodb_key'=> (string)(@$_POST['antispam_bee_ipinfodb_key']),
 );
 if (empty($options['cronjob_interval'])) {
 $options['cronjob_enable'] = 0;
@@ -919,6 +927,14 @@ date_i18n('d.m.Y H:i:s', ($this->get_option('cronjob_timestamp') + get_option('g
 <input type="text" name="antispam_bee_country_white" id="antispam_bee_country_white" value="<?php echo $this->get_option('country_white') ?>" class="regular-text code" />
 </li>
 </ul>
+<ul class="shift <?php echo ($this->get_option('country_code') ? '' : 'inact') ?>">
+<li>
+<label for="antispam_bee_ipinfodb_key">
+IPInfoDB API Key (<a href="http://www.ipinfodb.com/register.php" target="_blank"><?php _e('get free', 'antispam_bee') ?></a>)
+</label>
+<input type="text" name="antispam_bee_ipinfodb_key" id="antispam_bee_ipinfodb_key" value="<?php echo $this->get_option('ipinfodb_key') ?>" class="maxi-text code" />
+</li>
+</ul>
 </li>
 <li>
 <div>
@@ -930,9 +946,9 @@ date_i18n('d.m.Y H:i:s', ($this->get_option('cronjob_timestamp') + get_option('g
 <ul class="shift <?php echo ($this->get_option('honey_pot') ? '' : 'inact') ?>">
 <li>
 <label for="antispam_bee_honey_key">
-<?php _e('API Key', 'antispam_bee') ?> (<a href="http://www.projecthoneypot.org/httpbl_configure.php" target="_blank"><?php _e('get free', 'antispam_bee') ?></a>)
+Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php" target="_blank"><?php _e('get free', 'antispam_bee') ?></a>)
 </label>
-<input type="text" name="antispam_bee_honey_key" id="antispam_bee_honey_key" value="<?php echo $this->get_option('honey_key') ?>" class="regular-text code" />
+<input type="text" name="antispam_bee_honey_key" id="antispam_bee_honey_key" value="<?php echo $this->get_option('honey_key') ?>" class="maxi-text code" />
 </li>
 </ul>
 </li>
