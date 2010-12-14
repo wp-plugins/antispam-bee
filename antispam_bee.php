@@ -828,6 +828,9 @@ strip_tags($options['country_white'])
 )
 );
 }
+if (empty($options['ipinfodb_key'])) {
+$options['country_code'] = 0;
+}
 if (empty($options['country_black']) && empty($options['country_white'])) {
 $options['country_code'] = 0;
 }
