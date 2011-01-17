@@ -34,7 +34,10 @@ msgid "Hide the &quot;MARKED AS SPAM&quot; note"
 msgstr "Hinweis &quot;MARKED AS SPAM&quot; unterdrücken"
 
 msgid "Display blocked comments count on the dashboard"
-msgstr "Anzahl blockierter Kommentare auf dem Dashboard anzeigen"
+msgstr "Anzahl der Spamkommentare auf dem Dashboard zeigen"
+
+msgid "Display statistics on the dashboard (no IE support)"
+msgstr "Statistik auf dem Dashboard zeigen (HTML5, kein IE)"
 
 msgid "Comments are also used outside of posts and pages"
 msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
@@ -134,4 +137,13 @@ msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentare
 
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
+
+msgid "Antispam Bee Stats"
+msgstr "Antispam Bee Statistik"
+
+msgid "Last 30 Days"
+msgstr "Letzte 30 Tage"
+
+msgid "No HTML5 canvas support."
+msgstr "Fehlende HTML5 Canvas-Unterstützung."
 

@@ -14,7 +14,8 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = At a Glance =
-* [NEW] Block comments and pings from specific countries
+* [NEW] Dashboard History Stats
+* Block comments and pings from specific countries
 * WordPress 3.x ready: Design as well as technical
 * Optional strict check for incomming comments
 * Email notifications about new spam comments
@@ -38,14 +39,18 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 Please adjust the text accordingly.
 
 = Documentation =
-* [Plugin documentation in german](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam Biene für WordPress")
-* [Follow us on Twitter for updates](http://twitter.com/wpSEO "wpSEO on Twitter")
-* [Other author plugins](http://wordpress.org/extend/plugins/profile/stalkerx "Other author plugins")
+* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
+* [Twitter](http://twitter.com/wpSEO "wpSEO on Twitter")
+* [Blog](http://playground.ebiene.de "Playground Blog")
+* [Other plugins](http://wpcoder.de "Other plugins")
 * [Plugin page](http://antispambee.com "AntispamBee.com")
 * [Author page](http://ebiene.de "Author page")
 
 
 == Changelog ==
+= 1.9 =
+* Dashboard History Stats (HTML5 Canvas)
+
 = 1.8 =
 * Support for the new IPInfoDB API (including API Key)
 

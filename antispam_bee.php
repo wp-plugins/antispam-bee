@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://antispambee.com
-Version: 1.8
+Version: 1.9
 */
 
 
@@ -83,6 +83,15 @@ $this,
 )
 );
 }
+}
+if ($this->get_option('dashboard_chart')) {
+add_action(
+'wp_dashboard_setup',
+array(
+$this,
+'init_dashboard_chart'
+)
+);
 }
 } else if ($this->is_current_page('plugins')) {
 add_action(
@@ -381,6 +390,13 @@ $version. 'alpha',
 function is_wp_touch() {
 return strpos(TEMPLATEPATH, 'wptouch');
 }
+function is_min_php($version) {
+return version_compare(
+phpversion(),
+$version,
+'>='
+);
+}
 function is_current_page($page) {
 switch($page) {
 case 'home':
@@ -419,6 +435,83 @@ $this->get_spam_count(),
 __('Blocked', 'antispam_bee')
 );
 }
+function init_dashboard_chart() {
+if ( !current_user_can('administrator') or !$this->is_min_php('5.0.2') or !empty($GLOBALS['is_IE']) ) {
+return false;
+}
+wp_add_dashboard_widget(
+'ab_spam_chart',
+__('Antispam Bee Stats', 'antispam_bee'),
+array(
+$this,
+'show_spam_chart'
+)
+);
+add_action(
+'wp_print_scripts',
+array(
+$this,
+'add_dashboard_js'
+)
+);
+add_action(
+'admin_head',
+array(
+$this,
+'add_dashboard_css'
+)
+);
+}
+function add_dashboard_css() {
+wp_register_style(
+'ab_chart',
+plugins_url('antispam-bee/css/dashboard.css')
+);
+wp_print_styles('ab_chart');
+}
+function add_dashboard_js() {
+$data = get_plugin_data(__FILE__);
+wp_register_script(
+'ab_chart',
+plugins_url('antispam-bee/js/dashboard.js'),
+array('jquery'),
+$data['Version']
+);
+$stats = (array)$this->get_option('daily_stats');
+$today = (int)strtotime('today');
+$fields = array();
+$i = 30;
+krsort($stats, SORT_NUMERIC);
+$stats = array_slice(
+$stats,
+(array_key_exists($today, $stats) ? 1 : 0),
+30,
+true
+);
+while ($i > 0) {
+$day = strtotime('today -' .$i --. ' days');
+$fields[$day] = (array_key_exists($day, $stats) ? $stats[$day] : 0);
+}
+wp_enqueue_script('ab_chart');
+wp_localize_script(
+'ab_chart',
+'ab_chart',
+array(
+'entries' => sprintf(
+'%s',
+implode(',', array_values($fields))
+)
+)
+);
+}
+function show_spam_chart() { ?>
+<p class="sub">
+<?php _e('Last 30 Days', 'antispam_bee') ?>
+</p>
+<canvas id="canvas" width="360" height="80">
+<p><?php _e('No HTML5 canvas support.', 'antispam_bee') ?></p>
+</canvas>
+<? }
 function show_version_notice() {
 if ($this->is_min_wp('2.7')) {
 return;
@@ -635,6 +728,7 @@ $spam_notice = !$this->get_option('no_notice');
 $ignore_filter = $this->get_option('ignore_filter');
 $ignore_type = $this->get_option('ignore_type');
 $this->update_spam_count();
+$this->update_daily_stats();
 if ($spam_remove) {
 die('Spam deleted.');
 }
@@ -760,6 +854,20 @@ $this->update_option(
 intval($this->get_option('spam_count') + 1)
 );
 }
+function update_daily_stats() {
+$stats = (array)$this->get_option('daily_stats');
+$today = (int)strtotime('today');
+if (array_key_exists($today, $stats)) {
+$stats[$today] ++;
+} else {
+$stats[$today] = 1;
+}
+krsort($stats, SORT_NUMERIC);
+$this->update_option(
+'daily_stats',
+array_slice($stats, 0, 31, true)
+);
+}
 function show_help_link($anchor) {
 if (get_locale() != 'de_DE') {
 return '';
@@ -785,6 +893,7 @@ $options = array(
 'cronjob_enable'=> (int)(!empty($_POST['antispam_bee_cronjob_enable'])),
 'cronjob_interval'=> (int)(@$_POST['antispam_bee_cronjob_interval']),
 'dashboard_count'=> (int)(!empty($_POST['antispam_bee_dashboard_count'])),
+'dashboard_chart'=> (int)(!empty($_POST['antispam_bee_dashboard_chart'])),
 'advanced_check'=> (int)(!empty($_POST['antispam_bee_advanced_check'])),
 'already_commented'=> (int)(!empty($_POST['antispam_bee_already_commented'])),
 'always_allowed'=> (int)(!empty($_POST['antispam_bee_always_allowed'])),
@@ -793,7 +902,7 @@ $options = array(
 'country_code'=> (int)(!empty($_POST['antispam_bee_country_code'])),
 'country_black'=> (string)(@$_POST['antispam_bee_country_black']),
 'country_white'=> (string)(@$_POST['antispam_bee_country_white']),
-'ipinfodb_key'=> (string)(@$_POST['antispam_bee_ipinfodb_key']),
+'ipinfodb_key'=> (string)(@$_POST['antispam_bee_ipinfodb_key'])
 );
 if (empty($options['cronjob_interval'])) {
 $options['cronjob_enable'] = 0;
@@ -967,6 +1076,14 @@ Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php"
 <?php _e('Display blocked comments count on the dashboard', 'antispam_bee') ?> <?php $this->show_help_link('dashboard_count') ?>
 </label>
 </li>
+<?php if ( $this->is_min_php('5.0.2') ) { ?>
+<li>
+<input type="checkbox" name="antispam_bee_dashboard_chart" id="antispam_bee_dashboard_chart" value="1" <?php checked($this->get_option('dashboard_chart'), 1) ?> />
+<label for="antispam_bee_dashboard_chart">
+<?php _e('Display statistics on the dashboard (no IE support)', 'antispam_bee') ?> <?php $this->show_help_link('dashboard_chart') ?>
+</label>
+</li>
+<?php } ?>
 <li>
 <input type="checkbox" name="antispam_bee_advanced_check" id="antispam_bee_advanced_check" value="1" <?php checked($this->get_option('advanced_check'), 1) ?> />
 <label for="antispam_bee_advanced_check">
