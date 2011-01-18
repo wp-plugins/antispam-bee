@@ -21,7 +21,7 @@ var $base_name;
 var $md5_sign;
 var $spam_reason;
 function Antispam_Bee() {
-if ((defined('DOING_AJAX') && DOING_AJAX) || (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)) {
+if ((defined('DOING_AJAX') && DOING_AJAX) or (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE)) {
 return;
 }
 $this->base_name = plugin_basename(__FILE__);
@@ -409,7 +409,7 @@ return false;
 }
 }
 function check_user_can() {
-if (current_user_can('manage_options') === false || current_user_can('edit_plugins') === false || !is_user_logged_in()) {
+if (current_user_can('manage_options') === false or current_user_can('edit_plugins') === false or !is_user_logged_in()) {
 wp_die('You do not have permission to access!');
 }
 }
@@ -504,16 +504,18 @@ implode(',', array_values($fields))
 )
 );
 }
-function show_spam_chart() { ?>
-<p class="sub">
-<?php _e('Last 30 Days', 'antispam_bee') ?>
-</p>
+function show_spam_chart() {
+echo sprintf(
+'<p class="sub">%s</p>
 <canvas id="canvas" width="360" height="80">
-<p><?php _e('No HTML5 canvas support.', 'antispam_bee') ?></p>
-</canvas>
-<? }
+<p>%s</p>
+</canvas>',
+__('Last 30 Days', 'antispam_bee'),
+__('No HTML5 canvas support.', 'antispam_bee')
+);
+}
 function show_version_notice() {
-if ($this->is_min_wp('2.7')) {
+if ( $this->is_min_wp('2.7') ) {
 return;
 }
 echo sprintf(
@@ -542,7 +544,7 @@ $ip
 }
 }
 function replace_comment_field() {
-if (is_feed() || is_trackback() || $this->is_wp_touch()) {
+if (is_feed() or is_trackback() or $this->is_wp_touch()) {
 return;
 }
 if (!is_singular() && !$this->get_option('always_allowed')) {
@@ -557,7 +559,7 @@ create_function(
 }
 function check_country_code($ip) {
 $key = $this->get_option('ipinfodb_key');
-if (empty($ip) || empty($key)) {
+if (empty($ip) or empty($key)) {
 return false;
 }
 $white = preg_split(
@@ -600,7 +602,7 @@ return (in_array($matches[1], $white)) ? true : false;
 }
 function check_honey_pot($ip) {
 $key = $this->get_option('honey_key');
-if (empty($ip) || empty($key)) {
+if (empty($ip) or empty($key)) {
 return false;
 }
 $host = sprintf(
@@ -623,13 +625,13 @@ gethostbyname($host)
 return !($bits[0] == 127 && $bits[3] & 4);
 }
 function precheck_comment_request() {
-if (is_feed() || is_trackback() || $this->is_wp_touch()) {
+if (is_feed() or is_trackback() or $this->is_wp_touch()) {
 return;
 }
 $request_url = @$_SERVER['REQUEST_URI'];
 $hidden_field = @$_POST['comment'];
 $plugin_field = @$_POST[$this->md5_sign];
-if (empty($_POST) || empty($request_url) || strpos($request_url, 'wp-comments-post.php') === false) {
+if (empty($_POST) or empty($request_url) or strpos($request_url, 'wp-comments-post.php') === false) {
 return;
 }
 if (empty($hidden_field) && !empty($plugin_field)) {
@@ -642,7 +644,7 @@ $_POST['bee_spam'] = 1;
 function verify_comment_request($comment) {
 $request_url = @$_SERVER['REQUEST_URI'];
 $request_ip = @$_SERVER['REMOTE_ADDR'];
-if (empty($request_url) || empty($request_ip)) {
+if (empty($request_url) or empty($request_ip)) {
 return $this->flag_comment_request(
 $comment,
 'Empty Data'
@@ -691,7 +693,7 @@ $comment,
 );
 }
 } else if (!empty($comment_type) && in_array($comment_type, $ping_types) && $ping_allowed) {
-if (empty($comment_url) || empty($comment_body)) {
+if (empty($comment_url) or empty($comment_body)) {
 return $this->flag_comment_request(
 $comment,
 'Empty Data',
@@ -732,7 +734,7 @@ $this->update_daily_stats();
 if ($spam_remove) {
 die('Spam deleted.');
 }
-if ($ignore_filter && (($ignore_type == 1 && $is_ping) || ($ignore_type == 2 && !$is_ping))) {
+if ($ignore_filter && (($ignore_type == 1 && $is_ping) or ($ignore_type == 2 && !$is_ping))) {
 die('Spam deleted.');
 }
 $this->spam_reason = $reason;
@@ -771,7 +773,7 @@ return $id;
 }
 $comment = @$GLOBALS['commentdata'];
 $ip = @$_SERVER['REMOTE_ADDR'];
-if (empty($comment) || empty($ip)) {
+if (empty($comment) or empty($ip)) {
 return $id;
 }
 if (!$post = get_post($comment['comment_post_ID'])) {
@@ -869,7 +871,7 @@ array_slice($stats, 0, 31, true)
 );
 }
 function show_help_link($anchor) {
-if (get_locale() != 'de_DE') {
+if ( get_locale() != 'de_DE' ) {
 return '';
 }
 echo sprintf(
@@ -878,10 +880,10 @@ $anchor
 );
 }
 function show_admin_menu() {
-if (!$this->is_min_wp('2.8')) {
+if ( !$this->is_min_wp('2.8') ) {
 $this->check_user_can();
 }
-if (!empty($_POST)) {
+if ( !empty($_POST) ) {
 check_admin_referer('antispam_bee');
 $options = array(
 'flag_spam'=> (int)(!empty($_POST['antispam_bee_flag_spam'])),
@@ -904,10 +906,10 @@ $options = array(
 'country_white'=> (string)(@$_POST['antispam_bee_country_white']),
 'ipinfodb_key'=> (string)(@$_POST['antispam_bee_ipinfodb_key'])
 );
-if (empty($options['cronjob_interval'])) {
+if ( empty($options['cronjob_interval']) ) {
 $options['cronjob_enable'] = 0;
 }
-if (!empty($options['honey_key'])) {
+if ( !empty($options['honey_key']) ) {
 $options['honey_key'] = preg_replace(
 '/[^a-z]/',
 '',
@@ -916,10 +918,10 @@ strip_tags($options['honey_key'])
 )
 );
 }
-if (empty($options['honey_key'])) {
+if ( empty($options['honey_key']) ) {
 $options['honey_pot'] = 0;
 }
-if (!empty($options['country_black'])) {
+if ( !empty($options['country_black']) ) {
 $options['country_black'] = preg_replace(
 '/[^A-Z ]/',
 '',
@@ -928,7 +930,7 @@ strip_tags($options['country_black'])
 )
 );
 }
-if (!empty($options['country_white'])) {
+if ( !empty($options['country_white']) ) {
 $options['country_white'] = preg_replace(
 '/[^A-Z ]/',
 '',
@@ -937,15 +939,15 @@ strip_tags($options['country_white'])
 )
 );
 }
-if (empty($options['ipinfodb_key'])) {
+if ( empty($options['ipinfodb_key']) ) {
 $options['country_code'] = 0;
 }
-if (empty($options['country_black']) && empty($options['country_white'])) {
+if ( empty($options['country_black']) && empty($options['country_white']) ) {
 $options['country_code'] = 0;
 }
-if ($options['cronjob_enable'] && !$this->get_option('cronjob_enable')) {
+if ( $options['cronjob_enable'] && !$this->get_option('cronjob_enable') ) {
 $this->init_scheduled_hook();
-} else if (!$options['cronjob_enable'] && $this->get_option('cronjob_enable')) {
+} else if ( !$options['cronjob_enable'] && $this->get_option('cronjob_enable') ) {
 $this->clear_scheduled_hook();
 }
 $this->update_options($options); ?>
@@ -1123,4 +1125,4 @@ Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php"
 </div>
 <?php }
 }
-$GLOBALS['Antispam_Bee'] = new Antispam_Bee();
+new Antispam_Bee();
