@@ -1,7 +1,7 @@
 === Antispam Bee ===
 Contributors: stalkerX
 Tags: antispam, spam, comments, akismet, trackback, pings, protect
-Requires at least: 2.7
+Requires at least: 2.8
 Tested up to: 3.1
 Stable tag: trunk
 
@@ -14,7 +14,9 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = At a Glance =
-* [NEW] Dashboard History Stats
+* [NEW] Allow comments only in certain language
+* [NEW] Consider comments which are already marked as spam
+* Dashboard History Stats
 * Block comments and pings from specific countries
 * WordPress 3.x ready: Design as well as technical
 * Optional strict check for incomming comments
@@ -48,6 +50,14 @@ Please adjust the text accordingly.
 
 
 == Changelog ==
+= 2.0 =
+* Allow comments only in certain language (English/German)
+* Consider comments which are already marked as spam
+* Dashboard Stats: Change from canvas to image format
+* System requirements: WordPress 2.8
+* Removal of the migration script
+* Increase plugin security
+
 = 1.9 =
 * Dashboard History Stats (HTML5 Canvas)
 
