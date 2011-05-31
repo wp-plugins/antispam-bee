@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://antispambee.com
-Version: 2.0
+Version: 2.1
 */
 
 
@@ -190,6 +190,10 @@ if ( $this->base_name == $file ) {
 return array_merge(
 $links,
 array(
+sprintf(
+'<a href="https://flattr.com/thing/54115/Antispam-Bee-Das-WordPress-Plugin-fur-den-Schutz-gegen-Spam" target="_blank">%s</a>',
+esc_html__('Flattr')
+),
 sprintf(
 '<a href="options-general.php?page=%s">%s</a>',
 $this->base_name,
@@ -424,19 +428,23 @@ $first = $stamps[0];
 $last = end($stamps);
 $max = max($counts);
 $start = sprintf(
-'%s %s|',
+'%s %s',
 human_time_diff(
 $last,
-$first
+current_time('timestamp')
 ),
 esc_html__('ago', 'antispam_bee')
 );
 if ( $first == strtotime('today') ) {
 $end = esc_html__('Today', 'antispam_bee');
 } else {
-$end = human_time_diff(
+$end = sprintf(
+'%s %s',
+human_time_diff(
 $first,
 current_time('timestamp')
+),
+esc_html__('ago', 'antispam_bee')
 );
 }
 $data = get_plugin_data(__FILE__);
@@ -458,7 +466,7 @@ wp_localize_script(
 'ab_chart',
 array(
 'counts' => implode('|', $counts),
-'x_axis' => sprintf('%s%s', $start, $end),
+'x_axis' => sprintf('%s|%s', $start, $end),
 'y_axis' => sprintf('%d|%d', intval($max / 2), $max)
 )
 );
@@ -610,37 +618,35 @@ return ( $bits[0] == 127 && $bits[3] & 4 );
 }
 function is_lang_spam($content)
 {
-if ( !$this->is_min_php('5.2.0') ) {
-return false;
-}
-$key = $this->get_option('translate_key');
 $lang = $this->get_option('translate_lang');
 $content = rawurlencode(
-substr(
+mb_substr(
 strip_tags(stripslashes($content)),
 0,
 200
 )
 );
-if ( empty($key) or empty($lang) or empty($content) ) {
+if ( empty($lang) or empty($content) ) {
 return false;
 }
 $response = wp_remote_get(
 sprintf(
-'https://www.googleapis.com/language/translate/v2?key=%s&q=%s&target=%s',
-$key,
-$content,
-$lang
+'http://translate.google.de/translate_a/t?client=x&text=%s',
+$content
 )
 );
 if ( is_wp_error($response) ) {
 return false;
 }
-$json = json_decode(wp_remote_retrieve_body($response), true);
-if ( empty($json['data']) ) {
+preg_match(
+'/"src":"(\\D{2})"/',
+wp_remote_retrieve_body($response),
+$matches
+);
+if ( empty($matches[1]) ) {
 return false;
 }
-return ( $json['data']['translations'][0]['detectedSourceLanguage'] != $lang );
+return ( $matches[1] != $lang );
 }
 function is_fake_ip($ip)
 {
@@ -961,7 +967,6 @@ $options = array(
 'country_white'=> (string)(@$_POST['antispam_bee_country_white']),
 'ipinfodb_key'=> (string)(@$_POST['antispam_bee_ipinfodb_key']),
 'translate_api'=> (int)(!empty($_POST['antispam_bee_translate_api'])),
-'translate_key'=> (string)(@$_POST['antispam_bee_translate_key']),
 'translate_lang'=> (string)(@$_POST['antispam_bee_translate_lang'])
 );
 if ( empty($options['cronjob_interval']) ) {
@@ -979,13 +984,6 @@ strip_tags($options['honey_key'])
 if ( empty($options['honey_key']) ) {
 $options['honey_pot'] = 0;
 }
-if ( !empty($options['translate_key']) ) {
-$options['translate_key'] = preg_replace(
-'/[^a-z0-9]/i',
-'',
-strip_tags($options['translate_key'])
-);
-}
 if ( !empty($options['translate_lang']) ) {
 $options['translate_lang'] = preg_replace(
 '/[^den]/',
@@ -993,7 +991,7 @@ $options['translate_lang'] = preg_replace(
 strip_tags($options['translate_lang'])
 );
 }
-if ( empty($options['translate_key']) or empty($options['translate_lang']) ) {
+if ( empty($options['translate_lang']) ) {
 $options['translate_api'] = 0;
 }
 if ( !empty($options['country_black']) ) {
@@ -1150,7 +1148,6 @@ Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php"
 </ul>
 </li>
 </ul>
-<?php if ( $this->is_min_php('5.2.0') ) { ?>
 <ul>
 <li>
 <div>
@@ -1162,18 +1159,10 @@ Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php"
 <div class="shift <?php echo ($this->get_option('translate_api') ? '' : 'inact') ?>">
 <ul>
 <li>
-<label for="antispam_bee_translate_key">
-Google Translate API Key (<a href="https://code.google.com/apis/console/" target="_blank"><?php esc_html_e('get free', 'antispam_bee') ?></a>)
-</label>
-<input type="text" name="antispam_bee_translate_key" id="antispam_bee_translate_key" value="<?php echo esc_attr($this->get_option('translate_key')); ?>" class="maxi-text code" />
-</li>
-</ul>
-<ul>
-<li>
 <label for="antispam_bee_translate_lang">
 <?php esc_html_e('Language', 'antispam_bee') ?>
 </label>
-<select name="antispam_bee_translate_lang" class="block">
+<select name="antispam_bee_translate_lang">
 <?php foreach(array('de' => 'German', 'en' => 'English') as $k => $v) { ?>
 <option <?php selected($this->get_option('translate_lang'), $k); ?> value="<?php echo esc_attr($k) ?>"><?php esc_html_e($v, 'antispam_bee') ?></option>
 <?php } ?>
@@ -1184,7 +1173,6 @@ Google Translate API Key (<a href="https://code.google.com/apis/console/" target
 </div>
 </li>
 </ul>
-<?php } ?>
 <ul>
 <li>
 <input type="checkbox" name="antispam_bee_advanced_check" id="antispam_bee_advanced_check" value="1" <?php checked($this->get_option('advanced_check'), 1) ?> />

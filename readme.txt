@@ -50,6 +50,9 @@ Please adjust the text accordingly.
 
 
 == Changelog ==
+= 2.1 =
+* Remove Google Translate API support
+
 = 2.0 =
 * Allow comments only in certain language (English/German)
 * Consider comments which are already marked as spam
