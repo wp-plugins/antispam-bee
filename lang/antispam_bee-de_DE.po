@@ -135,29 +135,14 @@ msgstr "oder"
 msgid "Last check"
 msgstr "Zuletzt"
 
-msgid "About"
-msgstr "Information"
-
 msgid "requires at least WordPress 2.8"
 msgstr "benötigt WordPress 2.8"
 
 msgid "Blocked"
 msgstr "Blockiert"
 
-msgid "Learn about wpSEO"
-msgstr "wpSEO kennenlernen"
-
 msgid "http://www.wpseo.org"
 msgstr "http://www.wpseo.de"
-
-msgid "Follow on Twitter"
-msgstr "Auf Twitter folgen"
-
-msgid "by"
-msgstr "von"
-
-msgid "ago"
-msgstr "zuvor"
 
 msgid "Today"
 msgstr "Heute"

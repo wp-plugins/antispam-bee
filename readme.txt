@@ -2,7 +2,7 @@
 Contributors: stalkerX
 Tags: antispam, spam, comments, akismet, trackback, pings, protect
 Requires at least: 2.8
-Tested up to: 3.2.1
+Tested up to: 3.3
 Stable tag: trunk
 
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
@@ -42,7 +42,8 @@ Please adjust the text accordingly.
 
 = Documentation =
 * [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
-* [Twitter](http://twitter.com/wpSEO "wpSEO on Twitter")
+* [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
+* [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Blog](http://playground.ebiene.de "Playground Blog")
 * [Other plugins](http://wpcoder.de "Other plugins")
 * [Plugin page](http://antispambee.com "AntispamBee.com")
@@ -50,6 +51,9 @@ Please adjust the text accordingly.
 
 
 == Changelog ==
+= 2.2 =
+* Interactive Dashboard Stats
+
 = 2.1 =
 * Remove Google Translate API support
 

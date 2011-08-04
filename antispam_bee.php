@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://www.wpSEO.org
 Plugin URI: http://antispambee.com
-Version: 2.1
+Version: 2.2
 */
 
 
@@ -410,43 +410,40 @@ $this,
 );
 }
 function add_dashboard_css() {
+$data = get_plugin_data(__FILE__);
 wp_register_style(
-'ab_chart',
-plugins_url('antispam-bee/css/dashboard.css')
+'antispambee',
+plugins_url('antispam-bee/css/dashboard.css'),
+array(),
+$data['Version']
 );
-wp_print_styles('ab_chart');
+wp_print_styles('antispambee');
 }
 function add_dashboard_js() {
-$stats = (array)$this->get_option('daily_stats');
-if ( empty($stats) or count($stats) == 1 ) {
+$items = (array)$this->get_option('daily_stats');
+if ( empty($items) or count($items) == 1 ) {
 return;
 }
-krsort($stats, SORT_NUMERIC);
-$counts = array_reverse(array_values($stats));
-$stamps = array_keys($stats);
-$first = $stamps[0];
-$last = end($stamps);
-$max = max($counts);
-$start = sprintf(
-'%s %s',
-human_time_diff(
-$last,
-current_time('timestamp')
-),
-esc_html__('ago', 'antispam_bee')
+krsort($items, SORT_NUMERIC);
+$output = array(
+'created' => array(),
+'count' => array()
 );
-if ( $first == strtotime('today') ) {
-$end = esc_html__('Today', 'antispam_bee');
-} else {
-$end = sprintf(
-'%s %s',
-human_time_diff(
-$first,
-current_time('timestamp')
-),
-esc_html__('ago', 'antispam_bee')
+$i = 0;
+foreach($items as $timestamp => $count) {
+array_push(
+$output['created'],
+( $timestamp == strtotime('today', current_time('timestamp')) ? __('Today', 'antispam_bee') : date('d.m', $timestamp) )
+);
+array_push(
+$output['count'],
+(int)$count
 );
 }
+$stats = array(
+'created' => implode(',', $output['created']),
+'count' => implode(',', $output['count'])
+);
 $data = get_plugin_data(__FILE__);
 wp_register_script(
 'ab_chart',
@@ -463,12 +460,8 @@ wp_enqueue_script('google_jsapi');
 wp_enqueue_script('ab_chart');
 wp_localize_script(
 'ab_chart',
-'ab_chart',
-array(
-'counts' => implode('|', $counts),
-'x_axis' => sprintf('%s|%s', $start, $end),
-'y_axis' => sprintf('%d|%d', intval($max / 2), $max)
-)
+'antispambee',
+$stats
 );
 }
 function show_spam_chart() {
@@ -481,17 +474,6 @@ return;
 echo sprintf(
 '<div class="error"><p><strong>Antispam Bee</strong> %s</p></div>',
 esc_html__('requires at least WordPress 2.8', 'antispam_bee')
-);
-}
-function show_plugin_info() {
-$data = get_plugin_data(__FILE__);
-echo sprintf(
-'Antispam Bee %s %s <a href="http://eBiene.de" target="_blank">Sergej M&uuml;ller</a> | <a href="http://twitter.com/wpSEO" target="_blank">%s</a> | <a href="%s" target="_blank">%s</a>',
-$data['Version'],
-esc_html__('by', 'antispam_bee'),
-esc_html__('Follow on Twitter', 'antispam_bee'),
-esc_html__('http://www.wpseo.org', 'antispam_bee'),
-esc_html__('Learn about wpSEO', 'antispam_bee')
 );
 }
 function cut_ip_addr($ip) {
@@ -1223,16 +1205,6 @@ Honey Pot API Key (<a href="http://www.projecthoneypot.org/httpbl_configure.php"
 </ul>
 <p>
 <input type="submit" name="antispam_bee_submit" class="button-primary" value="<?php esc_html_e('Save Changes') ?>" />
-</p>
-</div>
-</div>
-<div class="postbox">
-<h3>
-<?php esc_html_e('About', 'antispam_bee') ?>
-</h3>
-<div class="inside">
-<p>
-<?php $this->show_plugin_info() ?>
 </p>
 </div>
 </div>
