@@ -1,5 +1,5 @@
 === Antispam Bee ===
-Contributors: stalkerX
+Contributors: sergej.mueller
 Tags: antispam, spam, comments, akismet, trackback, pings, protect
 Requires at least: 2.8
 Tested up to: 3.3
