@@ -14,8 +14,8 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 
 
 = At a Glance =
-* [NEW] Allow comments only in certain language
-* [NEW] Consider comments which are already marked as spam
+* Allow comments only in certain language
+* Consider comments which are already marked as spam
 * Dashboard History Stats
 * Block comments and pings from specific countries
 * WordPress 3.x ready: Design as well as technical
@@ -40,14 +40,14 @@ Protects your blog from spam by replacing the comment field. It's easy to use an
 `
 Please adjust the text accordingly.
 
-= Documentation =
-* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
+= Related Links =
+* [Blog](http://playground.ebiene.de "Playground Blog")
 * [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
-* [Blog](http://playground.ebiene.de "Playground Blog")
-* [Other plugins](http://wpcoder.de "Other plugins")
+* [Portfolio](http://ebiene.de "Portfolio")
 * [Plugin page](http://antispambee.com "AntispamBee.com")
-* [Author page](http://ebiene.de "Author page")
+* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
+* [Other plugins](http://wpcoder.de "Other plugins")
 
 
 == Changelog ==
