@@ -8,7 +8,7 @@ Stable tag: trunk
 Antispam Bee - The easy and effective Antispam Plugin for WordPress.
 
 
-== Description  ==
+== Description ==
 = Easy and effective Antispam Plugin =
 Protects your blog from spam by replacing the comment field. It's easy to use and extremely effective. Really!
 
