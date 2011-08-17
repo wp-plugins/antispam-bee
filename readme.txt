@@ -46,8 +46,8 @@ Please adjust the text accordingly.
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Portfolio](http://ebiene.de "Portfolio")
 * [Plugin page](http://antispambee.com "AntispamBee.com")
-* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
 * [Other plugins](http://wpcoder.de "Other plugins")
+* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
 
 
 == Changelog ==
