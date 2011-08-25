@@ -153,3 +153,6 @@ msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentare
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
 
+msgid "http://www.wpSEO.org"
+msgstr "http://www.wpSEO.de"
+
