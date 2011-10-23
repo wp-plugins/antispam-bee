@@ -1093,7 +1093,7 @@ IPInfoDB API Key (<a href="http://www.ipinfodb.com/register.php" target="_blank"
 <ul>
 <li>
 <label for="antispam_bee_country_black">
-<?php esc_html_e('Blacklist', 'antispam_bee') ?> (<a href="http://www.iso.org/iso/english_country_names_and_code_elements" target="_blank"><?php esc_html_e('iso codes', 'antispam_bee') ?></a>)
+<?php esc_html_e('Blacklist', 'antispam_bee') ?> (<a href="http://www.iso.org/iso/country_names_and_code_elements" target="_blank"><?php esc_html_e('iso codes', 'antispam_bee') ?></a>)
 </label>
 <input type="text" name="antispam_bee_country_black" id="antispam_bee_country_black" value="<?php echo esc_attr($this->get_option('country_black')); ?>" class="regular-text code" />
 </li>
@@ -1104,7 +1104,7 @@ IPInfoDB API Key (<a href="http://www.ipinfodb.com/register.php" target="_blank"
 </li>
 <li>
 <label for="antispam_bee_country_white">
-<?php esc_html_e('Whitelist', 'antispam_bee') ?> (<a href="http://www.iso.org/iso/english_country_names_and_code_elements" target="_blank"><?php esc_html_e('iso codes', 'antispam_bee') ?></a>)
+<?php esc_html_e('Whitelist', 'antispam_bee') ?> (<a href="http://www.iso.org/iso/country_names_and_code_elements" target="_blank"><?php esc_html_e('iso codes', 'antispam_bee') ?></a>)
 </label>
 <input type="text" name="antispam_bee_country_white" id="antispam_bee_country_white" value="<?php echo esc_attr($this->get_option('country_white')); ?>" class="regular-text code" />
 </li>
