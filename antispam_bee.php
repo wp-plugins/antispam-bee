@@ -1053,7 +1053,7 @@ echo '>' .esc_html__($value). '</option>';
 echo sprintf(
 '<br />(%s @ %s)',
 esc_html__('Last check', 'antispam_bee'),
-date_i18n('d.m.Y H:i:s', ($this->get_option('cronjob_timestamp') + get_option('gmt_offset') * 60))
+date_i18n('d.m.Y H:i:s', ($this->get_option('cronjob_timestamp') + get_option('gmt_offset') * 3600))
 );
 } ?>
 </li>
