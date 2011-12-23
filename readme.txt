@@ -1,56 +1,60 @@
 === Antispam Bee ===
 Contributors: sergej.mueller
-Tags: antispam, spam, comments, akismet, trackback, pings, protect
+Tags: antispam, spam, comments, trackback
+Donate link: http://flattr.com/profile/sergej.mueller
 Requires at least: 2.8
 Tested up to: 3.3
 Stable tag: trunk
 
-Antispam Bee - The easy and effective Antispam Plugin for WordPress.
+
+
+Anonymous and independent antispam solution. Detect comment and trackback spam. Includes statistics and notifications.
+
 
 
 == Description ==
-= Easy and effective Antispam Plugin =
-Protects your blog from spam by replacing the comment field. It's easy to use and extremely effective. Really!
 
+= Kill spam =
+Antispam Bee is simple to use, has many options and filters. Does not store data on remote servers. Really.
 
-= At a Glance =
+= Features =
+* Very fast execution
+* Spam counter on dashboard
+* Anonymous and confidential
+* Trackback and pingback check
+* Saves no data on remote servers
+* No need to adjust any templates
+* Cleaning up after plugin removal
+* Accordingly no outgoing connection
+* Interactive statistics on dashboard
+* Automatically cleanup the spam folder
 * Allow comments only in certain language
-* Consider comments which are already marked as spam
-* Dashboard History Stats
+* Spam may be marked or deleted immediately
+* Email notifications about new spam comments
+* Quick & Dirty: activate, set settings, done!
+* Optional strict check for incomming comments
 * Block comments and pings from specific countries
 * WordPress 3.x ready: Design as well as technical
-* Optional strict check for incomming comments
-* Email notifications about new spam comments
-* Trackback and pingback check
-* Spam counter on dashboard
-* Quick & Dirty: activate, set settings, done!
-* Spam may be marked or deleted immediately
-* Automatically cleanup the spam folder
-* Saves no data in the database
-* Accordingly no outgoing connection
-* Very, very fast execution
-* No need to adjust any templates
-* Clean up after uninstall the plugin
-* Anonymous and independent
+* Consider comments which are already marked as spam
 
-= Antispam Bee counter =
-`
-<?php do_action('antispam_bee_count') ?> spam comments blocked by
-<a href="http://antispambee.com">Antispam Bee</a>
-`
-Please adjust the text accordingly.
+= Counter =
+`<?php do_action('antispam_bee_count') ?> spam comments blocked by
+<a href="http://antispambee.com">Antispam Bee</a>`
 
-= Related Links =
-* [Blog](http://playground.ebiene.de "Playground Blog")
-* [Flattr](http://flattr.com/profile/sergej.mueller "Flattr")
+= Documentation =
+* [Antispam Bee: Antispam für WordPress](http://playground.ebiene.de/antispam-bee-wordpress-plugin/ "Antispam für WordPress") (DE)
+
+= Author =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Portfolio](http://ebiene.de "Portfolio")
-* [Plugin page](http://antispambee.com "AntispamBee.com")
-* [Other plugins](http://wpcoder.de "Other plugins")
-* [Documentation](http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/ "Antispam für WordPress")
+
 
 
 == Changelog ==
+
+= 2.3 =
+* Xmas Edition
+
 = 2.2 =
 * Interactive Dashboard Stats
 
@@ -132,16 +136,7 @@ Please adjust the text accordingly.
 * Trackback and Pingback spam protection
 
 
+
 == Screenshots ==
 
 1. Antispam Bee settings
-
-
-== Installation ==
-1. Download *Antispam Bee* plugin
-1. Unzip the archive
-1. Upload the folder *antispam_bee* into *../wp-content/plugins/*
-1. Go to tab *Plugins*
-1. Activate *Antispam Bee*
-1. Edit settings
-1. Ready

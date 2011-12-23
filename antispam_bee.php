@@ -5,13 +5,13 @@ Text Domain: antispam_bee
 Domain Path: /lang
 Description: Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam.
 Author: Sergej M&uuml;ller
-Author URI: http://www.wpSEO.org
+Author URI: http://wpseo.de
 Plugin URI: http://antispambee.com
-Version: 2.2
+Version: 2.3
 */
 
 
-if ( !function_exists ('is_admin') ) {
+if ( !class_exists('WP') ) {
 header('Status: 403 Forbidden');
 header('HTTP/1.1 403 Forbidden');
 exit();
@@ -920,7 +920,7 @@ if ( get_locale() != 'de_DE' ) {
 return '';
 }
 echo sprintf(
-'[<a href="http://playground.ebiene.de/1137/antispam-bee-wordpress-plugin/#%s" target="_blank">?</a>]',
+'[<a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/#%s" target="_blank">?</a>]',
 $anchor
 );
 }
