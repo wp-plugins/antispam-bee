@@ -15,68 +15,26 @@ msgstr ""
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: .\n"
 
-msgid "Mark as Spam, do not delete"
-msgstr "Spam markieren, nicht löschen"
-
-msgid "Limit on"
-msgstr "Beschränken auf"
-
-msgid "Spam will be automatically deleted after %s days"
-msgstr "Spam nach %s Tagen automatisch löschen"
-
-msgid "Send an admin email when new spam item incoming"
-msgstr "Bei Neuzugängen via E-Mail benachrichtigen"
-
-msgid "Do not check trackbacks / pingbacks"
-msgstr "Track- und Pingbacks nicht prüfen"
-
-msgid "Hide the &quot;MARKED AS SPAM&quot; note"
-msgstr "Hinweis &quot;MARKED AS SPAM&quot; unterdrücken"
-
-msgid "Display blocked comments count on the dashboard"
-msgstr "Anzahl der Spamkommentare auf dem Dashboard zeigen"
-
-msgid "Display statistics on the dashboard"
-msgstr "Statistik auf dem Dashboard zeigen"
-
-msgid "Comments are also used outside of posts and pages"
-msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
-
-msgid "Enable stricter inspection for incomming comments"
-msgstr "Schärfere Prüfung für eingehende Kommentare anwenden"
-
-msgid "Do not check if the comment author has already approved"
-msgstr "Autoren mit bereits genehmigten Kommentaren vertrauen"
-
-msgid "Comment marked as spam"
-msgstr "Kommentar als Spam markiert"
+msgid "No data available."
+msgstr "Noch keine Daten vorhanden."
 
 msgid "New spam comment on your post"
-msgstr "Neuer Spam-Kommentar zum Artikel"
+msgstr "Neuer Spam zum Artikel"
 
-msgid "Block comments and pings from specific countries"
-msgstr "Kommentare und Pings aus bestimmten Ländern verhindern"
+msgid "Advanced"
+msgstr "Erweitert"
 
-msgid "Search comment spammers in the Project Honey Pot"
-msgstr "Project Honey Pot als Spammer-Quelle heranziehen"
+msgid "Filter"
+msgstr "Filter"
 
-msgid "Consider comments which are already marked as spam"
-msgstr "Bereits als Spam markierte Kommentare berücksichtigen"
+msgid "General"
+msgstr "Allgemein"
 
-msgid "Allow comments only in certain language"
-msgstr "Kommentare nur in bestimmter Sprache zulassen"
+msgid "Comment"
+msgstr "Kommentar"
 
-msgid "Language"
-msgstr "Sprache"
-
-msgid "English"
-msgstr "Englisch"
-
-msgid "German"
-msgstr "Deutsch"
-
-msgid "get free"
-msgstr "anfordern"
+msgid "Type"
+msgstr "Typ"
 
 msgid "Spam Reason"
 msgstr "Spamgrund"
@@ -102,11 +60,8 @@ msgstr "Ländercode"
 msgid "Honey Pot"
 msgstr "Honey Pot"
 
-msgid "Blacklist"
-msgstr "Blacklist"
-
-msgid "Whitelist"
-msgstr "Whitelist"
+msgid "as"
+msgstr "als"
 
 msgid "iso codes"
 msgstr "ISO Codes"
@@ -129,14 +84,11 @@ msgstr "Benachrichtigung von Antispam Bee"
 msgid "Content removed by Antispam Bee"
 msgstr "Inhalt entfernt von Antispam Bee"
 
-msgid "or"
-msgstr "oder"
-
 msgid "Last check"
 msgstr "Zuletzt"
 
-msgid "requires at least WordPress 2.8"
-msgstr "benötigt WordPress 2.8"
+msgid "Antispam Bee requires at least PHP 5.1.2 and WordPress 3.0"
+msgstr "Antispam Bee benötigt mindestens PHP 5.1.2 und WordPress 3.0"
 
 msgid "Blocked"
 msgstr "Blockiert"
@@ -149,4 +101,79 @@ msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentare
 
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
+
+# Spam detection
+msgid "Mark as Spam, do not delete"
+msgstr "Spam markieren, nicht löschen"
+
+msgid "Limit on"
+msgstr "Beschränken auf"
+
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Löschung nach %s Tagen"
+
+msgid "Notification by email"
+msgstr "Benachrichtigung via E-Mail"
+
+msgid "Delete comments by spam reasons"
+msgstr "Bei gewählten Spamgründen sofort löschen"
+
+msgid "Multiple choice or deselection by pressing Ctrl/CMD"
+msgstr "Mehrfachauswahl bzw. Abwahl mit Strg/CMD"
+
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "&quot;MARKED AS SPAM&quot; unterdrücken"
+
+msgid "Comment marked as spam"
+msgstr "Spam-Benachrichtigung"
+
+# Block countries
+msgid "Block comments and pings from specific countries"
+msgstr "Länder blockieren bzw. erlauben"
+
+msgid "Blacklist"
+msgstr "Blacklist"
+
+msgid "Whitelist"
+msgstr "Whitelist"
+
+# Project Honey Pot
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Project Honey Pot als Quelle für Spam"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+# Translate API
+msgid "Allow comments only in certain language"
+msgstr "Inhalte nur in einer Sprache zulassen"
+
+msgid "Language"
+msgstr "Sprache"
+
+# Extended
+msgid "Stricter inspection for comments and pings"
+msgstr "Zusatzchecks für Kommentare und Pings"
+
+msgid "Consider comments which are already marked as spam"
+msgstr "Lernfähigkeit für aktuellen Datenbestand"
+
+msgid "Do not check if the comment author has already approved"
+msgstr "Genehmigten Kommentatoren vertrauen"
+
+# Misc
+msgid "Spam counter on the dashboard"
+msgstr "Spam-Anzahl auf dem Dashboard"
+
+msgid "Statistics on the dashboard"
+msgstr "Verlauf-Statistik auf dem Dashboard"
+
+msgid "Do not check trackbacks / pingbacks"
+msgstr "Keine Prüfung der Ping- und Trackbacks"
+
+msgid "Comment form used outside of posts"
+msgstr "Kommentarformular auf Archivseiten"
 

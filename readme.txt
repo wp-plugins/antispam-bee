@@ -2,7 +2,7 @@
 Contributors: sergej.mueller
 Tags: antispam, spam, comments, trackback
 Donate link: http://flattr.com/profile/sergej.mueller
-Requires at least: 2.8
+Requires at least: 3.0
 Tested up to: 3.3
 Stable tag: trunk
 
@@ -25,6 +25,7 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 * Saves no data on remote servers
 * No need to adjust any templates
 * Cleaning up after plugin removal
+* Support for the Project Honey Pot
 * Accordingly no outgoing connection
 * Interactive statistics on dashboard
 * Automatically cleanup the spam folder
@@ -51,6 +52,13 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 
 
 == Changelog ==
+
+= 2.4 =
+* Support for IPv6
+* Source code revision
+* Delete spam by reason
+* Changing the user interface
+* Requirements: PHP 5.1.2 and WordPress 3.0
 
 = 2.3 =
 * Xmas Edition
