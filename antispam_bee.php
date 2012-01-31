@@ -1146,8 +1146,8 @@ class Antispam_Bee {
 		
 		/* Convert */
 		return preg_replace(
-			'#<textarea(.+?)name=(["\'])comment(["\'])(.+?)</textarea>#s',
-			'<textarea$1name=$2' .self::$secret. '$3$4</textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>',
+			'#<textarea(.+?)name=["\']comment["\'](.+?)</textarea>#s',
+			'<textarea$1name="' .self::$secret. '"$2</textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>',
 			(string) $data,
 			1
 		);
