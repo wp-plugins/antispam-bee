@@ -110,6 +110,9 @@
 
 /* @group Alert */
 
+#message {
+	display: none;
+}
 #setting-error-settings_updated {
 	top: 13px;
 	right: 15px;

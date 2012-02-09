@@ -53,6 +53,11 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 
 == Changelog ==
 
+= 2.4.1 =
+* Add russian translation
+* Fix for the textarea replace
+* Detect and hide admin notices
+
 = 2.4 =
 * Support for IPv6
 * Source code revision

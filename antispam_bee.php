@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpseo.de
 Plugin URI: http://antispambee.com
-Version: 2.4
+Version: 2.4.1
 */
 
 
@@ -1131,7 +1131,7 @@ class Antispam_Bee {
 	* ersetzt das Kommentarfeld
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.4.1
 	*
 	* @param   string  $data  HTML-Code der Webseite
 	* @return  string         Behandelter HTML-Code
@@ -1998,8 +1998,7 @@ add_action(
 	)
 );
 
-
-/* Aktivieren */
+/* Activation */
 register_activation_hook(
 	__FILE__,
 	array(
@@ -2008,8 +2007,7 @@ register_activation_hook(
 	)
 );
 
-
-/* Deaktivieren */
+/* Deactivation */
 register_deactivation_hook(
 	__FILE__,
 	array(
@@ -2018,8 +2016,7 @@ register_deactivation_hook(
 	)
 );
 
-
-/* Deinstallieren */
+/* Uninstall */
 register_uninstall_hook(
 	__FILE__,
 	array(
