@@ -106,13 +106,6 @@ class Antispam_Bee {
 						'load_plugin_lang'
 					)
 				);
-				add_action(
-					'admin_notices',
-					array(
-						__CLASS__,
-						'check_system_health'
-					)
-				);
 				add_filter(
 					'plugin_row_meta',
 					array(
@@ -341,24 +334,6 @@ class Antispam_Bee {
 				'lang'    => 'Comment Language'
 			)
 		);
-	}
-	
-	
-	/**
-	* Prüfung auf die Mindestvoraussetzungen
-	*
-	* @since   2.4
-	* @change  2.4.2
-	*/
-	
-	public static function check_system_health()
-	{
-		if ( !version_compare(PHP_VERSION, '5.1.2', '>=') or !version_compare($GLOBALS['wp_version'], '3.3', '>=') ) {
-			echo sprintf(
-				'<div class="error"><p>%s</p></div>',
-				esc_html__('Antispam Bee requires at least PHP 5.1.2 and WordPress 3.3', self::$short)
-			);
-		}
 	}
 	
 	

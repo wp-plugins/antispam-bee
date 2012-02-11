@@ -38,10 +38,6 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 * WordPress 3.x ready: Design as well as technical
 * Consider comments which are already marked as spam
 
-= Requirements =
-* PHP 5.1.2
-* WordPress 3.3
-
 = Counter =
 `<?php do_action('antispam_bee_count') ?> spam comments blocked by
 <a href="http://antispambee.com">Antispam Bee</a>`

@@ -87,9 +87,6 @@ msgstr "Содержимое удалено"
 msgid "Last check"
 msgstr "Последний раз"
 
-msgid "Antispam Bee requires at least PHP 5.1.2 and WordPress 3.3"
-msgstr "Antispam Bee требует по крайней мере PHP 5.1.2 и WordPress 3.3"
-
 msgid "Blocked"
 msgstr "Заблокировано"
 
