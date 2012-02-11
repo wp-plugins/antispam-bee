@@ -20,7 +20,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Speicherung der GUI
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*/
 	
 	public static function save_changes()
@@ -38,7 +38,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'flag_spam' 		=> (int)(!empty($_POST['ab_flag_spam'])),
 			'email_notify' 		=> (int)(!empty($_POST['ab_email_notify'])),
 			'cronjob_enable' 	=> (int)(!empty($_POST['ab_cronjob_enable'])),
-			'cronjob_interval'	=> (int)(@$_POST['ab_cronjob_interval']),
+			'cronjob_interval'	=> (int)self::get_key($_POST, 'ab_cronjob_interval'),
 			
 			'no_notice' 		=> (int)(!empty($_POST['ab_no_notice'])),
 			
@@ -51,21 +51,21 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			
 			'ignore_pings' 		=> (int)(!empty($_POST['ab_ignore_pings'])),
 			'ignore_filter' 	=> (int)(!empty($_POST['ab_ignore_filter'])),
-			'ignore_type' 		=> (int)(@$_POST['ab_ignore_type']),
-			'ignore_reasons' 	=> (array)(@$_POST['ab_ignore_reasons']),
+			'ignore_type' 		=> (int)self::get_key($_POST, 'ab_ignore_type'),
+			'ignore_reasons' 	=> (array)self::get_key($_POST, 'ab_ignore_reasons'),
 
 			'honey_pot' 		=> (int)(!empty($_POST['ab_honey_pot'])),
-			'honey_key'			=> sanitize_text_field(@$_POST['ab_honey_key']),
+			'honey_key'			=> sanitize_text_field(self::get_key($_POST, 'ab_honey_key')),
 
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
-			'country_black'		=> sanitize_text_field(@$_POST['ab_country_black']),
-			'country_white'		=> sanitize_text_field(@$_POST['ab_country_white']),
-			'ipinfodb_key'		=> sanitize_text_field(@$_POST['ab_ipinfodb_key']),
+			'country_black'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_black')),
+			'country_white'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_white')),
+			'ipinfodb_key'		=> sanitize_text_field(self::get_key($_POST, 'ab_ipinfodb_key')),
 
 			'translate_api' 	=> (int)(!empty($_POST['ab_translate_api'])),
-			'translate_lang'	=> sanitize_text_field(@$_POST['ab_translate_lang']),
+			'translate_lang'	=> sanitize_text_field(self::get_key($_POST, 'ab_translate_lang')),
 			
-			'tab_index' 		=> (int)(@$_POST['ab_tab_index'])
+			'tab_index' 		=> (int)self::get_key($_POST, 'ab_tab_index')
 		);
 
 		/* Kein Tag eingetragen? */

@@ -363,6 +363,27 @@ class Antispam_Bee {
 	
 	
 	/**
+	* Prüfung und Rückgabe eines Array-Keys
+	*
+	* @since   2.4.2
+	* @change  2.4.2
+	*
+	* @param   array   $array  Array mit Werten
+	* @param   string  $key    Name des Keys
+	* @return  mixed           Wert des angeforderten Keys
+	*/
+	
+	public static function get_key($array, $key)
+	{
+		if ( empty($array) or empty($key) or empty($array[$key]) ) {
+			return null;
+		}
+		
+		return $array[$key];
+	}
+	
+	
+	/**
 	* Lokalisierung der Admin-Seiten
 	*
 	* @since   0.1
@@ -832,7 +853,7 @@ class Antispam_Bee {
 	* Rückgabe eines Optionsfeldes
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   string  $field  Name des Feldes
 	* @return  mixed           Wert des Feldes
@@ -842,7 +863,7 @@ class Antispam_Bee {
 	{
 		$options = self::get_options();
 
-		return @$options[$field];
+		return self::get_key($options, $field);
 	}
 
 
@@ -1007,7 +1028,7 @@ class Antispam_Bee {
 	* Überprüfung der POST-Werte
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*/
 
 	public static function precheck_incoming_request()
@@ -1018,9 +1039,9 @@ class Antispam_Bee {
 		}
 
 		/* Allgemeine Werte */
-		$request_url = @$_SERVER['REQUEST_URI'];
-		$hidden_field = @$_POST['comment'];
-		$plugin_field = @$_POST[self::$secret];
+		$request_url = self::get_key($_SERVER, 'REQUEST_URI');
+		$hidden_field = self::get_key($_POST, 'comment');
+		$plugin_field = self::get_key($_POST, self::$secret);
 
 		/* Falsch verbunden */
 		if ( empty($_POST) or empty($request_url) or strpos($request_url, 'wp-comments-post.php') === false ) {
@@ -1041,7 +1062,7 @@ class Antispam_Bee {
 	* Prüfung der eingehenden Anfragen auf Spam
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   array  $comment  Unbehandelter Kommentar
 	* @return  array  $comment  Behandelter Kommentar
@@ -1050,7 +1071,7 @@ class Antispam_Bee {
 	public static function handle_incoming_request($comment)
 	{
 		/* Server-Werte */
-		$url = @$_SERVER['REQUEST_URI'];
+		$url = self::get_key($_SERVER, 'REQUEST_URI');
 
 		/* Leere Werte? */
 		if ( empty($url) ) {
@@ -1080,7 +1101,7 @@ class Antispam_Bee {
 			}
 	
 		/* Trackback */
-		} else if ( in_array(@$comment['comment_type'], $ping['types']) && $ping['allowed'] ) {
+		} else if ( in_array(self::get_key($comment, 'comment_type'), $ping['types']) && $ping['allowed'] ) {
 			/* Filter ausführen */
 			$status = self::_verify_trackback_request($comment);
 			
@@ -1379,7 +1400,7 @@ class Antispam_Bee {
 	* Prüfung der Trackbacks
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   array  $comment  Daten des Trackbacks
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1388,11 +1409,11 @@ class Antispam_Bee {
 	private static function _verify_trackback_request($comment)
 	{
 		/* IP */
-		$ip = @$_SERVER['REMOTE_ADDR'];
+		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
 		
 		/* Kommentarwerte */
-		$url = @$comment['comment_author_url'];
-		$body = @$comment['comment_content'];
+		$url = self::get_key($comment, 'comment_author_url');
+		$body = self::get_key($comment, 'comment_content');
 
 		/* Leere Werte ? */
 		if ( empty($ip) or empty($url) or empty($body) ) {
@@ -1600,7 +1621,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1609,11 +1630,11 @@ class Antispam_Bee {
 	private static function _verify_comment_request($comment)
 	{
 		/* IP */
-		$ip = @$_SERVER['REMOTE_ADDR'];
+		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
 		
 		/* Kommentarwerte */
-		$body = @$comment['comment_content'];
-		$email = @$comment['comment_author_email'];
+		$body = self::get_key($comment, 'comment_content');
+		$email = self::get_key($comment, 'comment_author_email');
 		
 		/* Leere Werte ? */
 		if ( empty($ip) or empty($body) or empty($email) ) {
