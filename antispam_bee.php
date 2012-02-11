@@ -348,15 +348,15 @@ class Antispam_Bee {
 	* Prüfung auf die Mindestvoraussetzungen
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.4.2
 	*/
 	
 	public static function check_system_health()
 	{
-		if ( !version_compare(PHP_VERSION, '5.1.2', '>=') or !version_compare($GLOBALS['wp_version'], '3.0', '>=') ) {
+		if ( !version_compare(PHP_VERSION, '5.1.2', '>=') or !version_compare($GLOBALS['wp_version'], '3.3', '>=') ) {
 			echo sprintf(
 				'<div class="error"><p>%s</p></div>',
-				esc_html__('Antispam Bee requires at least PHP 5.1.2 and WordPress 3.0', self::$short)
+				esc_html__('Antispam Bee requires at least PHP 5.1.2 and WordPress 3.3', self::$short)
 			);
 		}
 	}
