@@ -55,6 +55,10 @@
 	padding-right: 6px;
 }
 
+#ab_main select[multiple] {
+	height: 60px;
+}
+
 #ab_main .submit {
 	width: 431px;
 	height: 1%;

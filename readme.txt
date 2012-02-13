@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: antispam, spam, comments, trackback
 Donate link: http://flattr.com/profile/sergej.mueller
 Requires at least: 3.3
-Tested up to: 3.3
+Tested up to: 3.4
 Stable tag: trunk
 
 
@@ -52,6 +52,10 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 
 
 == Changelog ==
+
+= 2.4.2 =
+* New geo ip location service (without the api key)
+* Code cleanup: Replacement of `@` characters by a function
 
 = 2.4.1 =
 * Add russian translation

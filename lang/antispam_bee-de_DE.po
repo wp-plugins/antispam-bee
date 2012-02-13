@@ -144,6 +144,15 @@ msgstr "Englisch"
 msgid "German"
 msgstr "Deutsch"
 
+msgid "French"
+msgstr "Französisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
 # Translate API
 msgid "Allow comments only in certain language"
 msgstr "Inhalte nur in einer Sprache zulassen"

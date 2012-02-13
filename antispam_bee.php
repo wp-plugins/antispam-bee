@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpseo.de
 Plugin URI: http://antispambee.com
-Version: 2.4.1
+Version: 2.4.2
 */
 
 
@@ -39,7 +39,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*/
 
   	public static function init()
@@ -183,21 +183,6 @@ class Antispam_Bee {
 					'the_spam_count'
 				)
 			);
-
-			add_filter(
-				'comment_notification_text',
-				array(
-					__CLASS__,
-					'replace_whois_link'
-				)
-			);
-			add_filter(
-				'comment_moderation_text',
-				array(
-					__CLASS__,
-					'replace_whois_link'
-				)
-			);
 		}
 	}
 	
@@ -300,7 +285,6 @@ class Antispam_Bee {
 				
 				/* Filter */
 				'country_code' 		=> 0,
-				'ipinfodb_key'		=> '',
 				'country_black'		=> '',
 				'country_white'		=> '',
 				
@@ -1245,7 +1229,7 @@ class Antispam_Bee {
 	* Prüfung auf erlaubten Ländercodes
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   string	$ip  IP-Adresse
 	* @return  boolean       TRUE bei unerwünschten Ländercodes
@@ -1260,11 +1244,6 @@ class Antispam_Bee {
 		
 		/* Optionen */
 		$options = self::get_options();
-
-		/* Kein Key? */
-		if ( empty($options['ipinfodb_key']) ) {
-			return false;
-		}
 
 		/* White & Black */
 		$white = preg_split(
@@ -1288,8 +1267,7 @@ class Antispam_Bee {
 		/* IP abfragen */
 		$response = wp_remote_get(
 			sprintf(
-				'http://api.ipinfodb.com/v2/ip_query_country.php?key=%s&ip=%s',
-				$options['ipinfodb_key'],
+				'http://api.hostip.info/country.php?ip=%s',
 				$ip
 			)
 		);
@@ -1299,25 +1277,21 @@ class Antispam_Bee {
 			return false;
 		}
 
-		/* XML lesen */
-		preg_match(
-			'#Code>([A-Z]{2})</Country#i',
-			wp_remote_retrieve_body($response),
-			$matches
-		);
+		/* Land auslesen */
+		$country = wp_remote_retrieve_body($response);
 
-		/* Kein Code? */
-		if ( empty($matches[1]) ) {
+		/* Kein Land? */
+		if ( empty($country) ) {
 			return false;
 		}
 
 		/* Blacklist */
 		if ( !empty($black) ) {
-			return ( in_array($matches[1], $black) ? true : false );
+			return ( in_array($country, $black) ? true : false );
 		}
 
 		/* Whitelist */
-		return ( in_array($matches[1], $white) ? false : true );
+		return ( in_array($country, $white) ? false : true );
 	}
 	
 	
@@ -1414,10 +1388,10 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* Translate API */
-		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
+		/* Honey Pot */
+		if ( $options['honey_pot'] && self::_is_honey_spam($ip) ) {
 			return array(
-				'reason' => 'lang'
+				'reason' => 'honey'
 			);
 		}
 		
@@ -1425,13 +1399,6 @@ class Antispam_Bee {
 		if ( $options['country_code'] && self::_is_spam_country($ip) ) {
 			return array(
 				'reason' => 'country'
-			);
-		}
-		
-		/* Honey Pot */
-		if ( $options['honey_pot'] && self::_is_honey_spam($ip) ) {
-			return array(
-				'reason' => 'honey'
 			);
 		}
 	}
@@ -1533,7 +1500,7 @@ class Antispam_Bee {
 	* Prüfung auf unerwünschte Sprachen
 	*
 	* @since   2.0
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   string   $content  Inhalt des Kommentars
 	* @return  boolean 	          TRUE bei Spam
@@ -1541,32 +1508,26 @@ class Antispam_Bee {
 
 	private static function _is_lang_spam($content)
 	{
-		/* Kein MB_STR? */
-		if ( !function_exists('mb_substr') ) {
-			return false;
-		}
-		
 		/* Init */
 		$lang = self::get_option('translate_lang');
-
+		
 		/* Formatieren */
-		$content = rawurlencode(
-			mb_substr(
-				strip_tags(stripslashes($content)),
-				0,
-				200
-			)
-		);
-
+		$content = wp_strip_all_tags($content);
+		
 		/* Keine Daten? */
 		if ( empty($lang) or empty($content) ) {
 			return false;
 		}
+		
+		/* Formatieren */
+		$content = rawurlencode(
+			( function_exists('mb_substr') ? mb_substr($content, 0, 200) : substr($content, 0, 200) )
+		);
 
 		/* IP abfragen */
 		$response = wp_remote_get(
 			sprintf(
-				'http://translate.google.de/translate_a/t?client=x&text=%s',
+				'http://translate.google.com/translate_a/t?client=x&text=%s',
 				$content
 			)
 		);
@@ -1588,7 +1549,7 @@ class Antispam_Bee {
 			return false;
 		}
 
-		return ( $matches[1] != $lang );
+		return ( strtolower($matches[1]) != $lang );
 	}
 	
 	
@@ -1647,10 +1608,10 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* Translate API */
-		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
+		/* Honey Pot */
+		if ( $options['honey_pot'] && self::_is_honey_spam($ip) ) {
 			return array(
-				'reason' => 'lang'
+				'reason' => 'honey'
 			);
 		}
 		
@@ -1661,10 +1622,10 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* Honey Pot */
-		if ( $options['honey_pot'] && self::_is_honey_spam($ip) ) {
+		/* Translate API */
+		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
 			return array(
-				'reason' => 'honey'
+				'reason' => 'lang'
 			);
 		}
 	}
@@ -1756,37 +1717,13 @@ class Antispam_Bee {
 
 		return $comment;
 	}
-
-
-	/**
-	* Ersetzung des Whois-Links
-	*
-	* @since   1.7
-	* @change  2.4
-	*
-	* @param   string  $body  Body mit Whois
-	* @return  string  $body  Body mit IPinfoDB
-	*/
-
-	public static function replace_whois_link($body)
-	{
-		if ( self::get_option('country_code') ) {
-			return preg_replace(
-				'/^Whois .+?=(.+?)/m',
-				'IP Locator: http://ipinfodb.com/ip_locator.php?ip=$1',
-				$body
-			);
-		}
-
-		return $body;
-	}
 	
 
 	/**
 	* Versand einer Benachrichtigung via E-Mail
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*
 	* @param   intval  $id  ID des Kommentars
 	* @return  intval  $id  ID des Kommentars
@@ -1850,7 +1787,7 @@ class Antispam_Bee {
 			__('Type', self::$short),
 			__( ( empty($comment['comment_type']) ? 'Comment' : 'Trackback' ), self::$short )
 		).sprintf(
-			"IP Locator: http://ipinfodb.com/ip_locator.php?ip=%s\r\n",
+			"Whois: http://whois.arin.net/rest/ip/%s\r\n",
 			$comment['comment_author_IP']
 		).sprintf(
 			"%s: %s\r\n\r\n",

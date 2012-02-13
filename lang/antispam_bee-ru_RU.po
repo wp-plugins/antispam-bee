@@ -139,10 +139,19 @@ msgid "Search comment spammers in the Project Honey Pot"
 msgstr "Поиск спамеров в Project Honey Pot"
 
 msgid "English"
-msgstr "English"
+msgstr "Английский"
 
 msgid "German"
-msgstr "Deutsch"
+msgstr "Немецкий"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Spanish"
+msgstr "Испанский"
 
 # Translate API
 msgid "Allow comments only in certain language"

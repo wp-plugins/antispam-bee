@@ -60,7 +60,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
 			'country_black'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_black')),
 			'country_white'		=> sanitize_text_field(self::get_key($_POST, 'ab_country_white')),
-			'ipinfodb_key'		=> sanitize_text_field(self::get_key($_POST, 'ab_ipinfodb_key')),
 
 			'translate_api' 	=> (int)(!empty($_POST['ab_translate_api'])),
 			'translate_lang'	=> sanitize_text_field(self::get_key($_POST, 'ab_translate_lang')),
@@ -87,11 +86,9 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 
 		/* Translate API */
 		if ( !empty($options['translate_lang']) ) {
-			$options['translate_lang'] = preg_replace(
-				'/[^den]/',
-				'',
-				$options['translate_lang']
-			);
+			if ( !preg_match('/^(de|en|fr|it|es)$/', $options['translate_lang']) ) {
+				$options['translate_lang'] = '';
+			}
 		}
 		if ( empty($options['translate_lang']) ) {
 			$options['translate_api'] = 0;
@@ -114,11 +111,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 				'',
 				strtoupper($options['country_white'])
 			);
-		}
-
-		/* Kein IPInfoDB Key? */
-		if ( empty($options['ipinfodb_key']) ) {
-			$options['country_code'] = 0;
 		}
 
 		/* Leere Listen? */
@@ -168,7 +160,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.2
 	*/
 
 	function options_page() { ?>
@@ -299,17 +291,6 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 						
 						<tr>
 							<th>
-								<label for="ab_ipinfodb_key">
-									IPInfoDB <a href="http://www.ipinfodb.com/register.php" target="_blank">API Key</a>
-								</label>
-							</th>
-							<td>
-								<input type="text" name="ab_ipinfodb_key" id="ab_ipinfodb_key" value="<?php echo esc_attr($options['ipinfodb_key']); ?>" class="maxi-text code" />
-							</td>
-						</tr>
-						
-						<tr>
-							<th>
 								<label for="ab_country_black">
 									<?php esc_html_e('Blacklist', self::$short) ?> <?php esc_html_e('as', self::$short) ?> <a href="http://www.iso.org/iso/country_names_and_code_elements" target="_blank"><?php esc_html_e('iso codes', self::$short) ?></a>
 								</label>
@@ -354,7 +335,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							</th>
 							<td>
 								<select name="ab_translate_lang" class="maxi-select">
-									<?php foreach(array('de' => 'German', 'en' => 'English') as $k => $v) { ?>
+									<?php foreach(array('de' => 'German', 'en' => 'English', 'fr' => 'French', 'it' => 'Italian', 'es' => 'Spanish') as $k => $v) { ?>
 										<option <?php selected($options['translate_lang'], $k); ?> value="<?php echo esc_attr($k) ?>"><?php esc_html_e($v, self::$short) ?></option>
 									<?php } ?>
 								</select>
