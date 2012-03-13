@@ -1266,9 +1266,12 @@ class Antispam_Bee {
 
 		/* IP abfragen */
 		$response = wp_remote_get(
-			sprintf(
-				'http://api.hostip.info/country.php?ip=%s',
-				$ip
+			esc_url_raw(
+				sprintf(
+					'http://api.hostip.info/country.php?ip=%s',
+					$ip
+				),
+				'http'
 			)
 		);
 
@@ -1526,9 +1529,12 @@ class Antispam_Bee {
 
 		/* IP abfragen */
 		$response = wp_remote_get(
-			sprintf(
-				'http://translate.google.com/translate_a/t?client=x&text=%s',
-				$content
+			esc_url_raw(
+				sprintf(
+					'http://translate.google.com/translate_a/t?client=x&text=%s',
+					$content
+				),
+				'http'
 			)
 		);
 
