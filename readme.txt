@@ -56,6 +56,7 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 = 2.4.2 =
 * New geo ip location service (without the api key)
 * Code cleanup: Replacement of `@` characters by a function
+* JS-Fallback for missing jQuery UI
 
 = 2.4.1 =
 * Add russian translation
