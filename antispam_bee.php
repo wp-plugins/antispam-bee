@@ -737,7 +737,7 @@ class Antispam_Bee {
 		);
 		wp_register_script(
 			'google_jsapi',
-			'http://www.google.com/jsapi',
+			'https://www.google.com/jsapi',
 			false
 		);
 
