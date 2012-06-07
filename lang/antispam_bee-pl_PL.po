@@ -1,0 +1,232 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Antispam Bee v1.7\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2010-06-09 10:34+0100\n"
+"Last-Translator: LeXuS <lexus@intrakardial.de>\n"
+"Language-Team: LeXuS <lexus@intrakardial.de>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Textdomain-Support: yes\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: antispam_bee.php:198
+#: antispam_bee.php:214
+#: antispam_bee.php:851
+msgid "Settings"
+msgstr ""
+
+#@ antispam_bee
+#: antispam_bee.php:409
+#: antispam_bee.php:419
+msgid "Blocked"
+msgstr "Zablokowane"
+
+#@ antispam_bee
+#: antispam_bee.php:428
+msgid "requires at least WordPress 2.7"
+msgstr "wymaga przynajmniej WordPress 2.7"
+
+#@ antispam_bee
+#: antispam_bee.php:436
+msgid "by"
+msgstr "przez"
+
+#@ antispam_bee
+#: antispam_bee.php:437
+msgid "Follow on Twitter"
+msgstr "Śledź na Twitterze"
+
+#@ antispam_bee
+#: antispam_bee.php:439
+msgid "Learn about wpSEO"
+msgstr "Dowiedz się więcej o wpSEO"
+
+#@ antispam_bee
+#: antispam_bee.php:683
+msgid "Comment marked as spam"
+msgstr "Komentarz zaznaczony jako spam"
+
+#@ antispam_bee
+#: antispam_bee.php:687
+msgid "New spam comment on your post"
+msgstr "Nowy komentarz spam na twoim poście"
+
+#: antispam_bee.php:691
+msgid "Author"
+msgstr ""
+
+#: antispam_bee.php:695
+#, php-format
+msgid "%s: %s\\r\n"
+msgstr ""
+
+#: antispam_bee.php:696
+msgid "URL"
+msgstr ""
+
+#: antispam_bee.php:700
+msgid "IP Locator"
+msgstr ""
+
+#@ antispam_bee
+#: antispam_bee.php:704
+msgid "Spam Reason"
+msgstr "Powód spamu"
+
+#@ antispam_bee
+#: antispam_bee.php:713
+msgid "Trash it"
+msgstr "Do śmieci"
+
+#@ antispam_bee
+#: antispam_bee.php:719
+msgid "Delete it"
+msgstr "Usuń"
+
+#@ antispam_bee
+#: antispam_bee.php:725
+msgid "Approve it"
+msgstr "Zaakceptuj"
+
+#@ antispam_bee
+#: antispam_bee.php:729
+msgid "Spam list"
+msgstr "Lista Spamu"
+
+#@ antispam_bee
+#: antispam_bee.php:733
+msgid "Notify message by Antispam Bee"
+msgstr "Zawiadomienie przez Antispam Bee"
+
+#@ antispam_bee
+#: antispam_bee.php:734
+msgid "http://antispambee.com"
+msgstr "http://antispambee.com"
+
+#: antispam_bee.php:836
+msgid "Settings saved."
+msgstr ""
+
+#@ antispam_bee
+#: antispam_bee.php:859
+msgid "Mark as Spam, do not delete"
+msgstr "Oznacz jako spam, nie usuwaj"
+
+#@ antispam_bee
+#: antispam_bee.php:865
+msgid "Limit on"
+msgstr "Ogranicz na"
+
+#: antispam_bee.php:865
+msgid "Comments"
+msgstr ""
+
+#: antispam_bee.php:865
+msgid "Pings"
+msgstr ""
+
+#@ antispam_bee
+#: antispam_bee.php:874
+#, php-format
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Spam będzie automatycznie usuwany po %s dniach"
+
+#@ antispam_bee
+#: antispam_bee.php:878
+msgid "Last check"
+msgstr "Ostatnia kontrola"
+
+#@ antispam_bee
+#: antispam_bee.php:886
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "Ukryj &quot;ZAZNACZONE JAKO SPAM&quot; notatkę"
+
+#@ antispam_bee
+#: antispam_bee.php:892
+msgid "Send an admin email when new spam item incoming"
+msgstr "Wyślij do mnie e-mail o nowo przybytym spamie"
+
+#@ antispam_bee
+#: antispam_bee.php:901
+msgid "Block comments and pings from specific countries"
+msgstr "Blokuj komentarze i pingi z poszczególnych krajów"
+
+#@ antispam_bee
+#: antispam_bee.php:907
+msgid "Blacklist"
+msgstr "Czarna lista"
+
+#@ antispam_bee
+#: antispam_bee.php:907
+#: antispam_bee.php:918
+msgid "iso codes"
+msgstr "kody ISO"
+
+#@ antispam_bee
+#: antispam_bee.php:914
+msgid "or"
+msgstr "lub"
+
+#@ antispam_bee
+#: antispam_bee.php:918
+msgid "Whitelist"
+msgstr "Biała lista"
+
+#@ antispam_bee
+#: antispam_bee.php:928
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Szukaj spamerów komentarzy w Project Honey Pot"
+
+#@ antispam_bee
+#: antispam_bee.php:934
+msgid "API Key"
+msgstr "Klucz API"
+
+#@ antispam_bee
+#: antispam_bee.php:934
+msgid "get free"
+msgstr "otrzymaj za darmo"
+
+#@ antispam_bee
+#: antispam_bee.php:943
+msgid "Do not check trackbacks / pingbacks"
+msgstr "Nie sprawdzaj Trackbacków / Pingbacków"
+
+#@ antispam_bee
+#: antispam_bee.php:949
+msgid "Display blocked comments count on the dashboard"
+msgstr "Wyświetl ilość zablokowanych komentarzy na tablicy informacyjnej"
+
+#@ antispam_bee
+#: antispam_bee.php:955
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Umożliw bardziej rygorystyczną kontrolę dla przybywających komentarzy"
+
+#@ antispam_bee
+#: antispam_bee.php:961
+msgid "Do not check if the comment author has already approved"
+msgstr "Nie sprawdzaj, jeśli autor komentarza był już raz zaakceptowany"
+
+#@ antispam_bee
+#: antispam_bee.php:967
+msgid "Comments are also used outside of posts and pages"
+msgstr "Komentarze są również wykorzystywane poza postami i na innych stronach"
+
+#: antispam_bee.php:972
+msgid "Save Changes"
+msgstr ""
+
+#@ antispam_bee
+#: antispam_bee.php:978
+msgid "About"
+msgstr "O"
+
