@@ -1,0 +1,155 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Antispam Bee\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Sergej Müller\n"
+"Language-Team: Sergej Müller\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Mark as Spam, do not delete"
+msgstr "Spam markieren, nicht löschen"
+
+msgid "Limit on"
+msgstr "Beschränken auf"
+
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Spam nach %s Tagen automatisch löschen"
+
+msgid "Send an admin email when new spam item incoming"
+msgstr "Bei Neuzugängen via E-Mail benachrichtigen"
+
+msgid "Do not check trackbacks / pingbacks"
+msgstr "Track- und Pingbacks nicht prüfen"
+
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "Hinweis &quot;MARKED AS SPAM&quot; unterdrücken"
+
+msgid "Display blocked comments count on the dashboard"
+msgstr "Anzahl der Spamkommentare auf dem Dashboard zeigen"
+
+msgid "Display statistics on the dashboard"
+msgstr "Statistik auf dem Dashboard zeigen"
+
+msgid "Comments are also used outside of posts and pages"
+msgstr "Kommentare finden auch außerhalb von Beiträgen Verwendung"
+
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Schärfere Prüfung für eingehende Kommentare anwenden"
+
+msgid "Do not check if the comment author has already approved"
+msgstr "Autoren mit bereits genehmigten Kommentaren vertrauen"
+
+msgid "Comment marked as spam"
+msgstr "Kommentar als Spam markiert"
+
+msgid "New spam comment on your post"
+msgstr "Neuer Spam-Kommentar zum Artikel"
+
+msgid "Block comments and pings from specific countries"
+msgstr "Kommentare und Pings aus bestimmten Ländern verhindern"
+
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Project Honey Pot als Spammer-Quelle heranziehen"
+
+msgid "Consider comments which are already marked as spam"
+msgstr "Bereits als Spam markierte Kommentare berücksichtigen"
+
+msgid "Allow comments only in certain language"
+msgstr "Kommentare nur in bestimmter Sprache zulassen"
+
+msgid "Language"
+msgstr "Sprache"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "get free"
+msgstr "anfordern"
+
+msgid "Spam Reason"
+msgstr "Spamgrund"
+
+msgid "Empty Data"
+msgstr "Leere Daten"
+
+msgid "CSS Hack"
+msgstr "CSS Hack"
+
+msgid "Server IP"
+msgstr "Server IP"
+
+msgid "Spam IP"
+msgstr "Spam IP"
+
+msgid "Comment Language"
+msgstr "Kommentarsprache"
+
+msgid "Country Check"
+msgstr "Ländercode"
+
+msgid "Honey Pot"
+msgstr "Honey Pot"
+
+msgid "Blacklist"
+msgstr "Blacklist"
+
+msgid "Whitelist"
+msgstr "Whitelist"
+
+msgid "iso codes"
+msgstr "ISO Codes"
+
+msgid "Approve it"
+msgstr "Freigeben"
+
+msgid "Delete it"
+msgstr "Löschen"
+
+msgid "Trash it"
+msgstr "In Papierkorb"
+
+msgid "Spam list"
+msgstr "Spamliste"
+
+msgid "Notify message by Antispam Bee"
+msgstr "Benachrichtigung von Antispam Bee"
+
+msgid "Content removed by Antispam Bee"
+msgstr "Inhalt entfernt von Antispam Bee"
+
+msgid "or"
+msgstr "oder"
+
+msgid "Last check"
+msgstr "Zuletzt"
+
+msgid "requires at least WordPress 2.8"
+msgstr "benötigt WordPress 2.8"
+
+msgid "Blocked"
+msgstr "Blockiert"
+
+msgid "http://www.wpseo.org"
+msgstr "http://www.wpseo.de"
+
+msgid "Today"
+msgstr "Heute"
+
+msgid "Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam."
+msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentaren. Datenschutzkonform, funktionsreich und unkompliziert."
+
+msgid "http://antispambee.com"
+msgstr "http://antispambee.de"
+

@@ -1,0 +1,137 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Antispam Bee\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Feriman <info@feriman.com>\n"
+"Language-Team: Sergej Müller\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Mark as Spam, do not delete"
+msgstr "Spamnal jelölés, ne töröld"
+
+msgid "Limit on"
+msgstr "Korlátozás"
+
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Spamnak jelölés automatikusan, majd törlés % nap után."
+
+msgid "Send an admin email when new spam item incoming"
+msgstr "Email küldése az admin címre, ha új spam érkezik"
+
+msgid "Do not check trackbacks / pingbacks"
+msgstr "Ne ellenőrizd a track- és pingbackot"
+
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "Rejtsd el a &quot;SPAMNAK JELÖLT&quot; szöveget"
+
+msgid "Display blocked comments count on the dashboard"
+msgstr "Jelenítsd meg a blokkolt kommenteket a Vezérlőpulton"
+
+msgid "Comments are also used outside of posts and pages"
+msgstr "Használd a kommenetket a bejegyzéseken és az oldalakon kívül is"
+
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Szigorúbb komment ellenőrzések bekapcsolása"
+
+msgid "Do not check if the comment author has already approved"
+msgstr "Ne ellenőrizd, ami már jóvá van hagyva"
+
+msgid "Comment marked as spam"
+msgstr "Spamnak jelölés"
+
+msgid "New spam comment on your post"
+msgstr "Új spam komment a bejegyzésedben"
+
+msgid "Block comments and pings from specific countries"
+msgstr "Blokkold a hozzászólásokat az alábbi országokból"
+
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Keresd a komment spammelőket a Project Honey Pot-ban"
+
+msgid "get free"
+msgstr "ingyenes"
+
+msgid "Spam Reason"
+msgstr "Spam oka"
+
+msgid "Empty Data"
+msgstr "Üres adat"
+
+msgid "CSS Hack"
+msgstr "CSS módosítás"
+
+msgid "Server IP"
+msgstr "Szerver IP"
+
+msgid "Country Check"
+msgstr "Ország ellenőrzése"
+
+msgid "Honey Pot"
+msgstr "Honey Pot"
+
+msgid "Blacklist"
+msgstr "Feketelista"
+
+msgid "Whitelist"
+msgstr "Fehérlista"
+
+msgid "iso codes"
+msgstr "ISO kódok"
+
+msgid "IP Locator"
+msgstr "IP Lokátor"
+
+msgid "Approve it"
+msgstr "Jóváhagy"
+
+msgid "Delete it"
+msgstr "Töröld"
+
+msgid "Trash it"
+msgstr "Kukába"
+
+msgid "Spam list"
+msgstr "Spam lista"
+
+msgid "Notify message by Antispam Bee"
+msgstr "Értesítés a Antispam Bee-nek"
+
+msgid "http://antispambee.com"
+msgstr "http://antispambee.com"
+
+msgid "or"
+msgstr "vagy"
+
+msgid "Last check"
+msgstr "Utolsó ellenőrzés"
+
+msgid "About"
+msgstr "Információ"
+
+msgid "requires at least WordPress 2.7"
+msgstr "Ajánlott WordPress 2.7 vagy újabb"
+
+msgid "Blocked"
+msgstr "Blokkolt"
+
+msgid "Learn about wpSEO"
+msgstr "Tudj meg többet: wpSEO"
+
+msgid "Follow on Twitter"
+msgstr "Kövess Twitteren"
+
+msgid "by"
+msgstr "által"
+
+msgid "Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam."
+msgstr "Könnyű és rendkívül hatékony spamszűrő plugin sok kifinomult megoldással. Magában foglalja a trackback védelmet is."
+

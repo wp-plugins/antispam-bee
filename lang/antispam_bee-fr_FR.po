@@ -1,0 +1,171 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Antispam Bee\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: Canarduck <renaud@canarduck.com>\n"
+"Language-Team: Sergej Müller\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: German\n"
+"X-Poedit-Country: GERMANY\n"
+"X-Poedit-SourceCharset: utf-8\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SearchPath-0: .\n"
+
+msgid "Mark as Spam, do not delete"
+msgstr "Bloquer les éléments indésirables sans les supprimer"
+
+msgid "Limit on"
+msgstr "Applicable aux"
+
+msgid "Spam will be automatically deleted after %s days"
+msgstr "Purger au bout de %s jours"
+
+msgid "Send an admin email when new spam item incoming"
+msgstr "Avertir l'administrateur par email dès l'arrivée de nouveaux éléments"
+
+msgid "Do not check trackbacks / pingbacks"
+msgstr "Ne vérifier ni les pings ni les rétroliens"
+
+msgid "Hide the &quot;MARKED AS SPAM&quot; note"
+msgstr "Masquer le label &quot;indésirable&quot;"
+
+msgid "Display blocked comments count on the dashboard"
+msgstr "Afficher le nombre d'éléments bloqués sur le tableau de bord"
+
+msgid "Display statistics on the dashboard"
+msgstr "Afficher les statistiques sur le tableau de bord"
+
+msgid "Comments are also used outside of posts and pages"
+msgstr "Les commentaires sont aussi utilisés en dehors des articles et des pages"
+
+msgid "Enable stricter inspection for incomming comments"
+msgstr "Activer le filtrage avancé des commentaires"
+
+msgid "Do not check if the comment author has already approved"
+msgstr "Faire confiance aux utilisateurs ayant déjà des commentaires approuvés."
+
+msgid "Comment marked as spam"
+msgstr "Labellisé indésirable"
+
+msgid "New spam comment on your post"
+msgstr "Nouveau commentaire indésirable sur votre article"
+
+msgid "Block comments and pings from specific countries"
+msgstr "Bloquer les commentaires et les pings en provenance de certains pays"
+
+msgid "Search comment spammers in the Project Honey Pot"
+msgstr "Utiliser la base de données de spammeurs du \"Projet Pot de Miel\""
+
+msgid "Consider comments which are already marked as spam"
+msgstr "Prendre en compte les commentaires déjà marqués indésirables"
+
+msgid "Allow comments only in certain language"
+msgstr "N'autoriser que les commentaires rédigés dans une lanque"
+
+msgid "Language"
+msgstr "Langue"
+
+msgid "English"
+msgstr "Anglais"
+
+msgid "German"
+msgstr "Allemand"
+
+msgid "get free"
+msgstr "En obtenir une gratuitement"
+
+msgid "Spam Reason"
+msgstr "Raison du blocage"
+
+msgid "Empty Data"
+msgstr "Champ vide"
+
+msgid "CSS Hack"
+msgstr "Hack CSS"
+
+msgid "Server IP"
+msgstr "IP du serveur"
+
+msgid "Spam IP"
+msgstr "IP du spammeur"
+
+msgid "Comment Language"
+msgstr "Commentaire rédigé en"
+
+msgid "Country Check"
+msgstr "Vérfication du pays"
+
+msgid "Honey Pot"
+msgstr "Pot de miel"
+
+msgid "Blacklist"
+msgstr "Liste noire"
+
+msgid "Whitelist"
+msgstr "Liste blanche"
+
+msgid "iso codes"
+msgstr "Codes ISO"
+
+msgid "Approve it"
+msgstr "Approuver"
+
+msgid "Delete it"
+msgstr "Supprimer"
+
+msgid "Trash it"
+msgstr "Corbeille"
+
+msgid "Spam list"
+msgstr "Liste des indésirables"
+
+msgid "Notify message by Antispam Bee"
+msgstr "Notification Antispam Bee"
+
+msgid "Content removed by Antispam Bee"
+msgstr "Texte effacé par Antispam Bee"
+
+msgid "or"
+msgstr "ou"
+
+msgid "Last check"
+msgstr "Dernière vérification"
+
+msgid "About"
+msgstr "À propos"
+
+msgid "requires at least WordPress 2.8"
+msgstr "Nécessite une version de WordPress suppérieure à 2.8"
+
+msgid "Blocked"
+msgstr "Bloqué"
+
+msgid "Learn about wpSEO"
+msgstr "Découvrir wpSEO"
+
+msgid "http://www.wpseo.org"
+msgstr "http://www.wpseo.org"
+
+msgid "Follow on Twitter"
+msgstr "Suivre sur Twitter"
+
+msgid "by"
+msgstr "par"
+
+#, fuzzy
+msgid "ago"
+msgstr ""
+
+msgid "Today"
+msgstr "Aujourd'hui"
+
+msgid "Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam."
+msgstr "Une plugin anti-spam simple et excessivement efficace intégrant des méthodes sophistiquées. Protège aussi contre les spams de rétroliens"
+
+msgid "http://antispambee.com"
+msgstr "http://antispambee.com"
+

@@ -1,0 +1,1 @@
+jQuery(document).ready(function(a){function f(b){var c=a(b).parents("li").find(".shift");c.slideToggle("fast",function(){c.children().find(":input").attr("disabled",!a(b).attr("checked"))})}var d,e=["antispam_bee_flag_spam","antispam_bee_country_code","antispam_bee_honey_pot","antispam_bee_translate_api"];for(d in e)a("#"+e[d]).click(function(){f(this)})});
