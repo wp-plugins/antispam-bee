@@ -183,3 +183,6 @@ msgstr "Keine Prüfung der Ping- und Trackbacks"
 msgid "Comment form used outside of posts"
 msgstr "Kommentarformular auf Archivseiten"
 
+msgid "Antispam Bee requires WordPress 3.3 and PHP 5.1.2"
+msgstr "Antispam Bee setzt WordPress 3.3 und PHP 5.1.2 voraus"
+

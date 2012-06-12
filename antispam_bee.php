@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpseo.de
 Plugin URI: http://antispambee.com
-Version: 2.4.2
+Version: 2.4.3
 */
 
 
@@ -39,7 +39,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.4.2
+	* @change  2.4.3
 	*/
 
   	public static function init()
@@ -104,6 +104,13 @@ class Antispam_Bee {
 					array(
 						__CLASS__,
 						'load_plugin_lang'
+					)
+				);
+				add_action(
+					'admin_notices',
+					array(
+						__CLASS__,
+						'init_admin_notice'
 					)
 				);
 				add_filter(
@@ -426,7 +433,7 @@ class Antispam_Bee {
 	* Meta-Links des Plugins
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.3
 	*
 	* @param   array   $data  Bereits vorhandene Links
 	* @param   string  $page  Aktuelle Seite
@@ -443,9 +450,50 @@ class Antispam_Bee {
 		return array_merge(
 			$data,
 			array(
-				'<a href="http://flattr.com/profile/sergej.mueller" target="_blank">Plugin flattern</a>',
-				'<a href="https://plus.google.com/110569673423509816572" target="_blank">Auf Google+ folgen</a>'
+				'<a href="http://flattr.com/profile/sergej.mueller" target="_blank">Flattr</a>',
+				'<a href="https://plus.google.com/110569673423509816572" target="_blank">Google+</a>'
 			)
+		);
+	}
+	
+	
+	/**
+	* Anzeige der Admin-Notiz
+	*
+	* @since   2.4.3
+	* @change  2.4.3
+	*/
+
+	public static function init_admin_notice() {
+		/* Alles klar? */
+		if ( self::_is_version($GLOBALS['wp_version'], '3.3') && self::_is_version(phpversion(), '5.1.2') ) {
+			return;
+		}
+
+		/* Warnung */
+		echo sprintf(
+			'<div class="error"><p>%s</p></div>',
+			esc_html__('Antispam Bee requires WordPress 3.3 and PHP 5.1.2', self::$short)
+		);
+	}
+	
+	
+	/**
+	* Vergleich der Versionen
+	*
+	* @since   2.4.3
+	* @change  2.4.3
+	*
+	* @param   integer  $current   Aktuelle Version
+	* @param   integer  $required  Mindestversion
+	* @return  boolean             TRUE, wenn Voraussetzungen erfüllt
+	*/
+
+	private static function _is_version($current, $required) {
+		return version_compare(
+			$current,
+			$required. 'alpha',
+			'>='
 		);
 	}
 	
@@ -491,7 +539,7 @@ class Antispam_Bee {
 	* Initialisierung der Optionsseite
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.4.3
 	*/
 
 	public static function add_sidebar_menu()
@@ -499,7 +547,7 @@ class Antispam_Bee {
 		/* Menü anlegen */
 		$page = add_options_page(
 			'Antispam Bee',
-			'<img src="' .plugins_url('img/icon.png', __FILE__). '" id="ab_icon" alt="Antispam Bee" />Antispam Bee',
+			'Antispam Bee',
 			'manage_options',
 			self::$short,
 			array(
@@ -1563,7 +1611,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.4.2
+	* @change  2.4.3
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1579,7 +1627,14 @@ class Antispam_Bee {
 		$email = self::get_key($comment, 'comment_author_email');
 		
 		/* Leere Werte ? */
-		if ( empty($ip) or empty($body) or empty($email) ) {
+		if ( empty($ip) or empty($body) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* Leere Werte ? */
+		if ( get_option('require_name_email') && empty($email) ) {
 			return array(
 				'reason' => 'empty'
 			);
@@ -1589,7 +1644,7 @@ class Antispam_Bee {
 		$options = self::get_options();
 		
 		/* Bereits kommentiert? */
-		if ( $options['already_commented'] && self::_is_approved_email($email) ) {
+		if ( $options['already_commented'] && !empty($email) && self::_is_approved_email($email) ) {
 			return;
 		}
 		
@@ -1729,7 +1784,7 @@ class Antispam_Bee {
 	* Versand einer Benachrichtigung via E-Mail
 	*
 	* @since   0.1
-	* @change  2.4.2
+	* @change  2.4.3
 	*
 	* @param   intval  $id  ID des Kommentars
 	* @return  intval  $id  ID des Kommentars
@@ -1784,10 +1839,10 @@ class Antispam_Bee {
 		).sprintf(
 			"%s: %s\r\n",
 			__('Author'),
-			$comment['comment_author']
+			( empty($comment['comment_author']) ? '' : strip_tags($comment['comment_author']) )
 		).sprintf(
 			"URL: %s\r\n",
-			esc_url($comment['comment_author_url'])
+			esc_url($comment['comment_author_url']) /* empty check exists */
 		).sprintf(
 			"%s: %s\r\n",
 			__('Type', self::$short),

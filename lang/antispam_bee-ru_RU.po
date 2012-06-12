@@ -183,3 +183,6 @@ msgstr "Не проверять trackbacks и pingbacks"
 msgid "Comment form used outside of posts"
 msgstr "Комментарии также используются вне постов и страниц"
 
+msgid "Antispam Bee requires WordPress 3.3 and PHP 5.1.2"
+msgstr "Antispam Bee требуется WordPress 3.3 и PHP 5.1.2"
+

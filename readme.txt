@@ -1,7 +1,7 @@
 === Antispam Bee ===
 Contributors: sergej.mueller
 Tags: antispam, spam, comments, trackback
-Donate link: http://flattr.com/profile/sergej.mueller
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
 Requires at least: 3.3
 Tested up to: 3.4
 Stable tag: trunk
@@ -42,16 +42,29 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 `<?php do_action('antispam_bee_count') ?> spam comments blocked by
 <a href="http://antispambee.com">Antispam Bee</a>`
 
+= Requirements =
+* PHP 5.1.2
+* WordPress 3.3
+
 = Documentation =
 * [Antispam Bee: Antispam für WordPress](http://playground.ebiene.de/antispam-bee-wordpress-plugin/ "Antispam für WordPress") (DE)
 
 = Author =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
+* [Plugins](http://wpcoder.de "Plugins")
 * [Portfolio](http://ebiene.de "Portfolio")
 
 
 
 == Changelog ==
+
+= 2.4.3 =
+* Check for basic requirements
+* Remove the sidebar plugin icon
+* Set the Google API calls to SSL
+* Compatibility with WordPress 3.4
+* Add retina plugin icon on options
+* Depending on WordPress settings: anonymous comments allowed
 
 = 2.4.2 =
 * New geo ip location service (without the api key)
