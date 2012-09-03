@@ -46,6 +46,10 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 * PHP 5.1.2
 * WordPress 3.3
 
+= Not compatible with =
+* Jetpack Comments
+* All-in-One Event Calendar
+
 = Documentation =
 * [Antispam Bee: Antispam für WordPress](http://playground.ebiene.de/antispam-bee-wordpress-plugin/ "Antispam für WordPress") (DE)
 
