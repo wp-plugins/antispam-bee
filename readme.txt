@@ -47,6 +47,7 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 * WordPress 3.3
 
 = Not compatible with =
+* Disqus
 * Jetpack Comments
 * All-in-One Event Calendar
 
