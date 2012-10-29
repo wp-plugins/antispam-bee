@@ -3,7 +3,7 @@ Contributors: sergej.mueller
 Tags: antispam, spam, comments, trackback
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
 Requires at least: 3.3
-Tested up to: 3.4
+Tested up to: 3.5
 Stable tag: trunk
 
 
@@ -35,7 +35,7 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 * Quick & Dirty: activate, set settings, done!
 * Optional strict check for incomming comments
 * Block comments and pings from specific countries
-* WordPress 3.x ready: Design as well as technical
+* WordPress 3.5 ready: Design as well as technical
 * Consider comments which are already marked as spam
 
 = Counter =
@@ -57,11 +57,14 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 = Author =
 * [Google+](https://plus.google.com/110569673423509816572 "Google+")
 * [Plugins](http://wpcoder.de "Plugins")
-* [Portfolio](http://ebiene.de "Portfolio")
 
 
 
 == Changelog ==
+
+= 2.4.4 =
+* Technical and visual support for WordPress 3.5
+* Modification of the file structure: from `xyz.dev.css` to `xyz.min.css`
 
 = 2.4.3 =
 * Check for basic requirements

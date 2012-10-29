@@ -160,7 +160,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.4.2
+	* @change  2.4.5
 	*/
 
 	function options_page() { ?>
@@ -176,7 +176,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 				<?php screen_icon('ab') ?>
 				
 				<ul class="nav-tab-wrapper">
-					<li class="ui-tabs-selected">
+					<li>
 						<h2><a href="#ab-tab-general" class="nav-tab"><?php esc_html_e('General', self::$short) ?></a></h2>
 					</li>
 					<li>
@@ -429,7 +429,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<?php esc_html_e('Limit on', self::$short) ?> <select name="ab_ignore_type" class="mini-select"><?php foreach(array(1 => 'Comments', 2 => 'Pings') as $key => $value) {
 									echo '<option value="' .esc_attr($key). '" ';
 									selected($options['ignore_type'], $key);
-									echo '>' .esc_html__($value). '</option>';
+									echo '>' .esc_html__($value, self::$short). '</option>';
 								} ?>
 								</select>
 							</th>
@@ -457,14 +457,16 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 				</div>
 
 				
-				<p class="submit">
-					<?php if ( get_locale() == 'de_DE' ) { ?>
-						<a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/" class="help" target="_blank">
-							Dokumentation
-						</a>
-					<?php } ?>
+				<div class="submit">
+					<p class="meta">
+						<?php if ( get_locale() == 'de_DE' ) { ?>
+							<a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/" target="_blank">Dokumentation</a>
+						<?php } ?>
+						<a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+					</p>
+					
 					<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
-				</p>
+				</div>
 			</form>
 		</div>
 	<?php }

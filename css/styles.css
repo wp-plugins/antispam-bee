@@ -60,7 +60,7 @@
 }
 
 #ab_main select[multiple] {
-	height: 60px;
+	height: 110px;
 }
 
 #ab_main .submit {
@@ -71,11 +71,24 @@
 	overflow: hidden;
 	border-top: 1px solid #bebebe;
 }
-#ab_main .submit .help {
+#ab_main .submit .meta {
 	float: left;
+	margin: 0;
+}
+#ab_main .submit .meta a {
 	color: #bebebe;
+	display: inline-block;
 	font-size: 11px;
 	line-height: 23px;
+}
+#ab_main .submit .meta a:before {
+	margin: 0 4px;
+	content: '|';
+	display: inline-block;
+}
+#ab_main .submit .meta a:first-child:before {
+	margin: 0;
+	content: '';
 }
 #ab_main .submit .button-primary {
 	float: right;
@@ -104,6 +117,7 @@
 	color: #AAA;
 	height: 24px;
 }
+#ab_main .ui-tabs-active a,
 #ab_main .ui-tabs-selected a {
 	color: #464646;
 	border-color: #ccc;

@@ -13,6 +13,7 @@ jQuery(document).ready(
 			);
 		}
 		
+		
 		/* Tabs steuern */
 		function abInitTabs() {
 			$('#ab_main').tabs(
@@ -20,10 +21,11 @@ jQuery(document).ready(
 					'select': function(event, ui) {
 						$('#ab_tab_index').val(ui.index);
 					},
-					'selected': parseInt($('#ab_tab_index').val())
+					'selected': $('#ab_tab_index').val()
 				}
 			);
 		}
+		
 		
 		/* Event abwickeln */
 		$('#ab_main .related tr:first-child :checkbox').click(
@@ -32,15 +34,17 @@ jQuery(document).ready(
 			}
 		).filter(':checked').abManageOptions();
 		
+		
 		/* jQuery UI geladen? */
 		if ( jQuery.ui === undefined || jQuery.ui.tabs === undefined ) {
 			$.getScript(
-				'http://code.jquery.com/ui/1.8.18/jquery-ui.min.js',
+				'http://code.jquery.com/ui/1.9.1/jquery-ui.min.js',
 				abInitTabs
 			);
 		} else {
 			abInitTabs();
 		}
+		
 		
 		/* Alert ausblenden */
 		if ( typeof $.fn.delay === 'function' ) {

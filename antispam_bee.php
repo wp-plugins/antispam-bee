@@ -5,9 +5,9 @@ Text Domain: antispam_bee
 Domain Path: /lang
 Description: Easy and extremely productive spam-fighting plugin with many sophisticated solutions. Includes protection again trackback spam.
 Author: Sergej M&uuml;ller
-Author URI: http://wpseo.de
+Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.4.3
+Version: 2.4.4
 */
 
 
@@ -433,25 +433,25 @@ class Antispam_Bee {
 	* Meta-Links des Plugins
 	*
 	* @since   0.1
-	* @change  2.4.3
+	* @change  2.4.4
 	*
-	* @param   array   $data  Bereits vorhandene Links
-	* @param   string  $page  Aktuelle Seite
-	* @return  array   $data  Modifizierte Links
+	* @param   array   $input  Bereits vorhandene Links
+	* @param   string  $file   Aktuelle Seite
+	* @return  array   $data   Modifizierte Links
 	*/
 
-	public static function init_row_meta($data, $page)
+	public static function init_row_meta($input, $file)
 	{
 		/* Rechte */
-		if ( $page != self::$base ) {
-			return $data;
+		if ( $file != self::$base ) {
+			return $input;
 		}
 		
 		return array_merge(
-			$data,
+			$input,
 			array(
-				'<a href="http://flattr.com/profile/sergej.mueller" target="_blank">Flattr</a>',
-				'<a href="https://plus.google.com/110569673423509816572" target="_blank">Google+</a>'
+				'<a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a>',
+				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
 			)
 		);
 	}
@@ -509,7 +509,7 @@ class Antispam_Bee {
 	* Registrierung von Ressourcen (CSS & JS)
 	*
 	* @since   1.6
-	* @change  2.4
+	* @change  2.4.4
 	*/
 
 	public static function init_plugin_sources()
@@ -520,7 +520,7 @@ class Antispam_Bee {
 		/* JS einbinden */
 		wp_register_script(
 			'ab_script',
-			plugins_url('js/script.js', __FILE__),
+			plugins_url('js/scripts.min.js', __FILE__),
 			array('jquery', 'jquery-ui-core', 'jquery-ui-tabs'),
 			$plugin['Version']
 		);
@@ -528,7 +528,7 @@ class Antispam_Bee {
 		/* CSS einbinden */
 		wp_register_style(
 			'ab_style',
-			plugins_url('css/style.css', __FILE__),
+			plugins_url('css/styles.min.css', __FILE__),
 			array(),
 			$plugin['Version']
 		);
@@ -705,7 +705,7 @@ class Antispam_Bee {
 	* Ausgabe der Dashboard-CSS
 	*
 	* @since   1.9
-	* @change  2.4
+	* @change  2.4.4
 	*/
 
 	public static function add_dashboard_style()
@@ -716,7 +716,7 @@ class Antispam_Bee {
 		/* CSS registrieren */
 		wp_register_style(
 			'ab_chart',
-			plugins_url('css/dashboard.css', __FILE__),
+			plugins_url('css/dashboard.min.css', __FILE__),
 			array(),
 			$plugin['Version']
 		);
@@ -730,7 +730,7 @@ class Antispam_Bee {
 	* Ausgabe der Dashboard-JS
 	*
 	* @since   1.9
-	* @change  2.4
+	* @change  2.4.4
 	*/
 
 	public static function add_dashboard_script()
@@ -779,7 +779,7 @@ class Antispam_Bee {
 		/* JS einbinden */
 		wp_register_script(
 			'ab_chart',
-			plugins_url('js/dashboard.js', __FILE__),
+			plugins_url('js/dashboard.min.js', __FILE__),
 			array('jquery'),
 			$plugin['Version']
 		);
