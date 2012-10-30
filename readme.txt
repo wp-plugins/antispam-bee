@@ -65,6 +65,7 @@ Antispam Bee is simple to use, has many options and filters. Does not store data
 = 2.4.4 =
 * Technical and visual support for WordPress 3.5
 * Modification of the file structure: from `xyz.dev.css` to `xyz.min.css`
+* Retina screenshot
 
 = 2.4.3 =
 * Check for basic requirements
