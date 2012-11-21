@@ -85,6 +85,7 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 * TornevallNET als neuer DNSBL-Dienst
 * WordPress 3.4 als Mindestvoraussetzung
 * WordPress 3.5 Unterstützung
+* Online-Handbuch in Neufassung
 
 = 2.4.4 =
 * Technical and visual support for WordPress 3.5
