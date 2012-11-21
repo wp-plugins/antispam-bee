@@ -21,15 +21,6 @@ msgstr "Noch keine Daten vorhanden."
 msgid "New spam comment on your post"
 msgstr "Neuer Spam zum Artikel"
 
-msgid "Advanced"
-msgstr "Erweitert"
-
-msgid "Filter"
-msgstr "Filter"
-
-msgid "General"
-msgstr "Allgemein"
-
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -52,19 +43,13 @@ msgid "Spam IP"
 msgstr "Spam IP"
 
 msgid "Comment Language"
-msgstr "Kommentarsprache"
+msgstr "Sprache"
 
 msgid "Country Check"
 msgstr "Ländercode"
 
-msgid "Honey Pot"
-msgstr "Honey Pot"
-
-msgid "as"
-msgstr "als"
-
-msgid "iso codes"
-msgstr "ISO Codes"
+msgid "DNSBL Spam"
+msgstr "DNSBL Spam"
 
 msgid "Approve it"
 msgstr "Freigeben"
@@ -99,44 +84,18 @@ msgstr "Simples, äußerst effektives Plugin zur Bekämpfung von Spam-Kommentare
 msgid "http://antispambee.com"
 msgstr "http://antispambee.de"
 
-# Spam detection
-msgid "Mark as Spam, do not delete"
-msgstr "Spam markieren, nicht löschen"
+msgid "Antispam Bee requires WordPress 3.4 and PHP 5.1.2"
+msgstr "Antispam Bee setzt WordPress 3.4 und PHP 5.1.2 voraus"
 
-msgid "Limit on"
-msgstr "Beschränken auf"
-
-msgid "Spam will be automatically deleted after %s days"
-msgstr "Löschung nach %s Tagen"
-
-msgid "Notification by email"
-msgstr "Benachrichtigung via E-Mail"
-
-msgid "Delete comments by spam reasons"
-msgstr "Bei gewählten Spamgründen sofort löschen"
-
-msgid "Multiple choice or deselection by pressing Ctrl/CMD"
-msgstr "Mehrfachauswahl bzw. Abwahl mit Strg/CMD"
-
-msgid "Hide the &quot;MARKED AS SPAM&quot; note"
-msgstr "&quot;MARKED AS SPAM&quot; unterdrücken"
+msgid "Comments"
+msgstr "Kommentare"
 
 msgid "Comment marked as spam"
 msgstr "Spam-Benachrichtigung"
 
-# Block countries
-msgid "Block comments and pings from specific countries"
-msgstr "Länder blockieren bzw. erlauben"
-
-msgid "Blacklist"
-msgstr "Blacklist"
-
-msgid "Whitelist"
-msgstr "Whitelist"
-
-# Project Honey Pot
-msgid "Search comment spammers in the Project Honey Pot"
-msgstr "Project Honey Pot als Quelle für Spam"
+# Sprachen
+msgid "Language"
+msgstr "Sprache"
 
 msgid "English"
 msgstr "Englisch"
@@ -153,39 +112,120 @@ msgstr "Italienisch"
 msgid "Spanish"
 msgstr "Spanisch"
 
-# Translate API
-msgid "Allow comments only in certain language"
-msgstr "Inhalte nur in einer Sprache zulassen"
+# Antispam-Filter
+msgid "Antispam filter"
+msgstr "Antispam-Regeln"
 
-msgid "Language"
-msgstr "Sprache"
+msgid "Filter in the execution order"
+msgstr "Filter in Reihenfolge der Ausführung"
 
-# Extended
-msgid "Stricter inspection for comments and pings"
-msgstr "Zusatzchecks für Kommentare und Pings"
-
-msgid "Consider comments which are already marked as spam"
-msgstr "Lernfähigkeit für aktuellen Datenbestand"
-
-msgid "Do not check if the comment author has already approved"
+msgid "Trust approved commentators"
 msgstr "Genehmigten Kommentatoren vertrauen"
 
-# Misc
-msgid "Spam counter on the dashboard"
-msgstr "Spam-Anzahl auf dem Dashboard"
+msgid "No check for already commenting users"
+msgstr "Keine Prüfung bereits kommentierender Nutzer"
+
+msgid "Use a public antispam database"
+msgstr "Öffentliche Spamdatenbank berücksichtigen"
+
+msgid "Matching the ip address with"
+msgstr "Abgleich der IP-Adresse mit"
+
+msgid "Validate the ip address of commentators"
+msgstr "IP-Adresse des Kommentators validieren"
+
+msgid "Validity check for used ip address"
+msgstr "Kontrolle auf Gültigkeit verwendeter Kennung"
+
+msgid "Look in the local spam database"
+msgstr "Lokale Spamdatenbank einbeziehen"
+
+msgid "Already marked as spam? Yes? No?"
+msgstr "Suche im Spambestand des eigenen Blogs"
+
+msgid "Block comments from specific countries"
+msgstr "Bestimmte Länder blockieren bzw. erlauben"
+
+msgid "Filtering the requests depending on country"
+msgstr "Filterung der Anfragen je nach Herkunftsland"
+
+msgid "Allow comments only in certain language"
+msgstr "Kommentare nur in einer Sprache zulassen"
+
+msgid "Detection and approval in specified language"
+msgstr "Erkennung und Freigabe festgelegter Sprache"
+
+# Erweitert
+msgid "Advanced"
+msgstr "Erweitert"
+
+msgid "Other antispam tools"
+msgstr "Weitere Steuerungselemente"
+
+msgid "Mark as spam, do not delete"
+msgstr "Erkannten Spam kennzeichnen, nicht löschen"
+
+msgid "Keep the spam in my blog."
+msgstr "Markierung als Spam / Aufbewahrung im Blog"
+
+msgid "Notification by email"
+msgstr "Bei Spam via E-Mail informieren"
+
+msgid "Sending an alert to the admin"
+msgstr "Versand der Benachrichtigung an den Admin"
+
+msgid "Not store the reason in the comment body"
+msgstr "Spamgrund im Kommentar nicht speichern"
+
+msgid "Filter name as reason for current suspicion"
+msgstr "Zugeschlagener Filter als Verdachtsgrund"
+
+msgid "Delete existing spam after %s days"
+msgstr "Vorhandenen Spam nach %s Tagen löschen"
+
+msgid "Cleaning up the database from old entries"
+msgstr "Säuberung der Datenbank von alten Einträgen"
+
+msgid "Limit on %s"
+msgstr "Aufbewahrung gilt nur für %s"
+
+msgid "Another type of spam will be deleted immediately"
+msgstr "Spam anderes Typs unterliegt sofortiger Löschung"
+
+msgid "Delete comments by spam reasons"
+msgstr "Bei definierten Spamgründen sofort löschen"
+
+msgid "Multiple choice by pressing Ctrl/CMD"
+msgstr "Mehrfachauswahl bzw. Abwahl mit Strg/CMD"
+
+# Sonstiges
+msgid "More"
+msgstr "Sonstiges"
+
+msgid "A few little things"
+msgstr "Weniger relevante Optionen"
 
 msgid "Statistics on the dashboard"
-msgstr "Verlauf-Statistik auf dem Dashboard"
+msgstr "Statistiken als Dashboard-Widget generieren"
+
+msgid "Spam detection rate with daily values"
+msgstr "Verlauf der Erkennungsrate mit täglichen Werten"
+
+msgid "Spam counter on the dashboard"
+msgstr "Spam-Anzahl auf dem Dashboard anzeigen"
+
+msgid "Amount of identified spam comments"
+msgstr "Menge an identifizierten Spam-Kommentaren"
 
 msgid "Do not check trackbacks / pingbacks"
-msgstr "Keine Prüfung der Ping- und Trackbacks"
+msgstr "Eingehende Ping- und Trackbacks ignorieren"
+
+msgid "No spam check for trackback notifications"
+msgstr "Kein Spam-Check für Link-Benachrichtigungen"
 
 msgid "Comment form used outside of posts"
 msgstr "Kommentarformular auf Archivseiten"
 
-msgid "Antispam Bee requires WordPress 3.3 and PHP 5.1.2"
-msgstr "Antispam Bee setzt WordPress 3.3 und PHP 5.1.2 voraus"
-
-msgid "Comments"
-msgstr "Kommentare"
+msgid "Check for comment forms on archive pages"
+msgstr "Überwachung des Formulars auf Archivseiten"
 
