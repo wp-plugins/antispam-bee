@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-Say Goodbye zu Spam in deinem WordPress-Blog. Kostenlos, werbefrei und datenschutzkonform. Für Kommentare und Trackbacks.
+Say Goodbye zu Spam in deinem Blog. Kostenlos, werbefrei und datenschutzkonform. Für Kommentare und Trackbacks.
 
 
 
@@ -30,7 +30,7 @@ Als Unterstützung der Erkennung greift *Antispam Bee* auf eine öffentlich zug�
 * Keine Registrierung notwendig
 * Kostenlos auch für kommerzielle Projekte
 * Keine Anpassung von Theme-Templates vonnöten
-* Alle Funktionen vom Nutzer anpassbar
+* Alle Funktionen vom Nutzer steuerbar
 * Statistik der letzten 30 Tage als Dashboard-Widget
 
 = Einstellungen =
@@ -55,7 +55,7 @@ Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbar
 * Eingehende Ping- und Trackbacks ignorieren
 * Kommentarformular befindet sich auf Archivseiten
 
-Installiert, probiert die Antispam-Lösung für WordPress aus. Anmeldefrei und ohne lästige Captchas.
+Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmeldefrei und ohne lästige Captchas.
 
 = Unterstützung =
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
