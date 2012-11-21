@@ -203,6 +203,4 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 
 == Screenshots ==
 
-1. Antispam Bee Optionen (Antispam-Filter)
-2. Antispam Bee Optionen (Erweitert)
-3. Antispam Bee Optionen (Sonstiges)
+1. Antispam Bee Optionen
