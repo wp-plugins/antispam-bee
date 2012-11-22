@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.4.5
+Version: 2.4.6
 */
 
 

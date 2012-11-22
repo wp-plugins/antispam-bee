@@ -79,6 +79,10 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 
 == Changelog ==
 
+= 2.4.6 =
+* Russische Übersetzung
+* Veränderung der Secret-Zeichenfolge
+
 = 2.4.5 =
 * Überarbeitetes Layout der Einstellungen
 * Streichung von Project Honey Pot
