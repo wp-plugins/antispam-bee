@@ -274,7 +274,7 @@ class Antispam_Bee {
 	private static function _init_internal_vars()
 	{
 		self::$_base   = plugin_basename(__FILE__);
-		self::$_secret = substr(md5(get_bloginfo('url')), 0, 6). '-comment';
+		self::$_secret = substr(md5(get_bloginfo('url')), 0, 5). '-comment';
 		
 		self::$defaults = array(
 			'options' => array(
