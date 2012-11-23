@@ -1371,7 +1371,7 @@ class Antispam_Bee {
 	* Prüfung auf DNSBL Spam
 	*
 	* @since   2.4.5
-	* @change  2.4.7
+	* @change  2.4.5
 	*
 	* @param   string   $ip  IP-Adresse
 	* @return  boolean       TRUE bei gemeldeter IP
@@ -1389,13 +1389,10 @@ class Antispam_Bee {
 			return false;
 		}
 		
-		foreach ( array('opm.tornevall.org', 'b.barracudacentral.org') as $service ) {
-			if ( checkdnsrr( self::_reverse_ip($ip). '.' .$service. '.', 'A' ) === true ) {
-				return true;
-			}
-		}
-		
-		return false;
+		return (bool) checkdnsrr(
+			self::_reverse_ip($ip). '.opm.tornevall.org.',
+			'A'
+		);
 	}
 	
 	
