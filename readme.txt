@@ -79,6 +79,9 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 
 == Changelog ==
 
+= 2.5.0 =
+* [Edition 2012](https://plus.google.com/110569673423509816572/posts/6JUC6PHXd6A)
+
 = 2.4.6 =
 * Russische Übersetzung
 * Veränderung der Secret-Zeichenfolge
