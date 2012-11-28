@@ -296,7 +296,7 @@ class Antispam_Bee {
 				'translate_api' 	=> 0,
 				'translate_lang'	=> '',
 				
-				'dnsbl_check'		=> 1,
+				'dnsbl_check'		=> 0,
 				
 				/* Erweitert */
 				'flag_spam' 		=> 1,
