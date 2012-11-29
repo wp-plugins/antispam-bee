@@ -20,7 +20,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Speicherung der GUI
 	*
 	* @since   0.1
-	* @change  2.4.5
+	* @change  2.5.1
 	*/
 	
 	public static function save_changes()
@@ -56,6 +56,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'reasons_enable' 	=> (int)(!empty($_POST['ab_reasons_enable'])),
 			'ignore_reasons' 	=> (array)self::get_key($_POST, 'ab_ignore_reasons'),
 
+			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
 			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
 			
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
@@ -168,7 +169,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.4.5
+	* @change  2.5.1
 	*/
 
 	function options_page() { ?>
@@ -208,6 +209,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									<span><?php esc_html_e('No check for already commenting users', 'antispam_bee') ?></span>
 								</label>
 								<input type="checkbox" name="ab_already_commented" id="ab_already_commented" value="1" <?php checked($options['already_commented'], 1) ?> />
+							</li>
+							
+							<li>
+								<label for="ab_bbcode_check">
+									<?php esc_html_e('BBCode is spam', 'antispam_bee') ?>
+									<span><?php esc_html_e('Review the comment contents for BBCode links', 'antispam_bee') ?></span>
+								</label>
+								<input type="checkbox" name="ab_bbcode_check" id="ab_bbcode_check" value="1" <?php checked($options['bbcode_check'], 1) ?> />
 							</li>
 							
 							<li>

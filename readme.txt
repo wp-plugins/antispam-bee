@@ -18,10 +18,6 @@ Say Goodbye zu Spam in deinem Blog. Kostenlos, werbefrei und datenschutzkonform.
 
 Blog-Spam bekämpfen ist die Stärke von *Antispam Bee*. Seit Jahren wird das Plugin darauf trainiert, Spam-Kommentare zuverlässig zu erkennen (auf Wunsch auch sofort zu beseitigen). Dabei greift *Antispam Bee* auf unterschiedliche Techniken zu, die sich zur Identifizierung von Spam-Nachrichten bewährt haben.
 
-Im Vergleich zum - für die meisten Blogger kostenpflichtigen - Plugin Akismet, überträgt *Antispam Bee* keine Blog- und Kommentardaten an einen entfernten Server. Ob ein Kommentar böswillig ist, entscheidet das kostenlose Plugin vor Ort im heimischen Blog. Hierfür stehen dem Nutzer zahlreiche Funktionen zur Verfügung, die per Mausklick ein- und abgeschaltet werden können.
-
-Als Unterstützung der Erkennung greift *Antispam Bee* auf eine öffentlich zugängliche und seit mehreren Jahren gepflegte [Datenbank](http://opm.tornevall.org) mit aktuellen Spammer-Referenzen zu. Anhand der IP-Adresse des Kommentators kann schnell und unbürokratisch entschieden werden, ob der Kommentar-Absender ein in der Welt bekannter Spam-Vertreiber ist. Aber auch dieser Filter kann im Antispam-Plugin jedezeit deaktiviert werden.
-
 = Pluspunkte =
 * Aktive Weiterentwicklung seit 2009
 * Über 20 untereinander kombinierbare Funktionen
@@ -39,6 +35,7 @@ Nach der Aktivierung nimmt *Antispam Bee* den regulären Betrieb auf, indem vord
 Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbare Antispam-Filter, die der Blog-Administrator nach Bedarf aktiviert. Zahlreiche Wahlmöglichkeiten steuern hingegen die Benachrichtigungs- und die automatische Löschfunktion des Plugins. Die *Antispam Bee* Optionen in der Kurzfassung:
 
 * Genehmigten Kommentatoren vertrauen
+* BBCode als Spam einstufen
 * Öffentliche Spamdatenbank berücksichtigen
 * IP-Adresse des Kommentators validieren
 * Lokale Spamdatenbank einbeziehen
@@ -55,6 +52,10 @@ Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbar
 * Eingehende Ping- und Trackbacks ignorieren
 * Kommentarformular befindet sich auf Archivseiten
 
+= Datenschutz =
+In Blogs innerhalb der EU-Länder darf die Option *"Öffentliche Spamdatenbank berücksichtigen"* nicht aktiviert werden, da das Antispam-Plugin ungekürzte IP-Adressen der Nutzer dafür verwendet, diese in der öffentlichen Spammer-Datenbank nachzuschlagen und als Spam zu identifizieren. Technisch ist die Verschlüsselung der IP nicht möglich, da Spammer-Datenbanken mit vollständigen IP-Adressen arbeiten. [Weitere Details](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#dnsbl_check)
+
+= Schlusswort =
 Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmeldefrei und ohne lästige Captchas.
 
 = Unterstützung =
@@ -62,7 +63,7 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 * Per [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6)
 
 = Systemanforderungen =
-* PHP 5.1.2
+* PHP 5.2.4
 * WordPress 3.4
 
 = Dokumentation =
@@ -78,6 +79,12 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmelde
 
 
 == Changelog ==
+
+= 2.5.1 =
+* [BBCode im Kommentar als Spamgrund](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#bbcode_check)
+* IP-Anonymisierung bei der Länderprüfung
+* Mehr Transparenz durch hinzugefügte Datenschutzhinweise
+* PHP 5.2.4 als Voraussetzung (ist zugleich die Voraussetzung für WP 3.4)
 
 = 2.5.0 =
 * [Edition 2012](https://plus.google.com/110569673423509816572/posts/6JUC6PHXd6A)

@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.0
+Version: 2.5.1
 */
 
 
@@ -47,7 +47,7 @@ class Antispam_Bee {
 		if ( (defined('DOING_AJAX') && DOING_AJAX) or (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ) {
 			return;
 		}
-		
+
 		/* Initialisierung */
 		self::_init_internal_vars();
 		
@@ -297,6 +297,7 @@ class Antispam_Bee {
 				'translate_lang'	=> '',
 				
 				'dnsbl_check'		=> 0,
+				'bbcode_check'		=> 1,
 				
 				/* Erweitert */
 				'flag_spam' 		=> 1,
@@ -318,6 +319,7 @@ class Antispam_Bee {
 				'spamip'  => 'Spam IP',
 				'country' => 'Country Check',
 				'dnsbl'	  => 'DNSBL Spam',
+				'bbcode'  => 'BBCode',
 				'lang'    => 'Comment Language'
 			)
 		);
@@ -457,19 +459,19 @@ class Antispam_Bee {
 	* Anzeige der Admin-Notiz
 	*
 	* @since   2.4.3
-	* @change  2.4.3
+	* @change  2.5.1
 	*/
 
 	public static function init_admin_notice() {
 		/* Alles klar? */
-		if ( self::_is_version($GLOBALS['wp_version'], '3.4') && self::_is_version(phpversion(), '5.1.2') ) {
+		if ( self::_is_version($GLOBALS['wp_version'], '3.4') && self::_is_version(phpversion(), '5.2.4') ) {
 			return;
 		}
 
 		/* Warnung */
 		echo sprintf(
 			'<div class="error"><p>%s</p></div>',
-			esc_html__('Antispam Bee requires WordPress 3.4 and PHP 5.1.2', 'antispam_bee')
+			esc_html__('Antispam Bee requires WordPress 3.4 and PHP 5.2.4', 'antispam_bee')
 		);
 	}
 	
@@ -1177,90 +1179,170 @@ class Antispam_Bee {
 		);
 	}
 	
-
-	/**
-	* Kürzung der IP-Adressen
-	*
-	* @since   0.1
-	* @change  2.4
-	*
-	* @param   string  $ip  Ungekürzte IP
-	* @return  string  $ip  Gekürzte IP
-	*/
-
-	private static function _cut_ip($ip)
-	{
-		return str_replace(
-			strrchr(
-				$ip,
-				( self::_is_ipv4($ip) ? '.' : ':' )
-			),
-			'',
-			$ip
-		);
-	}
-	
 	
 	/**
-	* Dreht die IP-Adresse
-	*
-	* @since   2.4.5
-	* @change  2.4.5
-	*
-	* @param   string   $ip  IP-Adresse
-	* @return  string        Gedrehte IP-Adresse
-	*/
-	
-	private static function _reverse_ip($ip)
-	{
-		return implode(
-			'.',
-			array_reverse(
-				explode(
-					'.',
-					$ip
-				)
-			)
-		);
-	}
-	
-	
-	/**
-	* Prüfung auf Mobile
-	*
-	* @since   0.1
-	* @change  2.4
-	*
-	* @return  boolean  TRUE, wenn "wptouch" aktiv ist
-	*/
-
-	private static function _is_mobile()
-	{
-		return strpos(TEMPLATEPATH, 'wptouch');
-	}
-
-
-	/**
-	* Prüfung auf eine IPv4-Adresse
+	* Prüfung der Trackbacks
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.5.1
 	*
-	* @param   string   $ip  Zu prüfende IP
-	* @return  integer       Anzahl der Treffer
+	* @param   array  $comment  Daten des Trackbacks
+	* @return  array            Array mit dem Verdachtsgrund [optional]
 	*/
 	
-	private static function _is_ipv4($ip)
+	private static function _verify_trackback_request($comment)
 	{
-		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
-	}
+		/* IP */
+		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
+		
+		/* Kommentarwerte */
+		$url = self::get_key($comment, 'comment_author_url');
+		$body = self::get_key($comment, 'comment_content');
 
+		/* Leere Werte ? */
+		if ( empty($url) or empty($body) or empty($ip) or !filter_var($ip, FILTER_VALIDATE_IP) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* Optionen */
+		$options = self::get_options();
+		
+		/* BBCode Spam */
+		if ( $options['bbcode_check'] && self::_is_bbcode_spam($body) ) {
+			return array(
+				'reason' => 'bbcode'
+			);
+		}
+		
+		/* DNSBL Spam */
+		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
+			return array(
+				'reason' => 'dnsbl'
+			);
+		}
+		
+		/* IP != Server */
+		if ( $options['advanced_check'] && self::_is_fake_ip($ip, parse_url($url, PHP_URL_HOST)) ) {
+			return array(
+				'reason' => 'server'
+			);
+		}
+		
+		/* IP im Spam */
+		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
+			return array(
+				'reason' => 'spamip'
+			);
+		}
+		
+		/* Country Code prüfen */
+		if ( $options['country_code'] && self::_is_country_spam($ip) ) {
+			return array(
+				'reason' => 'country'
+			);
+		}
+	}
+	
+	
+	/**
+	* Prüfung den Kommentar
+	*
+	* @since   2.4
+	* @change  2.5.1
+	*
+	* @param   array  $comment  Daten des Kommentars
+	* @return  array            Array mit dem Verdachtsgrund [optional]
+	*/
+	
+	private static function _verify_comment_request($comment)
+	{
+		/* IP */
+		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
+		
+		/* Kommentarwerte */
+		$body = self::get_key($comment, 'comment_content');
+		$email = self::get_key($comment, 'comment_author_email');
+		
+		/* Leere Werte ? */
+		if ( empty($body) or empty($ip) or !filter_var($ip, FILTER_VALIDATE_IP) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* Leere Werte ? */
+		if ( get_option('require_name_email') && empty($email) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* Optionen */
+		$options = self::get_options();
+		
+		/* Bereits kommentiert? */
+		if ( $options['already_commented'] && !empty($email) && self::_is_approved_email($email) ) {
+			return;
+		}
+		
+		/* Bot erkannt */
+		if ( !empty($_POST['bee_spam']) ) {
+			return array(
+				'reason' => 'css'
+			);
+		}
+		
+		/* BBCode Spam */
+		if ( $options['bbcode_check'] && self::_is_bbcode_spam($body) ) {
+			return array(
+				'reason' => 'bbcode'
+			);
+		}
+		
+		/* DNSBL Spam */
+		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
+			return array(
+				'reason' => 'dnsbl'
+			);
+		}
+		
+		/* Erweiterter Schutz */
+		if ( $options['advanced_check'] && self::_is_fake_ip($ip) ) {
+			return array(
+				'reason' => 'server'
+			);
+		}
+		
+		/* IP im Spam */
+		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
+			return array(
+				'reason' => 'spamip'
+			);
+		}
+		
+		/* Country Code prüfen */
+		if ( $options['country_code'] && self::_is_country_spam($ip) ) {
+			return array(
+				'reason' => 'country'
+			);
+		}
+		
+		/* Translate API */
+		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
+			return array(
+				'reason' => 'lang'
+			);
+		}
+	}
+	
 	
 	/**
 	* Prüfung einer IP auf ihre Existenz im lokalen Spam
 	*
 	* @since   2.0
-	* @change  2.4
+	* @change  2.5.1
 	*
 	* @param   string	$ip  IP-Adresse
 	* @return  boolean       TRUE bei verdächtiger IP
@@ -1268,16 +1350,11 @@ class Antispam_Bee {
 
 	private static function _is_spam_ip($ip)
 	{
-		/* Keine IP? */
-		if ( empty($ip) ) {
-			return true;
-		}
-
 		/* Global */
 		global $wpdb;
 
 		/* Suchen */
-		$found = $wpdb->get_var(
+		$result = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT `comment_ID` FROM `$wpdb->comments` WHERE `comment_approved` = 'spam' AND `comment_author_IP` = %s LIMIT 1",
 				(string)$ip
@@ -1285,7 +1362,7 @@ class Antispam_Bee {
 		);
 
 		/* Gefunden? */
-		if ( $found ) {
+		if ( $result ) {
 			return true;
 		}
 
@@ -1297,19 +1374,14 @@ class Antispam_Bee {
 	* Prüfung auf erlaubten Ländercodes
 	*
 	* @since   0.1
-	* @change  2.4.5
+	* @change  2.5.1
 	*
 	* @param   string	$ip  IP-Adresse
 	* @return  boolean       TRUE bei unerwünschten Ländercodes
 	*/
 
-	private static function _is_spam_country($ip)
+	private static function _is_country_spam($ip)
 	{
-		/* Keine IP? */
-		if ( empty($ip) ) {
-			return true;
-		}
-		
 		/* Optionen */
 		$options = self::get_options();
 
@@ -1331,14 +1403,14 @@ class Antispam_Bee {
 		if ( empty($white) && empty($black) ) {
 			return false;
 		}
-
+		
 		/* IP abfragen */
 		$response = wp_remote_get(
 			esc_url_raw(
 				sprintf(
 					'https://geoip.maxmind.com/a?l=%s&i=%s',
 					strrev('1Lbn0ZsL08e1'),
-					$ip
+					self::_anonymize_ip($ip)
 				),
 				'https'
 			)
@@ -1351,7 +1423,7 @@ class Antispam_Bee {
 
 		/* Land auslesen */
 		$country = wp_remote_retrieve_body($response);
-
+		
 		/* Kein Land? */
 		if ( empty($country) ) {
 			return false;
@@ -1379,11 +1451,6 @@ class Antispam_Bee {
 
 	private static function _is_dnsbl_spam($ip)
 	{
-		/* Keine IP? */
-		if ( empty($ip) ) {
-			return true;
-		}
-		
 		/* Funktionscheck */
 		if ( ! function_exists('checkdnsrr') ) {
 			return false;
@@ -1397,61 +1464,18 @@ class Antispam_Bee {
 	
 	
 	/**
-	* Prüfung der Trackbacks
+	* Prüfung auf BBCode Spam
 	*
-	* @since   2.4
-	* @change  2.4.5
+	* @since   2.5.1
+	* @change  2.5.1
 	*
-	* @param   array  $comment  Daten des Trackbacks
-	* @return  array            Array mit dem Verdachtsgrund [optional]
+	* @param   string   $body  Inhalt eines Kommentars
+	* @return  boolean         TRUE bei BBCode im Inhalt
 	*/
-	
-	private static function _verify_trackback_request($comment)
-	{
-		/* IP */
-		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
-		
-		/* Kommentarwerte */
-		$url = self::get_key($comment, 'comment_author_url');
-		$body = self::get_key($comment, 'comment_content');
 
-		/* Leere Werte ? */
-		if ( empty($ip) or empty($url) or empty($body) ) {
-			return array(
-				'reason' => 'empty'
-			);
-		}
-		
-		/* Optionen */
-		$options = self::get_options();
-		
-		/* DNSBL Spam */
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
-			);
-		}
-		
-		/* IP != Server */
-		if ( $options['advanced_check'] && self::_is_fake_ip($ip, parse_url($url, PHP_URL_HOST)) ) {
-			return array(
-				'reason' => 'server'
-			);
-		}
-		
-		/* IP im Spam */
-		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
-			return array(
-				'reason' => 'spamip'
-			);
-		}
-		
-		/* Country Code prüfen */
-		if ( $options['country_code'] && self::_is_spam_country($ip) ) {
-			return array(
-				'reason' => 'country'
-			);
-		}
+	private static function _is_bbcode_spam($body)
+	{
+		return (bool) preg_match('/\[url[=\]].*\[\/url\]/is', $body);
 	}
 	
 	
@@ -1459,7 +1483,7 @@ class Antispam_Bee {
 	* Prüfung auf eine bereits freigegebene E-Mail-Adresse
 	*
 	* @since   2.0
-	* @change  2.4
+	* @change  2.5.1
 	*
 	* @param   string   $email  E-Mail-Adresse
 	* @return  boolean          TRUE bei einem gefundenen Eintrag
@@ -1467,16 +1491,11 @@ class Antispam_Bee {
 
 	private static function _is_approved_email($email)
 	{
-		/* Leer? */
-		if ( empty($email) ) {
-			return false;
-		}
-
 		/* Global */
 		global $wpdb;
 
 		/* Suchen */
-		$found = $wpdb->get_var(
+		$result = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT `comment_ID` FROM `$wpdb->comments` WHERE `comment_approved` = '1' AND `comment_author_email` = %s LIMIT 1",
 				(string)$email
@@ -1484,7 +1503,7 @@ class Antispam_Bee {
 		);
 
 		/* Gefunden? */
-		if ( $found ) {
+		if ( $result ) {
 			return true;
 		}
 
@@ -1496,7 +1515,7 @@ class Antispam_Bee {
 	* Prüfung auf eine gefälschte IP
 	*
 	* @since   2.0
-	* @change  2.4
+	* @change  2.5.1
 	*
 	* @param   string   $ip    IP-Adresse
 	* @param   string   $host  Host [optional]
@@ -1505,11 +1524,6 @@ class Antispam_Bee {
 
 	private static function _is_fake_ip($ip, $host = false)
 	{
-		/* Leer? */
-		if ( empty($ip) ) {
-			return true;
-		}
-		
 		/* Remote Host */
 		$hostbyip = gethostbyaddr($ip);
 
@@ -1608,88 +1622,109 @@ class Antispam_Bee {
 	
 	
 	/**
-	* Prüfung den Kommentar
+	* Kürzung der IP-Adressen
 	*
-	* @since   2.4
+	* @since   0.1
+	* @change  2.5.1
+	*
+	* @param   string   $ip       Original IP
+	* @param   boolean  $cut_end  Kürzen vom Ende?
+	* @return  string             Gekürzte IP
+	*/
+
+	private static function _cut_ip($ip, $cut_end = true)
+	{
+		/* Trenner */
+		$separator = ( self::_is_ipv4($ip) ? '.' : ':' );
+		
+		return str_replace(
+			( $cut_end ? strrchr( $ip, $separator) : strstr( $ip, $separator) ),
+			'',
+			$ip
+		);
+	}
+	
+
+	/**
+	* Anonymisierung der IP-Adressen
+	*
+	* @since   2.5.1
+	* @change  2.5.1
+	*
+	* @param   string  $ip  Original IP
+	* @return  string       Anonyme IP
+	*/
+
+	private static function _anonymize_ip($ip)
+	{
+		if ( self::_is_ipv4($ip) ) {
+			return self::_cut_ip($ip). '.0';
+		}
+		
+		return self::_cut_ip($ip, false). ':0:0:0:0:0:0:0';
+	}
+	
+	
+	/**
+	* Dreht die IP-Adresse
+	*
+	* @since   2.4.5
 	* @change  2.4.5
 	*
-	* @param   array  $comment  Daten des Kommentars
-	* @return  array            Array mit dem Verdachtsgrund [optional]
+	* @param   string   $ip  IP-Adresse
+	* @return  string        Gedrehte IP-Adresse
 	*/
 	
-	private static function _verify_comment_request($comment)
+	private static function _reverse_ip($ip)
 	{
-		/* IP */
-		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
-		
-		/* Kommentarwerte */
-		$body = self::get_key($comment, 'comment_content');
-		$email = self::get_key($comment, 'comment_author_email');
-		
-		/* Leere Werte ? */
-		if ( empty($ip) or empty($body) ) {
-			return array(
-				'reason' => 'empty'
-			);
-		}
-		
-		/* Leere Werte ? */
-		if ( get_option('require_name_email') && empty($email) ) {
-			return array(
-				'reason' => 'empty'
-			);
-		}
-		
-		/* Optionen */
-		$options = self::get_options();
-		
-		/* Bereits kommentiert? */
-		if ( $options['already_commented'] && !empty($email) && self::_is_approved_email($email) ) {
-			return;
-		}
-		
-		/* Bot erkannt */
-		if ( !empty($_POST['bee_spam']) ) {
-			return array(
-				'reason' => 'css'
-			);
-		}
-		
-		/* DNSBL Spam */
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
-			);
-		}
-		
-		/* Erweiterter Schutz */
-		if ( $options['advanced_check'] && self::_is_fake_ip($ip) ) {
-			return array(
-				'reason' => 'server'
-			);
-		}
-		
-		/* IP im Spam */
-		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
-			return array(
-				'reason' => 'spamip'
-			);
-		}
-		
-		/* Country Code prüfen */
-		if ( $options['country_code'] && self::_is_spam_country($ip) ) {
-			return array(
-				'reason' => 'country'
-			);
-		}
-		
-		/* Translate API */
-		if ( $options['translate_api'] && self::_is_lang_spam($body) ) {
-			return array(
-				'reason' => 'lang'
-			);
-		}
+		return implode(
+			'.',
+			array_reverse(
+				explode(
+					'.',
+					$ip
+				)
+			)
+		);
 	}
+	
+	
+	/**
+	* Prüfung auf eine IPv4-Adresse
+	*
+	* @since   2.4
+	* @change  2.4
+	*
+	* @param   string   $ip  Zu prüfende IP
+	* @return  integer       Anzahl der Treffer
+	*/
+	
+	private static function _is_ipv4($ip)
+	{
+		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+	}
+	
+	
+	/**
+	* Prüfung auf Mobile
+	*
+	* @since   0.1
+	* @change  2.4
+	*
+	* @return  boolean  TRUE, wenn "wptouch" aktiv ist
+	*/
+
+	private static function _is_mobile()
+	{
+		return strpos(TEMPLATEPATH, 'wptouch');
+	}
+	
+	
+	
+	
+	############################
+	#####  SPAM-BEHANDLUNG  ####
+	############################
 	
 	
 	/**

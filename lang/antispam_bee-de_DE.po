@@ -125,6 +125,12 @@ msgstr "Genehmigten Kommentatoren vertrauen"
 msgid "No check for already commenting users"
 msgstr "Keine Prüfung bereits kommentierender Nutzer"
 
+msgid "BBCode is spam"
+msgstr "BBCode als Spam einstufen"
+
+msgid "Review the comment contents for BBCode links"
+msgstr "Analyse der Kommentarinhalte auf BBCode-Links"
+
 msgid "Use a public antispam database"
 msgstr "Öffentliche Spamdatenbank berücksichtigen"
 
