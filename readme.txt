@@ -84,7 +84,7 @@ Anmeldefrei und ohne lästige Captchas.
 = 2.5.1 =
 * [BBCode im Kommentar als Spamgrund](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#bbcode_check)
 * IP-Anonymisierung bei der Länderprüfung
-* Mehr Transparenz durch hinzugefügte Datenschutzhinweise
+* [Mehr Transparenz](https://plus.google.com/110569673423509816572/posts/ZMU6RfyRK29) durch hinzugefügte Datenschutzhinweise
 * PHP 5.2.4 als Voraussetzung (ist zugleich die Voraussetzung für WP 3.4)
 
 = 2.5.0 =
