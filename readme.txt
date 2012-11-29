@@ -56,7 +56,8 @@ Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbar
 In Blogs innerhalb der EU-Länder darf die Option *"Öffentliche Spamdatenbank berücksichtigen"* nicht aktiviert werden, da das Antispam-Plugin ungekürzte IP-Adressen der Nutzer dafür verwendet, diese in der öffentlichen Spammer-Datenbank nachzuschlagen und als Spam zu identifizieren. Technisch ist die Verschlüsselung der IP nicht möglich, da Spammer-Datenbanken mit vollständigen IP-Adressen arbeiten. [Weitere Details](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#dnsbl_check)
 
 = Schlusswort =
-Installiert, probiert die bewährte Antispam-Lösung für WordPress aus. Anmeldefrei und ohne lästige Captchas.
+Installiert, probiert die bewährte Antispam-Lösung für WordPress aus.
+Anmeldefrei und ohne lästige Captchas.
 
 = Unterstützung =
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
