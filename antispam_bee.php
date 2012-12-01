@@ -1184,7 +1184,7 @@ class Antispam_Bee {
 	* Prüfung der Trackbacks
 	*
 	* @since   2.4
-	* @change  2.5.1
+	* @change  2.5.2
 	*
 	* @param   array  $comment  Daten des Trackbacks
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1200,7 +1200,14 @@ class Antispam_Bee {
 		$body = self::get_key($comment, 'comment_content');
 
 		/* Leere Werte ? */
-		if ( empty($url) or empty($body) or empty($ip) or !filter_var($ip, FILTER_VALIDATE_IP) ) {
+		if ( empty($url) or empty($body) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* IP? */
+		if ( empty($ip) or (function_exists('filter_var') && !filter_var($ip, FILTER_VALIDATE_IP)) ) {
 			return array(
 				'reason' => 'empty'
 			);
@@ -1250,7 +1257,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.5.1
+	* @change  2.5.2
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1266,7 +1273,14 @@ class Antispam_Bee {
 		$email = self::get_key($comment, 'comment_author_email');
 		
 		/* Leere Werte ? */
-		if ( empty($body) or empty($ip) or !filter_var($ip, FILTER_VALIDATE_IP) ) {
+		if ( empty($body) ) {
+			return array(
+				'reason' => 'empty'
+			);
+		}
+		
+		/* IP? */
+		if ( empty($ip) or (function_exists('filter_var') && !filter_var($ip, FILTER_VALIDATE_IP)) ) {
 			return array(
 				'reason' => 'empty'
 			);

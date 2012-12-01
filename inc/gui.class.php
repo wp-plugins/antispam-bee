@@ -169,7 +169,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.5.1
+	* @change  2.5.2
 	*/
 
 	function options_page() { ?>
