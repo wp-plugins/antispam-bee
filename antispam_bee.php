@@ -1765,7 +1765,7 @@ class Antispam_Bee {
 		/* Filter-Einstellungen */
 		$ignore_filter = $options['ignore_filter'];
 		$ignore_type = $options['ignore_type'];
-		$ignore_reason = in_array($reason, $options['ignore_reasons']);
+		$ignore_reason = in_array($reason, (array)$options['ignore_reasons']);
 
 		/* Spam hochzählen */
 		self::_update_spam_count();
