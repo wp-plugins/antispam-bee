@@ -86,6 +86,7 @@ Anmeldefrei und ohne lästige Captchas.
 * Neu: [Reguläre Ausdrücke anwenden](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#regexp_check) mit vordefinierten und eigenen Erkennungsmustern
 * Änderung der Filter-Reihenfolge
 * Verbesserungen an der Sprachdatei
+* [Hintergrundinformationen zum Update](https://plus.google.com/110569673423509816572/posts/CwtbSoMkGrT)
 
 = 2.5.1 =
 * [BBCode im Kommentar als Spamgrund](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#bbcode_check)
