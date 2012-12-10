@@ -82,6 +82,9 @@ Anmeldefrei und ohne lästige Captchas.
 
 == Changelog ==
 
+= 2.5.3 =
+* Optimierung des Regulären Ausdrucks
+
 = 2.5.2 =
 * Neu: [Reguläre Ausdrücke anwenden](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#regexp_check) mit vordefinierten und eigenen Erkennungsmustern
 * Änderung der Filter-Reihenfolge
