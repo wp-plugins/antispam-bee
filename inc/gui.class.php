@@ -20,7 +20,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Speicherung der GUI
 	*
 	* @since   0.1
-	* @change  2.5.1
+	* @change  2.5.2
 	*/
 	
 	public static function save_changes()
@@ -45,6 +45,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'dashboard_count' 	=> (int)(!empty($_POST['ab_dashboard_count'])),
 			'dashboard_chart' 	=> (int)(!empty($_POST['ab_dashboard_chart'])),
 			'advanced_check' 	=> (int)(!empty($_POST['ab_advanced_check'])),
+			'regexp_check' 		=> (int)(!empty($_POST['ab_regexp_check'])),
 			'spam_ip' 			=> (int)(!empty($_POST['ab_spam_ip'])),
 			'already_commented'	=> (int)(!empty($_POST['ab_already_commented'])),
 			'always_allowed' 	=> (int)(!empty($_POST['ab_always_allowed'])),
@@ -220,19 +221,19 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							</li>
 							
 							<li>
-								<label for="ab_dnsbl_check">
-									<?php esc_html_e('Use a public antispam database', 'antispam_bee') ?>
-									<span><?php _e('Matching the ip address with <a href="http://opm.tornevall.org" target="_blank">Tornevall</a>', 'antispam_bee') ?></span>
-								</label>
-								<input type="checkbox" name="ab_dnsbl_check" id="ab_dnsbl_check" value="1" <?php checked($options['dnsbl_check'], 1) ?> />
-							</li>
-							
-							<li>
 								<label for="ab_advanced_check">
 									<?php esc_html_e('Validate the ip address of commentators', 'antispam_bee') ?>
 									<span><?php esc_html_e('Validity check for used ip address', 'antispam_bee') ?></span>
 								</label>
 								<input type="checkbox" name="ab_advanced_check" id="ab_advanced_check" value="1" <?php checked($options['advanced_check'], 1) ?> />
+							</li>
+
+							<li>
+								<label for="ab_regexp_check">
+									<?php esc_html_e('Use regular expressions', 'antispam_bee') ?>
+									<span><?php _e('Predefined and custom patterns by <a href="https://gist.github.com/4242142" target="_blank">plugin hook</a>', 'antispam_bee') ?></span>
+								</label>
+								<input type="checkbox" name="ab_regexp_check" id="ab_regexp_check" value="1" <?php checked($options['regexp_check'], 1) ?> />
 							</li>
 							
 							<li>
@@ -241,6 +242,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 									<span><?php esc_html_e('Already marked as spam? Yes? No?', 'antispam_bee') ?></span>
 								</label>
 								<input type="checkbox" name="ab_spam_ip" id="ab_spam_ip" value="1" <?php checked($options['spam_ip'], 1) ?> />
+							</li>
+							
+							<li>
+								<label for="ab_dnsbl_check">
+									<?php esc_html_e('Use a public antispam database', 'antispam_bee') ?>
+									<span><?php _e('Matching the ip address with <a href="http://opm.tornevall.org" target="_blank">Tornevall</a>', 'antispam_bee') ?></span>
+								</label>
+								<input type="checkbox" name="ab_dnsbl_check" id="ab_dnsbl_check" value="1" <?php checked($options['dnsbl_check'], 1) ?> />
 							</li>
 							
 							<li>

@@ -36,9 +36,10 @@ Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbar
 
 * Genehmigten Kommentatoren vertrauen
 * BBCode als Spam einstufen
-* Öffentliche Spamdatenbank berücksichtigen
 * IP-Adresse des Kommentators validieren
+* Reguläre Ausdrücke anwenden
 * Lokale Spamdatenbank einbeziehen
+* Öffentliche Spamdatenbank berücksichtigen
 * Bestimmte Länder blockieren bzw. erlauben
 * Kommentare nur in einer Sprache zulassen
 * Erkannten Spam kennzeichnen, nicht löschen
@@ -80,6 +81,11 @@ Anmeldefrei und ohne lästige Captchas.
 
 
 == Changelog ==
+
+= 2.5.2 =
+* Neu: [Reguläre Ausdrücke anwenden](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#regexp_check) mit vordefinierten und eigenen Erkennungsmustern
+* Änderung der Filter-Reihenfolge
+* Verbesserungen an der Sprachdatei
 
 = 2.5.1 =
 * [BBCode im Kommentar als Spamgrund](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#bbcode_check)

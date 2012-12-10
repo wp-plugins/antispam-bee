@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.1
+Version: 2.5.2
 */
 
 
@@ -268,7 +268,7 @@ class Antispam_Bee {
 	* Initialisierung der internen Variablen
 	*
 	* @since   2.4
-	* @change  2.4.5
+	* @change  2.5.2
 	*/
 	
 	private static function _init_internal_vars()
@@ -280,6 +280,7 @@ class Antispam_Bee {
 			'options' => array(
 				/* Allgemein */
 				'advanced_check' 	=> 1,
+				'regexp_check'		=> 1,
 				'spam_ip' 			=> 1,
 				'already_commented'	=> 1,
 				'ignore_pings' 		=> 0,
@@ -313,14 +314,15 @@ class Antispam_Bee {
 				'ignore_reasons'	=> array()
 			),
 			'reasons' => array(
-				'css'     => 'CSS Hack',
-				'empty'   => 'Empty Data',
-				'server'  => 'Server IP',
-				'spamip'  => 'Spam IP',
-				'country' => 'Country Check',
-				'dnsbl'	  => 'DNSBL Spam',
-				'bbcode'  => 'BBCode',
-				'lang'    => 'Comment Language'
+				'css'		=> 'CSS Hack',
+				'empty'		=> 'Empty Data',
+				'server'	=> 'Server IP',
+				'spamip'	=> 'Spam IP',
+				'country'	=> 'Country Check',
+				'dnsbl'		=> 'DNSBL Spam',
+				'bbcode'	=> 'BBCode',
+				'lang'		=> 'Comment Language',
+				'regexp'	=> 'RegExp'
 			)
 		);
 	}
@@ -1223,13 +1225,6 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* DNSBL Spam */
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
-			);
-		}
-		
 		/* IP != Server */
 		if ( $options['advanced_check'] && self::_is_fake_ip($ip, parse_url($url, PHP_URL_HOST)) ) {
 			return array(
@@ -1237,10 +1232,17 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* IP im Spam */
+		/* IP im lokalen Spam */
 		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
 			return array(
 				'reason' => 'spamip'
+			);
+		}
+
+		/* DNSBL Spam */
+		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
+			return array(
+				'reason' => 'dnsbl'
 			);
 		}
 		
@@ -1269,6 +1271,7 @@ class Antispam_Bee {
 		$ip = self::get_key($_SERVER, 'REMOTE_ADDR');
 		
 		/* Kommentarwerte */
+		$url = self::get_key($comment, 'comment_author_url');
 		$body = self::get_key($comment, 'comment_content');
 		$email = self::get_key($comment, 'comment_author_email');
 		
@@ -1315,24 +1318,38 @@ class Antispam_Bee {
 			);
 		}
 		
-		/* DNSBL Spam */
-		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
-			return array(
-				'reason' => 'dnsbl'
-			);
-		}
-		
 		/* Erweiterter Schutz */
 		if ( $options['advanced_check'] && self::_is_fake_ip($ip) ) {
 			return array(
 				'reason' => 'server'
 			);
 		}
-		
-		/* IP im Spam */
+
+		/* Regexp für Spam */
+		if ( $options['regexp_check'] && self::_is_regexp_spam(
+			array(
+				'ip'	=> $ip,
+				'host'	=> parse_url($url, PHP_URL_HOST),
+				'body'	=> $body,
+				'email'	=> $email
+			)
+		) ) {
+			return array(
+				'reason' => 'regexp'
+			);
+		}
+
+		/* IP im lokalen Spam */
 		if ( $options['spam_ip'] && self::_is_spam_ip($ip) ) {
 			return array(
 				'reason' => 'spamip'
+			);
+		}
+
+		/* DNSBL Spam */
+		if ( $options['dnsbl_check'] && self::_is_dnsbl_spam($ip) ) {
+			return array(
+				'reason' => 'dnsbl'
 			);
 		}
 		
@@ -1351,6 +1368,70 @@ class Antispam_Bee {
 		}
 	}
 	
+
+	/**
+	* Anwendung von Regexp, auch benutzerdefiniert
+	*
+	* @since   2.5.2
+	* @change  2.5.2
+	*
+	* @param   array	$comment  Array mit Kommentardaten
+	* @return  boolean       	  TRUE bei verdächtigem Kommentar
+	*/
+
+	private static function _is_regexp_spam($comment)
+	{
+		/* Felder */
+		$fields = array(
+			'ip',
+			'host',
+			'body',
+			'email'
+		);
+
+		/* Regexp */
+		$patterns = array(
+			0 => array(
+				'host'	=> '^\d+\w+\.com$',
+				'body'	=> '^\w+\s\d+$',
+				'email'	=> '@gmail.com$'
+			)
+		);
+
+		/* Hook */
+		$patterns = apply_filters(
+			'antispam_bee_patterns',
+			$patterns
+		);
+
+		/* Leer? */
+		if ( ! $patterns ) {
+			return false;
+		}
+
+		/* Ausdrücke loopen */
+		foreach ($patterns as $pattern) {
+			$hits = array();
+
+			/* Felder loopen */
+			foreach ($pattern as $field => $regexp) {
+				if ( empty($field) or !in_array($field, $fields) or empty($comment[$field]) or empty($regexp) ) {
+					continue;
+				}
+				
+				if ( preg_match('|' .$regexp. '|isu', $comment[$field]) ) {
+					$hits[$field] = true;
+				}
+			}
+
+			if ( count($hits) === count($pattern) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	
 	/**
 	* Prüfung einer IP auf ihre Existenz im lokalen Spam
@@ -1745,7 +1826,7 @@ class Antispam_Bee {
 	* Ausführung des Lösch-/Markier-Vorgangs
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.5.2
 	*
 	* @param   array    $comment  Unbehandelte Kommentardaten
 	* @param   string   $reason   Verdachtsgrund
@@ -1817,9 +1898,14 @@ class Antispam_Bee {
 
 		/* Notiz setzen */
 		if ( $spam_notice ) {
+			/* Sprache laden */
+			self::load_plugin_lang();
+
+			/* Markierung hinzufügen */
 			$comment['comment_content'] = sprintf(
-				'[MARKED AS SPAM BY ANTISPAM BEE | %s]%s%s',
-				self::$defaults['reasons'][self::$_reason],
+				'[%s: %s]%s%s',
+				esc_html__('Marked as spam by Antispam Bee | Spam reason', 'antispam_bee'),
+				esc_html__(self::$defaults['reasons'][self::$_reason], 'antispam_bee'),
 				"\n",
 				$comment['comment_content']
 			);

@@ -21,6 +21,9 @@ msgstr "Noch keine Daten vorhanden."
 msgid "New spam comment on your post"
 msgstr "Neuer Spam zum Artikel"
 
+msgid "Marked as spam by Antispam Bee | Spam reason"
+msgstr "Als Spam markiert von Antispam Bee | Spamgrund"
+
 msgid "Comment"
 msgstr "Kommentar"
 
@@ -50,6 +53,9 @@ msgstr "Ländercode"
 
 msgid "DNSBL Spam"
 msgstr "DNSBL Spam"
+
+msgid "RegExp"
+msgstr "Regulärer Ausdruck"
 
 msgid "Approve it"
 msgstr "Freigeben"
@@ -142,6 +148,12 @@ msgstr "IP-Adresse des Kommentators validieren"
 
 msgid "Validity check for used ip address"
 msgstr "Kontrolle auf Gültigkeit verwendeter Kennung"
+
+msgid "Use regular expressions"
+msgstr "Reguläre Ausdrücke anwenden"
+
+msgid "Predefined and custom patterns by <a href=\"https://gist.github.com/4242142\" target=\"_blank\">plugin hook</a>"
+msgstr "Vordefinierte und eigene Muster via <a href=\"http://playground.ebiene.de/antispam-bee-wordpress-plugin/#regexp_check\" target=\"_blank\">Plugin-Hook</a>"
 
 msgid "Look in the local spam database"
 msgstr "Lokale Spamdatenbank einbeziehen"
