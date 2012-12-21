@@ -60,7 +60,7 @@ In Blogs innerhalb der EU-Länder darf die Option *"Öffentliche Spamdatenbank b
 Installiert, probiert die bewährte Antispam-Lösung für WordPress aus.
 Anmeldefrei und ohne lästige Captchas.
 
-= Unterstützung =
+= Unterstützung = [Warum?](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#faq)
 * Per [Flattr](https://flattr.com/donation/give/to/sergej.mueller)
 * Per [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6)
 
