@@ -434,7 +434,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 							<?php if ( get_locale() == 'de_DE' ) { ?>
 								<a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/" target="_blank">Dokumentation</a>
 							<?php } ?>
-							<a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+							<a href="https://flattr.com/donation/give/to/sergej.mueller" target="_blank">Flattr</a><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
 						</p>
 						
 						<input type="submit" class="button-primary" value="<?php _e('Save Changes') ?>" />
