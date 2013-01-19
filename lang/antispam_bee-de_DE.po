@@ -42,8 +42,8 @@ msgstr "CSS Hack"
 msgid "Server IP"
 msgstr "Server IP"
 
-msgid "Spam IP"
-msgstr "Spam IP"
+msgid "Local DB Spam"
+msgstr "Lokale Spamdatenbank"
 
 msgid "Comment Language"
 msgstr "Sprache"
