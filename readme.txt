@@ -83,7 +83,7 @@ Anmeldefrei und ohne lästige Captchas.
 == Changelog ==
 
 = 2.5.4 =
-* Jubiläumsausgabe
+* Jubiläumsausgabe: [Details zum Update](https://plus.google.com/110569673423509816572/posts/3dq9Re5vTY5)
 * Neues Maskottchen für Antispam Bee
 * Erweiterte Prüfung eingehender Kommentare in lokaler Blog-Spamdatenbank auf IP, URL und E-Mail-Adresse
 
