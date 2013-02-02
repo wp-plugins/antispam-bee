@@ -73,6 +73,7 @@ Anmeldefrei und ohne lästige Captchas.
 = Inkompatibilität =
 * Disqus
 * Jetpack Comments
+* AJAX-Kommentarformulare
 
 
 = Unterstützung =
