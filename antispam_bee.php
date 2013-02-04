@@ -32,14 +32,13 @@ class Antispam_Bee {
 	private static $_base;
 	private static $_secret;
 	private static $_reason;
-	private static $_replaced;
 
 
 	/**
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.5.5
+	* @change  2.4.3
 	*/
 
   	public static function init()
@@ -161,14 +160,6 @@ class Antispam_Bee {
 
 		/* Frontend */
 		} else {
-			add_filter(
-				'comment_form_defaults',
-				array(
-					__CLASS__,
-					'catch_comment_field'
-				),
-				999
-			);
 			add_action(
 				'template_redirect',
 				array(
@@ -1136,36 +1127,6 @@ class Antispam_Bee {
 
 
 	/**
-	* Ersetzt das Kommentarfeld im WordPress-Hook
-	*
-	* @since   2.5.5
-	* @change  2.5.5
-	*
-	* @param   string  $data  HTML-Code der Textarea
-	* @return  string  $data  Behandelter HTML-Code
-	*/
-
-	public static function catch_comment_field($data)
-	{
-		/* Feld vorhanden? */
-		if ( !empty($data['comment_field']) && !self::$_replaced ) {
-			/* Merken */
-			$comment_field = $data['comment_field'];
-
-			/* Feld ersetzen */
-			$data['comment_field'] = self::replace_comment_field( $comment_field );
-
-			/* Markieren */
-			if ( $data['comment_field'] !== $comment_field ) {
-				self::$_replaced = true;
-			}
-		}
-
-		return $data;
-	}
-
-
-	/**
 	* Bereitet die Ersetzung des KOmmentarfeldes vor
 	*
 	* @since   0.1
@@ -1195,27 +1156,27 @@ class Antispam_Bee {
 
 
 	/**
-	* Ersetzt das Kommentarfeld
+	* ersetzt das Kommentarfeld
 	*
 	* @since   2.4
-	* @change  2.5.5
+	* @change  2.4.1
 	*
-	* @param   string  $html  HTML-Code der Webseite
+	* @param   string  $data  HTML-Code der Webseite
 	* @return  string         Behandelter HTML-Code
 	*/
 
-	public static function replace_comment_field($html)
+	public static function replace_comment_field($data)
 	{
-		/* Leer oder bereits ersetzt? */
-		if ( empty($html) OR self::$_replaced ) {
-			return $html;
+		/* Leer? */
+		if ( empty($data) ) {
+			return;
 		}
 
 		/* Convert */
 		return preg_replace(
 			'#<textarea(.+?)name=["\']comment["\'](.+?)</textarea>#s',
 			'<textarea$1name="' .self::$_secret. '"$2</textarea><textarea name="comment" style="display:none" rows="1" cols="1"></textarea>',
-			$html,
+			(string) $data,
 			1
 		);
 	}
