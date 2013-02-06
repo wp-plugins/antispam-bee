@@ -65,6 +65,10 @@ Installiert, probiert die bewährte Antispam-Lösung für WordPress aus.
 Anmeldefrei und ohne lästige Captchas.
 
 
+= Support =
+Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
+
+
 = Systemanforderungen =
 * PHP 5.2.4
 * WordPress 3.4
