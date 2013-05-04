@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.4
+Version: 2.5.5
 */
 
 
@@ -1373,7 +1373,7 @@ class Antispam_Bee {
 	* Anwendung von Regexp, auch benutzerdefiniert
 	*
 	* @since   2.5.2
-	* @change  2.5.3
+	* @change  2.5.5
 	*
 	* @param   array	$comment  Array mit Kommentardaten
 	* @return  boolean       	  TRUE bei verdächtigem Kommentar
@@ -1395,6 +1395,9 @@ class Antispam_Bee {
 				'host'	=> '^(www\.)?\d+\w+\.com$',
 				'body'	=> '^\w+\s\d+$',
 				'email'	=> '@gmail.com$'
+			),
+			1 => array(
+				'body'	=> '\<\!.+?mfunc.+?\>'
 			)
 		);
 
