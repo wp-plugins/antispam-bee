@@ -667,7 +667,7 @@ class Antispam_Bee {
 	public static function add_dashboard_chart()
 	{
 		/* Filter */
-		if ( !current_user_can('level_2') or !self::get_option('dashboard_chart') ) {
+		if ( !current_user_can('publish_posts') or !self::get_option('dashboard_chart') ) {
 			return;
 		}
 
