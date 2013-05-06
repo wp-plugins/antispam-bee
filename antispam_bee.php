@@ -661,7 +661,7 @@ class Antispam_Bee {
 	* Initialisierung des Dashboard-Chart
 	*
 	* @since   1.9
-	* @change  2.4
+	* @change  2.5.6
 	*/
 
 	public static function add_dashboard_chart()
