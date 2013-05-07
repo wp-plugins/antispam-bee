@@ -999,7 +999,7 @@ class Antispam_Bee {
 
 	public static function init_scheduled_hook()
 	{
-		if ( !wp_next_scheduled('antispam_bee_daily_cronjob') ) {
+		if ( ! wp_next_scheduled('antispam_bee_daily_cronjob') ) {
 			wp_schedule_event(
 				time(),
 				'daily',
