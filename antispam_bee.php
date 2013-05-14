@@ -12,7 +12,7 @@ Version: 2.5.5
 
 
 /* Sicherheitsabfrage */
-if ( !class_exists('WP') ) {
+if ( ! class_exists('WP') ) {
 	die();
 }
 
@@ -1873,17 +1873,17 @@ class Antispam_Bee {
 
 		/* Spam löschen */
 		if ( $spam_remove ) {
-			die('Spam deleted.');
+			self::_go_in_peace();
 		}
 
 		/* Typen behandeln */
 		if ( $ignore_filter && (( $ignore_type == 1 && $is_ping ) or ( $ignore_type == 2 && !$is_ping )) ) {
-			die('Spam deleted.');
+			self::_go_in_peace();
 		}
 
 		/* Spamgrund */
 		if ( $ignore_reason ) {
-			die('Spam deleted.');
+			self::_go_in_peace();
 		}
 
 		/* Spam-Grund */
@@ -1931,6 +1931,20 @@ class Antispam_Bee {
 		}
 
 		return $comment;
+	}
+
+
+	/**
+	* Sendet den 403-Header und beendet die Verbindung
+	*
+	* @since   2.5.6
+	* @change  2.5.6
+	*/
+
+	private static function _go_in_peace()
+	{
+		status_header(403);
+		die('Spam deleted.');
 	}
 
 
