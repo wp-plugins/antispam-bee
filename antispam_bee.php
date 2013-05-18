@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.5
+Version: 2.5.6
 */
 
 
@@ -1259,7 +1259,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.5.4
+	* @change  2.5.6
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1274,6 +1274,7 @@ class Antispam_Bee {
 		$url = self::get_key($comment, 'comment_author_url');
 		$body = self::get_key($comment, 'comment_content');
 		$email = self::get_key($comment, 'comment_author_email');
+		$author = self::get_key($comment, 'comment_author');
 
 		/* Leere Werte ? */
 		if ( empty($body) ) {
@@ -1290,7 +1291,7 @@ class Antispam_Bee {
 		}
 
 		/* Leere Werte ? */
-		if ( get_option('require_name_email') && empty($email) ) {
+		if ( get_option('require_name_email') && ( empty($email) OR empty($author) ) ) {
 			return array(
 				'reason' => 'empty'
 			);
@@ -1328,10 +1329,11 @@ class Antispam_Bee {
 		/* Regexp für Spam */
 		if ( $options['regexp_check'] && self::_is_regexp_spam(
 			array(
-				'ip'	=> $ip,
-				'host'	=> parse_url($url, PHP_URL_HOST),
-				'body'	=> $body,
-				'email'	=> $email
+				'ip'	 => $ip,
+				'host'	 => parse_url($url, PHP_URL_HOST),
+				'body'	 => $body,
+				'email'	 => $email,
+				'author' => $author
 			)
 		) ) {
 			return array(
@@ -1373,7 +1375,7 @@ class Antispam_Bee {
 	* Anwendung von Regexp, auch benutzerdefiniert
 	*
 	* @since   2.5.2
-	* @change  2.5.5
+	* @change  2.5.6
 	*
 	* @param   array	$comment  Array mit Kommentardaten
 	* @return  boolean       	  TRUE bei verdächtigem Kommentar
@@ -1386,7 +1388,8 @@ class Antispam_Bee {
 			'ip',
 			'host',
 			'body',
-			'email'
+			'email',
+			'author'
 		);
 
 		/* Regexp */
@@ -1400,6 +1403,22 @@ class Antispam_Bee {
 				'body'	=> '\<\!.+?mfunc.+?\>'
 			)
 		);
+
+		/* Spammy author */
+		if ( $quoted_author = preg_quote($comment['author']) ) {
+			$patterns[] = array(
+				'body'	=> sprintf(
+					'<a.+?>%s<\/a>$',
+					$quoted_author
+				)
+			);
+			$patterns[] = array(
+				'body'	=> sprintf(
+					'%s https?:.+?$',
+					$quoted_author
+				)
+			);
+		}
 
 		/* Hook */
 		$patterns = apply_filters(
