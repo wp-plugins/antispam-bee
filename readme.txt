@@ -105,7 +105,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 == Changelog ==
 
 = 2.5.6 =
-* DE: Neue Erkennungsmuster für Spam hinzugefügt
+* DE: Neue Erkennungsmuster für Spam hinzugefügt [Google+](https://plus.google.com/110569673423509816572/posts/9BSURheN3as)
 * EN: Added new detection/patterns for spam comments
 
 = 2.5.5 =
