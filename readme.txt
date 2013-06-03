@@ -46,6 +46,7 @@ Die meisten Auswahlmöglichkeiten innerhalb der Optionsseite sind konfigurierbar
 * Kommentare nur in einer Sprache zulassen
 * Erkannten Spam kennzeichnen, nicht löschen
 * Bei Spam via E-Mail informieren
+* Optionale Logdatei mit Spam-Einträgen z.B. für [Fail2Ban](http://cup.wpcoder.de/fail2ban-ip-firewall/)
 * Spamgrund im Kommentar nicht speichern
 * Vorhandenen Spam nach X Tagen löschen
 * Aufbewahrung der Spam-Kommentare für einen Typ
@@ -103,6 +104,13 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 2.5.7 =
+* DE: Optionale Spam-Logdatei z.B. für [Fail2Ban](http://cup.wpcoder.de/fail2ban-ip-firewall/)
+* DE: Filter `antispam_bee_notification_subject` für eigenen Betreff in Benachrichtigungen
+* EN: Optional logfile with spam entries e.g. for [Fail2Ban](https://gist.github.com/sergejmueller/5622883)
+* EN: Filter `antispam_bee_notification_subject` for a custom subject in notifications
+
 
 = 2.5.6 =
 * DE: Neue Erkennungsmuster für Spam hinzugefügt / [Google+](https://plus.google.com/110569673423509816572/posts/9BSURheN3as)

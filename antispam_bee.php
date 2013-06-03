@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.6
+Version: 2.5.7
 */
 
 
@@ -1864,7 +1864,7 @@ class Antispam_Bee {
 	* Ausführung des Lösch-/Markier-Vorgangs
 	*
 	* @since   0.1
-	* @change  2.5.2
+	* @change  2.5.7
 	*
 	* @param   array    $comment  Unbehandelte Kommentardaten
 	* @param   string   $reason   Verdachtsgrund
@@ -1886,7 +1886,8 @@ class Antispam_Bee {
 		$ignore_type = $options['ignore_type'];
 		$ignore_reason = in_array($reason, (array)$options['ignore_reasons']);
 
-		/* Spam hochzählen */
+		/* Spam merken */
+		self::_update_spam_log($comment);
 		self::_update_spam_count();
 		self::_update_daily_stats();
 
@@ -1954,6 +1955,41 @@ class Antispam_Bee {
 
 
 	/**
+	* Logfile mit erkanntem Spam
+	*
+	* @since   2.5.7
+	* @change  2.5.7
+	*
+	* @param   array   $comment  Array mit Kommentardaten
+	* @return  mixed   			 FALSE im Fehlerfall
+	*/
+
+	private static function _update_spam_log($comment)
+	{
+		/* Skip logfile? */
+		if ( ! defined('ANTISPAM_BEE_LOG_FILE') OR ! ANTISPAM_BEE_LOG_FILE OR ! is_writable(ANTISPAM_BEE_LOG_FILE) ) {
+			return false;
+		}
+
+		/* Compose entry */
+		$entry = sprintf(
+			'%s comment for post=%d from host=%s marked as spam%s',
+			current_time('mysql'),
+			$comment['comment_post_ID'],
+			self::get_key($_SERVER, 'REMOTE_ADDR'),
+			PHP_EOL
+		);
+
+		/* Write */
+		file_put_contents(
+			ANTISPAM_BEE_LOG_FILE,
+			$entry,
+			FILE_APPEND | LOCK_EX
+		);
+	}
+
+
+	/**
 	* Sendet den 403-Header und beendet die Verbindung
 	*
 	* @since   2.5.6
@@ -1971,7 +2007,9 @@ class Antispam_Bee {
 	* Versand einer Benachrichtigung via E-Mail
 	*
 	* @since   0.1
-	* @change  2.4.3
+	* @change  2.5.7
+	*
+	* @hook    string  antispam_bee_notification_subject  Custom subject for notification mails
 	*
 	* @param   intval  $id  ID des Kommentars
 	* @return  intval  $id  ID des Kommentars
@@ -1996,7 +2034,7 @@ class Antispam_Bee {
 		}
 
 		/* Parent-Post */
-		if ( !$post = get_post($comment['comment_post_ID']) ) {
+		if ( ! $post = get_post($comment['comment_post_ID']) ) {
 			return $id;
 		}
 
@@ -2075,7 +2113,10 @@ class Antispam_Bee {
 		/* Send */
 		wp_mail(
 			get_bloginfo('admin_email'),
-			$subject,
+			apply_filters(
+				'antispam_bee_notification_subject',
+				$subject
+			),
 			$body
 		);
 

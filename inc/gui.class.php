@@ -2,7 +2,7 @@
 
 
 /* Sicherheitsabfrage */
-if ( !class_exists('Antispam_Bee') ) {
+if ( ! class_exists('Antispam_Bee') ) {
 	die();
 }
 
