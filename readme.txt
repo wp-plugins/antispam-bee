@@ -108,6 +108,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = 2.5.7 =
 * DE: Optionale Spam-Logdatei z.B. für [Fail2Ban](http://cup.wpcoder.de/fail2ban-ip-firewall/)
 * DE: Filter `antispam_bee_notification_subject` für eigenen Betreff in Benachrichtigungen
+* DE: Detaillierte Informationen zum Update auf [Google+](https://plus.google.com/110569673423509816572/posts/iCfip2ggYt9)
 * EN: Optional logfile with spam entries e.g. for [Fail2Ban](https://gist.github.com/sergejmueller/5622883)
 * EN: Filter `antispam_bee_notification_subject` for a custom subject in notifications
 
