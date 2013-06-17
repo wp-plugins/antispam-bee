@@ -1405,16 +1405,24 @@ class Antispam_Bee {
 		);
 
 		/* Spammy author */
-		if ( $quoted_author = preg_quote($comment['author']) ) {
+		if ( $quoted_author = preg_quote($comment['author'], '|') ) {
 			$patterns[] = array(
-				'body'	=> sprintf(
+				'body' => sprintf(
 					'<a.+?>%s<\/a>$',
 					$quoted_author
 				)
 			);
 			$patterns[] = array(
-				'body'	=> sprintf(
+				'body' => sprintf(
 					'%s https?:.+?$',
+					$quoted_author
+				)
+			);
+			$patterns[] = array(
+				'email'	 => '@gmail.com$',
+				'author' => '^[a-z0-9-\.]+\.[a-z]{2,6}$',
+				'host'	 => sprintf(
+					'^%s$',
 					$quoted_author
 				)
 			);
