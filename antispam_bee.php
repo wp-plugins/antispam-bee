@@ -1598,7 +1598,7 @@ class Antispam_Bee {
 		}
 
 		return (bool) checkdnsrr(
-			self::_reverse_ip($ip). '.opm.tornevall.org.',
+			self::_reverse_ip($ip). '.dnsbl.tornevall.org.',
 			'A'
 		);
 	}
