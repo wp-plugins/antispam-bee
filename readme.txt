@@ -112,7 +112,6 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 * EN: Optional logfile with spam entries e.g. for [Fail2Ban](https://gist.github.com/sergejmueller/5622883)
 * EN: Filter `antispam_bee_notification_subject` for a custom subject in notifications
 
-
 = 2.5.6 =
 * DE: Neue Erkennungsmuster für Spam hinzugefügt / [Google+](https://plus.google.com/110569673423509816572/posts/9BSURheN3as)
 * EN: Added new detection/patterns for spam comments
