@@ -173,7 +173,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* @change  2.5.2
 	*/
 
-	function options_page() { ?>
+	public static function options_page() { ?>
 		<div class="wrap" id="ab_main">
 			<?php screen_icon('ab') ?>
 
