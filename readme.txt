@@ -108,6 +108,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = 2.5.8 =
 * DE: Umstellung von TornevallDNSBL zu [Stop Forum Spam](http://www.stopforumspam.com)
 * DE: Neue JS-Bibliothek für das Dashboard-Widget
+* DE: [Mehr Informationen auf Google+](https://plus.google.com/110569673423509816572/posts/VCFr3fDAYDs)
 * EN: Switch from TornevallDNSBL to [Stop Forum Spam](http://www.stopforumspam.com)
 * EN: New JS library for the Antispam Bee dashboard chart
 
