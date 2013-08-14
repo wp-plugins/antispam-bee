@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.7
+Version: 2.5.8
 */
 
 
@@ -702,18 +702,18 @@ class Antispam_Bee {
 
 
 	/**
-	* Ausgabe der Dashboard-CSS
+	* Print dashboard styles
 	*
-	* @since   1.9
-	* @change  2.4.4
+	* @since   1.9.0
+	* @change  2.5.8
 	*/
 
 	public static function add_dashboard_style()
 	{
-		/* Plugin-Info */
+		/* Get plugin data */
 		$plugin = get_plugin_data(__FILE__);
 
-		/* CSS registrieren */
+		/* Register styles */
 		wp_register_style(
 			'ab_chart',
 			plugins_url('css/dashboard.min.css', __FILE__),
@@ -721,104 +721,122 @@ class Antispam_Bee {
 			$plugin['Version']
 		);
 
-		/* CSS ausgeben */
+		/* Embed styles */
   		wp_print_styles('ab_chart');
 	}
 
 
 	/**
-	* Ausgabe der Dashboard-JS
+	* Print dashboard scripts
 	*
-	* @since   1.9
-	* @change  2.4.4
+	* @since   1.9.0
+	* @change  2.5.8
 	*/
 
 	public static function add_dashboard_script()
 	{
-		/* Init */
+		/* Get stats */
 		$items = (array)self::get_option('daily_stats');
 
-		/* Leer? */
+		/* Empty array? */
 		if ( empty($items) ) {
 			return;
 		}
 
-		/* Sortieren */
-		krsort($items, SORT_NUMERIC);
-
-		/* Init */
-		$output = array(
-			'created' => array(),
-			'count' => array()
-		);
-
-		/* Init */
-		$i = 0;
-
-		/* Zeilen loopen */
-		foreach($items as $timestamp => $count) {
-			array_push(
-				$output['created'],
-				( $timestamp == strtotime('today', current_time('timestamp')) ? __('Today', 'antispam_bee') : date('d.m', $timestamp) )
-			);
-			array_push(
-				$output['count'],
-				(int)$count
-			);
-		}
-
-		/* Zusammenfassen */
-		$stats = array(
-			'created' => implode(',', $output['created']),
-			'count' => implode(',', $output['count'])
-		);
-
-		/* Plugin-Info */
+		/* Get plugin data */
 		$plugin = get_plugin_data(__FILE__);
 
-		/* JS einbinden */
+		/* Register scripts */
+		wp_register_script(
+			'ab_raphael',
+			plugins_url('js/raphael.min.js', __FILE__),
+			array(),
+			$plugin['Version']
+		);
+		wp_register_script(
+			'ab_raphael_linechart',
+			plugins_url('js/raphael.linechart.min.js', __FILE__),
+			array(),
+			$plugin['Version']
+		);
 		wp_register_script(
 			'ab_chart',
 			plugins_url('js/dashboard.min.js', __FILE__),
 			array('jquery'),
 			$plugin['Version']
 		);
-		wp_register_script(
-			'google_jsapi',
-			'https://www.google.com/jsapi',
-			false
-		);
 
-		/* Einbinden */
-		wp_enqueue_script('google_jsapi');
+		/* Embed scripts */
+		wp_enqueue_script('ab_raphael');
+		wp_enqueue_script('ab_raphael_linechart');
 		wp_enqueue_script('ab_chart');
-
-		/* Übergeben */
-		wp_localize_script(
-			'ab_chart',
-			'antispambee',
-			$stats
-		);
 	}
 
 
 	/**
-	* Ausgabe des Dashboard-Chart
+	* Print dashboard html
 	*
-	* @since   1.9
-	* @change  2.4
+	* @since   1.9.0
+	* @change  2.5.8
 	*/
 
 	public static function show_spam_chart()
 	{
-		/* Init */
+		/* Get stats */
 		$items = (array)self::get_option('daily_stats');
 
-		/* Ausgabe */
-		echo sprintf(
-			'<div id="ab_chart">%s</div>',
-			( empty($items) ? esc_html__('No data available.', 'antispam_bee') : '' )
-		);
+		/* Emty array? */
+		if ( empty($items) ) {
+			echo sprintf(
+				'<div id="ab_chart"><p>%s</p></div>',
+				esc_html__('No data available.', 'antispam_bee')
+			);
+
+			return;
+		}
+
+		/* Sort stats */
+		ksort($items, SORT_NUMERIC);
+
+		/* HTML start */
+		$html = "<table id=ab_chart_data>\n";
+
+
+		/* Timestamp table */
+		$html .= "<tfoot><tr>\n";
+		foreach($items as $date => $count) {
+			$html .= "<th>" .$date. "</th>\n";
+		}
+		$html .= "</tr></tfoot>\n";
+
+		/* Counter table */
+		$html .= "<tbody class=data><tr>\n";
+		foreach($items as $date => $count) {
+			$html .= "<td>" .(int) $count. "</td>\n";
+		}
+		$html .= "</tr></tfoot>\n";
+
+
+		/* Toltip: Counter */
+		$html .= "<tbody class=line1><tr>\n";
+		foreach($items as $date => $count) {
+			$html .= "<td>" .(int) $count. "&times; Spam</td>\n";
+		}
+		$html .= "</tr></tbody>\n";
+
+		/* Toltip: Date */
+		$html .= "<tbody class=line2><tr>\n";
+		foreach($items as $date => $count) {
+			$html .= "<td>" . ( $date == strtotime('today', current_time('timestamp')) ? __('Today', 'antispam_bee') : date('d.m.Y', $date) ). "</td>\n";
+		}
+		$html .= "</tr></tbody>\n";
+
+
+		/* HTML end */
+		$html .= "</table>\n";
+
+		/* Print html */
+		echo '<div id="ab_chart">' .$html. '</div>';
 	}
 
 
@@ -1592,15 +1610,35 @@ class Antispam_Bee {
 
 	private static function _is_dnsbl_spam($ip)
 	{
-		/* Funktionscheck */
-		if ( ! function_exists('checkdnsrr') ) {
+		/* Start request */
+		$response = wp_remote_get(
+			esc_url_raw(
+				sprintf(
+					'http://www.stopforumspam.com/api?ip=%s&f=json',
+					$ip
+				),
+				'http'
+			)
+		);
+
+		/* Response error? */
+		if ( is_wp_error($response) ) {
 			return false;
 		}
 
-		return (bool) checkdnsrr(
-			self::_reverse_ip($ip). '.dnsbl.tornevall.org.',
-			'A'
-		);
+		/* Get JSON */
+		$json = wp_remote_retrieve_body($response);
+
+		/* Decode JSON */
+		$result = json_decode($json);
+
+		/* Empty data */
+		if ( empty($result->success) ) {
+			return false;
+		}
+
+		/* Return status */
+		return (bool) $result->ip->appears;
 	}
 
 

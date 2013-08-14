@@ -1,4 +1,12 @@
+#ab_widget .inside {
+	margin: 0;
+	padding: 0;
+}
 #ab_chart {
 	color: #aaa;
-	height: 120px;
+	height: 140px;
+	text-align: center;
+}
+#ab_chart_data {
+	display: none;
 }
