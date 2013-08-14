@@ -1503,13 +1503,13 @@ class Antispam_Bee {
 		$params = array($ip);
 
 		/* URL abgleichen */
-		if ( !empty($url) ) {
+		if ( ! empty($url) ) {
 			$filter[] = '`comment_author_url` = %s';
 			$params[] = $url;
 		}
 
 		/* E-Mail abgleichen */
-		if ( !empty($email) ) {
+		if ( ! empty($email) ) {
 			$filter[] = '`comment_author_email` = %s';
 			$params[] = $email;
 		}
