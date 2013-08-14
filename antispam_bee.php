@@ -1423,7 +1423,7 @@ class Antispam_Bee {
 		);
 
 		/* Spammy author */
-		if ( $quoted_author = preg_quote($comment['author'], '|') ) {
+		if ( $quoted_author = preg_quote($comment['author'], '/') ) {
 			$patterns[] = array(
 				'body' => sprintf(
 					'<a.+?>%s<\/a>$',
@@ -1467,7 +1467,7 @@ class Antispam_Bee {
 					continue;
 				}
 
-				if ( preg_match('|' .$regexp. '|isu', $comment[$field]) ) {
+				if ( preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
 					$hits[$field] = true;
 				}
 			}
