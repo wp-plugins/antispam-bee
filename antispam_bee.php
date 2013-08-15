@@ -751,24 +751,19 @@ class Antispam_Bee {
 			'ab_raphael',
 			plugins_url('js/raphael.min.js', __FILE__),
 			array(),
-			$plugin['Version']
-		);
-		wp_register_script(
-			'ab_raphael_linechart',
-			plugins_url('js/raphael.linechart.min.js', __FILE__),
-			array(),
-			$plugin['Version']
+			$plugin['Version'],
+			true
 		);
 		wp_register_script(
 			'ab_chart',
 			plugins_url('js/dashboard.min.js', __FILE__),
 			array('jquery'),
-			$plugin['Version']
+			$plugin['Version'],
+			true
 		);
 
 		/* Embed scripts */
 		wp_enqueue_script('ab_raphael');
-		wp_enqueue_script('ab_raphael_linechart');
 		wp_enqueue_script('ab_chart');
 	}
 
@@ -810,24 +805,9 @@ class Antispam_Bee {
 		$html .= "</tr></tfoot>\n";
 
 		/* Counter table */
-		$html .= "<tbody class=data><tr>\n";
+		$html .= "<tbody><tr>\n";
 		foreach($items as $date => $count) {
 			$html .= "<td>" .(int) $count. "</td>\n";
-		}
-		$html .= "</tr></tfoot>\n";
-
-
-		/* Toltip: Counter */
-		$html .= "<tbody class=line1><tr>\n";
-		foreach($items as $date => $count) {
-			$html .= "<td>" .(int) $count. "&times; Spam</td>\n";
-		}
-		$html .= "</tr></tbody>\n";
-
-		/* Toltip: Date */
-		$html .= "<tbody class=line2><tr>\n";
-		foreach($items as $date => $count) {
-			$html .= "<td>" . ( $date == strtotime('today', current_time('timestamp')) ? __('Today', 'antispam_bee') : date('d.m.Y', $date) ). "</td>\n";
 		}
 		$html .= "</tr></tbody>\n";
 
