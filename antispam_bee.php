@@ -641,7 +641,7 @@ class Antispam_Bee {
 	public static function add_dashboard_count()
 	{
 		/* Aktiv? */
-		if ( !self::get_option('dashboard_count') ) {
+		if ( ! self::get_option('dashboard_count') ) {
 			return;
 		}
 
@@ -667,7 +667,7 @@ class Antispam_Bee {
 	public static function add_dashboard_chart()
 	{
 		/* Filter */
-		if ( !current_user_can('publish_posts') or !self::get_option('dashboard_chart') ) {
+		if ( ! current_user_can('publish_posts') OR ! self::get_option('dashboard_chart') ) {
 			return;
 		}
 
@@ -736,10 +736,7 @@ class Antispam_Bee {
 	public static function add_dashboard_script()
 	{
 		/* Get stats */
-		$items = (array)self::get_option('daily_stats');
-
-		/* Empty array? */
-		if ( empty($items) ) {
+		if ( ! self::get_option('daily_stats') ) {
 			return;
 		}
 
@@ -748,14 +745,21 @@ class Antispam_Bee {
 
 		/* Register scripts */
 		wp_register_script(
-			'ab_raphael',
+			'sm_raphael_js',
 			plugins_url('js/raphael.min.js', __FILE__),
 			array(),
 			$plugin['Version'],
 			true
 		);
 		wp_register_script(
-			'ab_chart',
+			'sm_raphael_helper',
+			plugins_url('js/raphael.helper.min.js', __FILE__),
+			array(),
+			STATIFY_VERSION,
+			true
+		);
+		wp_register_script(
+			'ab_chart_js',
 			plugins_url('js/dashboard.min.js', __FILE__),
 			array('jquery'),
 			$plugin['Version'],
@@ -763,8 +767,9 @@ class Antispam_Bee {
 		);
 
 		/* Embed scripts */
-		wp_enqueue_script('ab_raphael');
-		wp_enqueue_script('ab_chart');
+		wp_enqueue_script('sm_raphael_js');
+		wp_enqueue_script('sm_raphael_helper');
+		wp_enqueue_script('ab_chart_js');
 	}
 
 
