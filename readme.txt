@@ -105,6 +105,9 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 == Changelog ==
 
+= 2.5.9 =
+* DE: Anpassung des Dashboard-Scriptes für die Zusammenarbeit mit Statify
+
 = 2.5.8 =
 * DE: Umstellung von TornevallDNSBL zu [Stop Forum Spam](http://www.stopforumspam.com)
 * DE: Neue JS-Bibliothek für das Dashboard-Widget
