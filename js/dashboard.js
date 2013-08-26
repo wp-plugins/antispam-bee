@@ -19,18 +19,14 @@
         color = '#3399CC',
         r = Raphael("ab_chart", width, height),
         txt = {font: 'bold 10px Helvetica, Arial', fill: "#333"},
-        txt1 = {font: 'bold 10px Helvetica, Arial', fill: "#fff"},
+        txt1 = {font: 'normal 10px Helvetica, Arial', fill: "#ccc"},
         X = (width - leftgutter * 2) / labels.length,
         max = Math.max.apply(Math, data),
         Y = (height - bottomgutter - topgutter) / max;
         r.drawGrid(leftgutter + X * .5, topgutter , width - leftgutter * 2 - X, height - topgutter - bottomgutter, 10, 10, "#eaeaea");
 
     var Ylabel = r.text(26, 32, max);
-        Ylabel.attr(
-            {
-                'fill' : '#ccc'
-            }
-        );
+        Ylabel.attr(txt1);
 
     var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
         label = r.set(),
@@ -39,7 +35,7 @@
         leave_timer,
         blanket = r.set();
     label.push(r.text(60, 12, "24× Spam").attr(txt));
-    label.push(r.text(60, 27, "15.08.2013").attr(txt1).attr({fill: color}));
+    label.push(r.text(60, 27, "15.08.2013").attr(txt).attr({fill: color}));
     label.hide();
     var frame = r.popup(100, 100, label, "right").attr({fill: "#fff", stroke: "#333", "stroke-width": 2, "fill-opacity": .8}).hide();
 
