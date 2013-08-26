@@ -25,6 +25,13 @@
         Y = (height - bottomgutter - topgutter) / max;
         r.drawGrid(leftgutter + X * .5, topgutter , width - leftgutter * 2 - X, height - topgutter - bottomgutter, 10, 10, "#eaeaea");
 
+    var Ylabel = r.text(26, 32, max);
+        Ylabel.attr(
+            {
+                'fill' : '#ccc'
+            }
+        );
+
     var path = r.path().attr({stroke: color, "stroke-width": 4, "stroke-linejoin": "round"}),
         label = r.set(),
         lx = 0, ly = 0,
