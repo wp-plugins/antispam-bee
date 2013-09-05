@@ -755,7 +755,7 @@ class Antispam_Bee {
 			'sm_raphael_helper',
 			plugins_url('js/raphael.helper.min.js', __FILE__),
 			array(),
-			STATIFY_VERSION,
+			$plugin['Version'],
 			true
 		);
 		wp_register_script(
