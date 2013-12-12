@@ -198,7 +198,7 @@
 }
 .ab-column.ab-arrow > ul > li:after {
 	bottom: -22px;
-	border-color: #eee transparent;
+	border-color: #f1f1f1 transparent;
 }
 
 .ab-column.ab-join > ul > li:before {
