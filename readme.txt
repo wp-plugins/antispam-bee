@@ -2,8 +2,8 @@
 Contributors: sergej.mueller
 Tags: antispam, spam, comments, trackback
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=5RDDW9FEHGLG6
-Requires at least: 3.4
-Tested up to: 3.7
+Requires at least: 3.8
+Tested up to: 3.8
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -72,7 +72,7 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 = Systemanforderungen =
 * PHP 5.2.4
-* WordPress 3.4
+* WordPress 3.8
 
 
 = Inkompatibilität =
@@ -104,6 +104,14 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
 == Changelog ==
+
+= 2.6.0 =
+* DE: Optimierungen für WordPress 3.8
+* DE: Zusatzprüfung auf Nicht-UTF-8-Zeichen in Kommentardaten
+* DE: Spamgrund als Spalte in der Übersicht mit Spamkommentaren
+* EN: Optimizations for WordPress 3.8
+* EN: Clear invalid UTF-8 characters in comment fields
+* EN: Spam reason as a column in the table with spam comments
 
 = 2.5.9 =
 * DE: Anpassung des Dashboard-Skriptes für die Zusammenarbeit mit [Statify](http://statify.de)

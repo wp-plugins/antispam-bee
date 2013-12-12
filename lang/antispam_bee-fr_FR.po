@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Antispam Bee\n"
 "POT-Creation-Date: \n"
 "PO-Revision-Date: \n"
-"Last-Translator: Jojaba\n"
+"Last-Translator: Sergej Müller\n"
 "Language-Team: Sergej Müller\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -21,8 +21,8 @@ msgstr "Aucune donnée disponible."
 msgid "New spam comment on your post"
 msgstr "Nouveau spam sur l'article"
 
-msgid "Marked as spam by Antispam Bee | Spam reason"
-msgstr "Marqué comme spam par Antispam Bee | raison du spam"
+msgid "Marked as spam by Antispam Bee / Spam reason"
+msgstr "Marqué comme spam par Antispam Bee / Raison du spam"
 
 msgid "Comment"
 msgstr "Commentaire"
@@ -89,9 +89,6 @@ msgstr "Extension simple et très efficace pour lutter contre les commentaires i
 
 msgid "http://antispambee.com"
 msgstr "http://antispambee.com"
-
-msgid "Antispam Bee requires WordPress 3.4 and PHP 5.2.4"
-msgstr "Antispam Bee nécessite WordPress 3.4 et PHP 5.2.4"
 
 msgid "Comments"
 msgstr "Commentaires"

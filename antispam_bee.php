@@ -7,7 +7,7 @@ Description: Easy and extremely productive spam-fighting plugin with many sophis
 Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
-Version: 2.5.9
+Version: 2.6.0
 */
 
 
@@ -38,11 +38,20 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.4.3
+	* @change  2.6.0
 	*/
 
   	public static function init()
   	{
+  		/* Delete spam reason */
+  		add_action(
+  			'unspam_comment',
+  			array(
+  				__CLASS__,
+  				'delete_spam_reason_by_comment'
+  			)
+  		);
+
 		/* AJAX & Co. */
 		if ( (defined('DOING_AJAX') && DOING_AJAX) or (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) ) {
 			return;
@@ -82,7 +91,7 @@ class Antispam_Bee {
 					)
 				);
 				add_action(
-					'right_now_discussion_table_end',
+					'dashboard_glance_items',
 					array(
 						__CLASS__,
 						'add_dashboard_count'
@@ -103,13 +112,6 @@ class Antispam_Bee {
 					array(
 						__CLASS__,
 						'load_plugin_lang'
-					)
-				);
-				add_action(
-					'admin_notices',
-					array(
-						__CLASS__,
-						'init_admin_notice'
 					)
 				);
 				add_filter(
@@ -156,6 +158,33 @@ class Antispam_Bee {
 						'save_changes'
 					)
 				);
+
+			} else if ( self::_current_page('edit-comments') ) {
+				if ( ! empty($_GET['comment_status']) && $_GET['comment_status'] === 'spam' && ! self::get_option('no_notice') ) {
+					/* Include file */
+					require_once( dirname(__FILE__). '/inc/columns.class.php' );
+
+					/* Load textdomain */
+					self::load_plugin_lang();
+
+					/* Add plugin columns */
+					add_filter(
+						'manage_edit-comments_columns',
+						array(
+							'Antispam_Bee_Columns',
+							'register_plugin_columns'
+						)
+					);
+					add_filter(
+						'manage_comments_custom_column',
+						array(
+							'Antispam_Bee_Columns',
+							'print_plugin_column'
+						),
+						10,
+						2
+					);
+				}
 			}
 
 		/* Frontend */
@@ -374,6 +403,9 @@ class Antispam_Bee {
 			case 'admin-post':
 				return ( !empty($GLOBALS['pagenow']) && $GLOBALS['pagenow'] == 'admin-post.php' );
 
+			case 'edit-comments':
+				return ( !empty($GLOBALS['pagenow']) && $GLOBALS['pagenow'] == 'edit-comments.php' );
+
 			default:
 				return false;
 		}
@@ -453,47 +485,6 @@ class Antispam_Bee {
 				'<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a>',
 				'<a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>'
 			)
-		);
-	}
-
-
-	/**
-	* Anzeige der Admin-Notiz
-	*
-	* @since   2.4.3
-	* @change  2.5.1
-	*/
-
-	public static function init_admin_notice() {
-		/* Alles klar? */
-		if ( self::_is_version($GLOBALS['wp_version'], '3.4') && self::_is_version(phpversion(), '5.2.4') ) {
-			return;
-		}
-
-		/* Warnung */
-		echo sprintf(
-			'<div class="error"><p>%s</p></div>',
-			esc_html__('Antispam Bee requires WordPress 3.4 and PHP 5.2.4', 'antispam_bee')
-		);
-	}
-
-
-	/**
-	* Vergleich der Versionen
-	*
-	* @since   2.4.3
-	* @change  2.4.3
-	*
-	* @param   integer  $current   Aktuelle Version
-	* @param   integer  $required  Mindestversion
-	* @return  boolean             TRUE, wenn Voraussetzungen erfüllt
-	*/
-
-	private static function _is_version($current, $required) {
-		return version_compare(
-			$current,
-			$required. 'alpha',
-			'>='
 		);
 	}
 
@@ -635,7 +626,7 @@ class Antispam_Bee {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   0.1
-	* @change  2.4
+	* @change  2.6.0
 	*/
 
 	public static function add_dashboard_count()
@@ -645,12 +636,22 @@ class Antispam_Bee {
 			return;
 		}
 
+		/* Add list item icon */
+		echo '<style>#dashboard_right_now .ab-count a:before {content: "\f117"}</style>';
+
 		/* Ausgabe */
 		echo sprintf(
-			'<tr>
-				<td class="b b-spam" style="font-size:18px">%s</td>
-				<td class="last t">%s</td>
-			</tr>',
+			'<li class="ab-count">
+				<a href="%s">
+					%d %s
+				</a>
+			</li>',
+			add_query_arg(
+				array(
+					'page' => 'antispam_bee'
+				),
+				admin_url('options-general.php')
+			),
 			esc_html( self::_get_spam_count() ),
 			esc_html__('Blocked', 'antispam_bee')
 		);
@@ -1448,10 +1449,20 @@ class Antispam_Bee {
 
 			/* Felder loopen */
 			foreach ($pattern as $field => $regexp) {
-				if ( empty($field) or !in_array($field, $fields) or empty($comment[$field]) or empty($regexp) ) {
+				/* Empty value? */
+				if ( empty($field) OR !in_array($field, $fields) OR empty($regexp) ) {
 					continue;
 				}
 
+				/* Ignore non utf-8 chars */
+				$comment[$field] = ( function_exists('iconv') ? iconv('utf-8', 'utf-8//TRANSLIT', $comment[$field]) : $comment[$field] );
+
+				/* Empty value? */
+				if ( empty($comment[$field]) ) {
+					continue;
+				}
+
+				/* Perform regex */
 				if ( preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
 					$hits[$field] = true;
 				}
@@ -1895,7 +1906,7 @@ class Antispam_Bee {
 	* Ausführung des Lösch-/Markier-Vorgangs
 	*
 	* @since   0.1
-	* @change  2.5.7
+	* @change  2.6.0
 	*
 	* @param   array    $comment  Unbehandelte Kommentardaten
 	* @param   string   $reason   Verdachtsgrund
@@ -1965,19 +1976,14 @@ class Antispam_Bee {
 			)
 		);
 
-
-		/* Notiz setzen */
+		/* Spam reason as comment meta */
 		if ( $spam_notice ) {
-			/* Sprache laden */
-			self::load_plugin_lang();
-
-			/* Markierung hinzufügen */
-			$comment['comment_content'] = sprintf(
-				'[%s: %s]%s%s',
-				esc_html__('Marked as spam by Antispam Bee | Spam reason', 'antispam_bee'),
-				esc_html__(self::$defaults['reasons'][self::$_reason], 'antispam_bee'),
-				"\n",
-				$comment['comment_content']
+			add_filter(
+				'comment_post',
+				array(
+					__CLASS__,
+					'add_spam_reason_to_comment'
+				)
 			);
 		}
 
@@ -2031,6 +2037,43 @@ class Antispam_Bee {
 	{
 		status_header(403);
 		die('Spam deleted.');
+	}
+
+
+	/**
+	* Add spam reason as comment data
+	*
+	* @since   2.6.0
+	* @change  2.6.0
+	*
+	* @param   integer  $comment_id  Comment ID
+	*/
+
+	public static function add_spam_reason_to_comment( $comment_id )
+	{
+		add_comment_meta(
+			$comment_id,
+			'antispam_bee_reason',
+			self::$_reason
+		);
+	}
+
+
+	/**
+	* Delete spam reason as comment data
+	*
+	* @since   2.6.0
+	* @change  2.6.0
+	*
+	* @param   integer  $comment_id  Comment ID
+	*/
+
+	public static function delete_spam_reason_by_comment( $comment_id )
+	{
+		delete_comment_meta(
+			$comment_id,
+			'antispam_bee_reason'
+		);
 	}
 
 
