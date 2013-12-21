@@ -1176,6 +1176,11 @@ class Antispam_Bee {
 			return;
 		}
 
+		/* Find the comment textarea */
+		if ( ! preg_match('#<textarea.+?name=["\']comment["\']#s', $data) ) {
+			return $data;
+		}
+
 		/* Convert */
 		return preg_replace(
 			'#<textarea(.+?)name=["\']comment["\'](.+?)</textarea>#s',
