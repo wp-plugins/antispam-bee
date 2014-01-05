@@ -643,7 +643,7 @@ class Antispam_Bee {
 		echo sprintf(
 			'<li class="ab-count">
 				<a href="%s">
-					%d %s
+					%s %s
 				</a>
 			</li>',
 			add_query_arg(
