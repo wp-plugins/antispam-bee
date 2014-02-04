@@ -2123,7 +2123,12 @@ class Antispam_Bee {
 		/* Betreff */
 		$subject = sprintf(
 			'[%s] %s',
-			get_bloginfo('name'),
+			stripslashes_deep(
+				html_entity_decode(
+					get_bloginfo('name'),
+					ENT_QUOTES
+				)
+			),
 			__('Comment marked as spam', 'antispam_bee')
 		);
 
