@@ -38,7 +38,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.6.0
+	* @change  2.6.1
 	*/
 
   	public static function init()
@@ -183,6 +183,13 @@ class Antispam_Bee {
 						),
 						10,
 						2
+					);
+					add_filter(
+					    'admin_print_styles-edit-comments.php',
+					    array(
+					    	'Antispam_Bee_Columns',
+					    	'print_column_styles'
+					    )
 					);
 				}
 			}
