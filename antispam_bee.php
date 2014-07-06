@@ -421,7 +421,7 @@ class Antispam_Bee {
 				return ( empty($GLOBALS['pagenow']) or ( !empty($GLOBALS['pagenow']) && $GLOBALS['pagenow'] == 'index.php' ) );
 
 			case 'options':
-				return ( !empty($_REQUEST['page']) && $_REQUEST['page'] == 'antispam_bee' );
+				return ( !empty($_GET['page']) && $_GET['page'] == 'antispam_bee' );
 
 			case 'plugins':
 				return ( !empty($GLOBALS['pagenow']) && $GLOBALS['pagenow'] == 'plugins.php' );
