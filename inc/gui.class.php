@@ -30,6 +30,11 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			wp_die(__('Cheatin&#8217; uh?'));
 		}
 
+		/* Capability check */
+		if ( ! current_user_can('manage_options') ) {
+			wp_die(__('Cheatin&#8217; uh?'));
+		}
+
 		/* Referer prüfen */
 		check_admin_referer('antispam_bee');
 
