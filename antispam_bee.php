@@ -465,7 +465,7 @@ class Antispam_Bee {
 	public static function init_action_links($data)
 	{
 		/* Rechte? */
-		if ( !current_user_can('manage_options') ) {
+		if ( ! current_user_can('manage_options') ) {
 			return $data;
 		}
 
