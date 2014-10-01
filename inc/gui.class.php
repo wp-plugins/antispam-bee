@@ -175,7 +175,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 	* Anzeige der GUI
 	*
 	* @since   0.1
-	* @change  2.6.0
+	* @change  2.6.1
 	*/
 
 	public static function options_page() { ?>
@@ -431,12 +431,19 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 						</ul>
 					</div>
 
+					<div class="ab-column ab-column--service">
+						<?php if ( get_locale() == 'de_DE' ) { ?>
+							<p>
+								<a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/" target="_blank">Online-Handbuch</a> &bull; <a href="http://cup.wpcoder.de/wordpress-antispam-guide/" target="_blank">Antispam-Guide</a>
+							</p>
+						<?php } ?>
 
-					<div class="ab-column ab-submit">
 						<p>
-							<?php if ( get_locale() == 'de_DE' ) { ?><a href="http://playground.ebiene.de/antispam-bee-wordpress-plugin/" target="_blank">Handbuch</a> &bull; <?php } ?><a href="https://flattr.com/t/1323822" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a>
+							<a href="https://flattr.com/t/1323822" target="_blank">Flattr</a> &bull; <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=5RDDW9FEHGLG6" target="_blank">PayPal</a> &bull; <a href="https://www.amazon.de/gp/registry/wishlist/2U5I7F9649LOJ/?layout=grid" target="_blank">Wishlist</a>
 						</p>
+					</div>
 
+					<div class="ab-column ab-column--submit">
 						<input type="submit" class="button button-primary" value="<?php _e('Save Changes') ?>" />
 					</div>
 				</div>
