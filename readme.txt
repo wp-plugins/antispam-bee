@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-„...another popular solution to fight spam is Antispam Bee“ – Matt Mullenweg, Q&A WordCamp Europe 2014
+„... another popular solution to fight spam is Antispam Bee“ – Matt Mullenweg, Q&A WordCamp Europe 2014
 
 
 
@@ -72,11 +72,6 @@ Anmeldefrei und ohne lästige Captchas.
 Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 
 
-= Systemanforderungen =
-* PHP 5.2.4
-* WordPress 3.8
-
-
 = Inkompatibilität =
 * Disqus
 * Jetpack Comments
@@ -110,12 +105,17 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 == Changelog ==
 
 = 2.6.1 =
-* EN: Code refactoring of options management
-* DE: Überarbeitung der Optionen-Verwaltung
-* EN: Support for `HTTP_FORWARDED_FOR` header
-* DE: Berücksichtigung der Header `HTTP_FORWARDED_FOR`
-* *EN: Release time investment (Development & QA): 8,5 h*
-* *DE: Release-Zeitaufwand (Development & QA): 8,5 Stunden*
+
+*English*
+* Code refactoring of options management
+* Support for `HTTP_FORWARDED_FOR` header
+* *Release time investment (Development & QA): 8,5 h*
+
+*Deutsch*
+* Überarbeitung der Optionen-Verwaltung
+* Berücksichtigung der Header `HTTP_FORWARDED_FOR`
+* *Release-Zeitaufwand (Development & QA): 8,5 Stunden*
+
 
 = 2.6.0 =
 * DE: Optimierungen für WordPress 3.8
@@ -299,6 +299,18 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = 0.3 =
 * Trackback and Pingback spam protection
 
+
+
+== Installation ==
+
+= Requirements =
+* WordPress 3.8 or greater
+* PHP 5.2.4 or greater
+
+= Installation =
+* WordPress Dashboard > Plugins > Add New
+* Search for *Antispam Bee* > Install
+* Set plugin settings or leave the default values
 
 
 == Screenshots ==
