@@ -107,11 +107,13 @@ Freundlich formulierte Fragen rund um das Plugin werden per E-Mail beantwortet.
 = 2.6.1 =
 
 *English*
+
 * Code refactoring of options management
 * Support for `HTTP_FORWARDED_FOR` header
 * *Release time investment (Development & QA): 8,5 h*
 
 *Deutsch*
+
 * Überarbeitung der Optionen-Verwaltung
 * Berücksichtigung der Header `HTTP_FORWARDED_FOR`
 * *Release-Zeitaufwand (Development & QA): 8,5 Stunden*
