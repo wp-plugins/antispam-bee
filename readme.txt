@@ -10,7 +10,7 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 
 
-„... and there is also a lot of very popular antispam plugins like I know in Germany ... is it Antispam Bee? ... is a very, very popular one.“ – Matt Mullenweg, Q&A WordCamp Europe 2014
+„... another popular solution to fight spam is Antispam Bee“ – Matt Mullenweg, Q&A WordCamp Europe 2014
 
 
 
