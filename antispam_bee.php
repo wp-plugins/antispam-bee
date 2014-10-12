@@ -1742,42 +1742,38 @@ class Antispam_Bee {
 	* @return  boolean         TRUE bei gefälschter IP
 	*/
 
-	private static function _is_fake_ip($ip, $host = false)
+	private static function _is_fake_ip($client_ip, $client_host = false)
 	{
 		/* Remote Host */
-		$hostbyip = gethostbyaddr($ip);
+		$host_by_ip = gethostbyaddr($client_ip);
 
 		/* IPv6 */
-		if ( !self::_is_ipv4($ip) ) {
-			return $ip != $hostbyip;
+		if ( self::_is_ipv6($client_ip) ) {
+			return $client_ip != $host_by_ip;
 		}
 
-		/* IPv4 / Kommentar */
-		if ( empty($host) ) {
-			$found = strpos(
-				$ip,
-				self::_cut_ip(
-					gethostbyname($hostbyip)
-				)
-			);
+		/* IPv4 / Comment */
+		if ( empty($client_host) ) {
+			$ip_by_host = gethostbyname($host_by_ip);
+
+			if ( $ip_by_host === $host_by_ip ) {
+				return false;
+			}
 
 		/* IPv4 / Trackback */
 		} else {
-			/* IP-Vergleich */
-			if ( $hostbyip == $ip ) {
+			if ( $host_by_ip === $client_ip ) {
 				return true;
 			}
 
-			/* Treffer suchen */
-			$found = strpos(
-				$ip,
-				self::_cut_ip(
-					gethostbyname($host)
-				)
-			);
+			$ip_by_host = gethostbyname($client_host);
 		}
 
-		return $found === false;
+		if ( strpos( $client_ip, self::_cut_ip($ip_by_host) ) === false ) {
+			return true;
+		}
+
+		return false;
 	}
 
 
@@ -1910,18 +1906,34 @@ class Antispam_Bee {
 
 
 	/**
-	* Prüfung auf eine IPv4-Adresse
+	* Check for an IPv4 address
 	*
 	* @since   2.4
-	* @change  2.4
+	* @change  2.6.2
 	*
-	* @param   string   $ip  Zu prüfende IP
-	* @return  integer       Anzahl der Treffer
+	* @param   string   $ip  IP to validate
+	* @return  integer       TRUE if IPv4
 	*/
 
 	private static function _is_ipv4($ip)
 	{
 		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+	}
+
+
+	/**
+	* Check for an IPv6 address
+	*
+	* @since   2.6.2
+	* @change  2.6.2
+	*
+	* @param   string   $ip  IP to validate
+	* @return  boolean       TRUE if IPv6
+	*/
+
+	private static function _is_ipv6($ip)
+	{
+		return ! self::_is_ipv4($ip);
 	}
 
 
