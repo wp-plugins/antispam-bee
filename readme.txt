@@ -79,8 +79,8 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 
 = Unterstützung =
-* [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN)
 * [Flattr](https://flattr.com/t/1323822)
+* [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ZAQUT9RLPW8QN)
 * [Wishlist](https://www.amazon.de/registry/wishlist/2U5I7F9649LOJ/)
 
 
@@ -103,6 +103,15 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 
 == Changelog ==
+
+= 2.6.3 =
+
+* **English**
+
+* **Deutsch**
+    * Sortierung für die Antispam Bee Spalte in der Spam-Übersicht
+    * *Release-Zeitaufwand (Development & QA): 1,5 Stunden*
+
 
 = 2.6.2 =
 

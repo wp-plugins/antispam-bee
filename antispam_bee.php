@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.2
+Version: 2.6.3
 */
 
 /*
@@ -57,7 +57,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.6.1
+	* @change  2.6.3
 	*/
 
   	public static function init()
@@ -209,6 +209,21 @@ class Antispam_Bee {
 					    	'Antispam_Bee_Columns',
 					    	'print_column_styles'
 					    )
+					);
+
+					add_filter(
+						'manage_edit-comments_sortable_columns',
+						array(
+							'Antispam_Bee_Columns',
+							'register_sortable_columns'
+						)
+					);
+					add_action(
+						'pre_get_posts',
+						array(
+							'Antispam_Bee_Columns',
+							'set_orderby_query'
+						)
 					);
 				}
 			}
