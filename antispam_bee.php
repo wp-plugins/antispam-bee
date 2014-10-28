@@ -1620,7 +1620,7 @@ class Antispam_Bee {
 		}
 
 		/* IP abfragen */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'https://geoip.maxmind.com/a?l=%s&i=%s',
@@ -1667,7 +1667,7 @@ class Antispam_Bee {
 	private static function _is_dnsbl_spam($ip)
 	{
 		/* Start request */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'http://www.stopforumspam.com/api?ip=%s&f=json',
@@ -1821,7 +1821,7 @@ class Antispam_Bee {
 		);
 
 		/* IP abfragen */
-		$response = wp_remote_get(
+		$response = wp_safe_remote_request(
 			esc_url_raw(
 				sprintf(
 					'https://translate.google.com/translate_a/t?client=x&text=%s',
