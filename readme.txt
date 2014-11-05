@@ -107,10 +107,13 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 = 2.6.3 =
 
 * **English**
+    * Sorting for the Antispam Bee column in the spam comments overview
+    * Code refactoring around the use of REQUEST_URI
+    * *Release time investment (Development & QA): 2,75 h*
 
 * **Deutsch**
-    * Code-Refactoring rund um die Nutzung von REQUEST_URI
     * Sortierung für die Antispam Bee Spalte in der Spam-Übersicht
+    * Code-Refactoring rund um die Nutzung von REQUEST_URI
     * *Release-Zeitaufwand (Development & QA): 2,75 Stunden*
 
 
