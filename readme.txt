@@ -109,8 +109,9 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 * **English**
 
 * **Deutsch**
+    * Code-Refactoring rund um die Nutzung von REQUEST_URI
     * Sortierung für die Antispam Bee Spalte in der Spam-Übersicht
-    * *Release-Zeitaufwand (Development & QA): 1,5 Stunden*
+    * *Release-Zeitaufwand (Development & QA): 2,75 Stunden*
 
 
 = 2.6.2 =
