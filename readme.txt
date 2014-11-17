@@ -104,6 +104,17 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 
 == Changelog ==
 
+= 2.6.4 =
+
+* **English**
+    * Consideration of the comment time (Spam if a comment was written in less than 5 seconds)
+    * *Release time investment (Development & QA): 6,25 h*
+
+* **Deutsch**
+    * Berücksichtigung der Kommentarzeit (Spam, wenn ein Kommentar in unter 5 Sekunden verfasst)
+    * *Release-Zeitaufwand (Development & QA): 6,25 Stunden*
+
+
 = 2.6.3 =
 
 * **English**
