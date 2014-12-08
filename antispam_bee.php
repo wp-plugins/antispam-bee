@@ -1143,7 +1143,8 @@ class Antispam_Bee {
 			array(
 				__CLASS__,
 				'get_client_ip'
-			)
+			),
+			1
 		);
 
 		/* Request params */
