@@ -12,7 +12,7 @@ Version: 2.6.4
 */
 
 /*
-Copyright (C)  2009-2014 Sergej Müller
+Copyright (C)  2009-2015 Sergej Müller
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
