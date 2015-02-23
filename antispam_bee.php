@@ -669,20 +669,23 @@ class Antispam_Bee {
 	* Anzeige des Spam-Counters auf dem Dashboard
 	*
 	* @since   0.1
-	* @change  2.6.0
+	* @change  2.6.5
+	*
+	* @param   array  $items  Array with dashboard items
+	* @return  array  $items  Array with dashboard items
 	*/
 
-	public static function add_dashboard_count()
+	public static function add_dashboard_count( $items = array() )
 	{
-		/* Aktiv? */
+		/* Is active? */
 		if ( ! self::get_option('dashboard_count') ) {
-			return;
+			return $items;
 		}
 
 		/* Add list item icon */
 		echo '<style>#dashboard_right_now .ab-count a:before {content: "\f117"}</style>';
 
-		/* Ausgabe */
+		/* Print the item */
 		echo sprintf(
 			'<li class="ab-count">
 				<a href="%s">
@@ -698,6 +701,8 @@ class Antispam_Bee {
 			esc_html( self::_get_spam_count() ),
 			esc_html__('Blocked', 'antispam_bee')
 		);
+
+		return $items;
 	}
 
 
