@@ -1577,7 +1577,7 @@ class Antispam_Bee {
 				}
 
 				/* Perform regex */
-				if ( preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
+				if ( @preg_match('/' .$regexp. '/isu', $comment[$field]) ) {
 					$hits[$field] = true;
 				}
 			}
@@ -1978,7 +1978,7 @@ class Antispam_Bee {
 	* Check for an IPv4 address
 	*
 	* @since   2.4
-	* @change  2.6.2
+	* @change  2.6.4
 	*
 	* @param   string   $ip  IP to validate
 	* @return  integer       TRUE if IPv4
@@ -1986,7 +1986,11 @@ class Antispam_Bee {
 
 	private static function _is_ipv4($ip)
 	{
-		return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+		if ( function_exists('filter_var') ) {
+			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) !== false;
+		} else {
+			return preg_match('/^\d{1,3}(\.\d{1,3}){3,3}$/', $ip);
+		}
 	}
 
 
@@ -1994,7 +1998,7 @@ class Antispam_Bee {
 	* Check for an IPv6 address
 	*
 	* @since   2.6.2
-	* @change  2.6.2
+	* @change  2.6.4
 	*
 	* @param   string   $ip  IP to validate
 	* @return  boolean       TRUE if IPv6
@@ -2002,7 +2006,11 @@ class Antispam_Bee {
 
 	private static function _is_ipv6($ip)
 	{
-		return ! self::_is_ipv4($ip);
+		if ( function_exists('filter_var') ) {
+			return filter_var( $ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6 ) !== false;
+		} else {
+			return ! self::_is_ipv4($ip);
+		}
 	}
 
 
