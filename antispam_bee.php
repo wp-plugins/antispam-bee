@@ -57,7 +57,7 @@ class Antispam_Bee {
 	* "Konstruktor" der Klasse
 	*
 	* @since   0.1
-	* @change  2.6.3
+	* @change  2.6.4
 	*/
 
   	public static function init()
@@ -109,7 +109,7 @@ class Antispam_Bee {
 						'load_plugin_lang'
 					)
 				);
-				add_action(
+				add_filter(
 					'dashboard_glance_items',
 					array(
 						__CLASS__,
@@ -677,32 +677,28 @@ class Antispam_Bee {
 
 	public static function add_dashboard_count( $items = array() )
 	{
-		/* Is active? */
-		if ( ! self::get_option('dashboard_count') ) {
-			return $items;
-		}
+		/* Skip */
+        if ( ! current_user_can('manage_options') OR ! self::get_option('dashboard_count') ) {
+            return $items;
+        }
 
-		/* Add list item icon */
-		echo '<style>#dashboard_right_now .ab-count a:before {content: "\f117"}</style>';
+        /* Icon styling */
+        echo '<style>#dashboard_right_now .ab-count:before {content: "\f117"}</style>';
 
-		/* Print the item */
-		echo sprintf(
-			'<li class="ab-count">
-				<a href="%s">
-					%s %s
-				</a>
-			</li>',
-			add_query_arg(
-				array(
-					'page' => 'antispam_bee'
-				),
-				admin_url('options-general.php')
-			),
-			esc_html( self::_get_spam_count() ),
-			esc_html__('Blocked', 'antispam_bee')
-		);
+        /* Right now item */
+        $items[] = sprintf(
+        	'<a href="%s" class="ab-count">%s %s</a>',
+        	add_query_arg(
+        	    array(
+        	        'page' => 'antispam_bee'
+        	    ),
+        	    admin_url('options-general.php')
+        	),
+        	esc_html( self::_get_spam_count() ),
+        	esc_html__('Blocked', 'antispam_bee')
+        );
 
-		return $items;
+        return $items;
 	}
 
 
