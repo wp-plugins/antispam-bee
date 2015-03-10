@@ -8,7 +8,7 @@ Author: Sergej M&uuml;ller
 Author URI: http://wpcoder.de
 Plugin URI: http://antispambee.com
 License: GPLv2 or later
-Version: 2.6.4
+Version: 2.6.5
 */
 
 /*
@@ -338,7 +338,7 @@ class Antispam_Bee {
 	* Initialisierung der internen Variablen
 	*
 	* @since   2.4
-	* @change  2.6.4
+	* @change  2.6.5
 	*/
 
 	private static function _init_internal_vars()
@@ -1348,7 +1348,7 @@ class Antispam_Bee {
 	* Prüfung den Kommentar
 	*
 	* @since   2.4
-	* @change  2.6.4
+	* @change  2.6.5
 	*
 	* @param   array  $comment  Daten des Kommentars
 	* @return  array            Array mit dem Verdachtsgrund [optional]
@@ -1473,17 +1473,17 @@ class Antispam_Bee {
 	/**
 	* Check for a Gravatar image
 	*
-	* @since   2.6.4
-	* @change  2.6.4
+	* @since   2.6.5
+	* @change  2.6.5
 	*
 	* @param   string	$email  Input email
 	* @return  boolean       	Check status (true = Gravatar available)
 	*/
 
     private static function _has_valid_gravatar($email) {
-        $response = wp_remote_get(
+        $response = wp_safe_remote_get(
             sprintf(
-                'http://www.gravatar.com/avatar/%s?d=404',
+                'https://www.gravatar.com/avatar/%s?d=404',
                 md5( strtolower( trim($email) ) )
             )
         );
