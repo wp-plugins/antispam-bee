@@ -672,8 +672,8 @@ class Antispam_Bee {
 	* @since   0.1
 	* @change  2.6.5
 	*
-	* @param   array  $items  Array with dashboard items
-	* @return  array  $items  Array with dashboard items
+	* @param   array  $items  Initial array with dashboard items
+    * @return  array  $items  Merged array with dashboard items
 	*/
 
 	public static function add_dashboard_count( $items = array() )
