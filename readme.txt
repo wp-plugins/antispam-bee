@@ -107,14 +107,14 @@ Fragen rund ums Plugin werden gern per E-Mail beantwortet. Beachtet auch die [Gu
 = 2.6.5 =
 
 * **English**
-    * Fix: Return parameter values on `dashboard_glance_items` callback / props [@toscho](https://twitter.com/toscho)
-    * Neu function: Trust commenters with a Gravatar
+    * Fix: Return parameters on `dashboard_glance_items` callback / thx [@toscho](https://twitter.com/toscho)
+    * New function: Trust commenters with a Gravatar / thx [@glueckpress](https://twitter.com/glueckpress)
     * Additional plausibility checks and filters
     * *Release time investment (Development & QA): 12 h*
 
 * **Deutsch**
-    * Fix: Parameter-Rückgabe beim `dashboard_glance_items` Callback / props [@toscho](https://twitter.com/toscho)
-    * Neue Funktion: [Kommentatoren mit Gravatar vertrauen](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#gravatar_check) / props [@glueckpress](https://twitter.com/glueckpress)
+    * Fix: Parameter-Rückgabe bei `dashboard_glance_items` / thx [@toscho](https://twitter.com/toscho)
+    * Neue Funktion: [Kommentatoren mit Gravatar vertrauen](http://playground.ebiene.de/antispam-bee-wordpress-plugin/#gravatar_check) / thx [@glueckpress](https://twitter.com/glueckpress)
     * Zusätzliche Plausibilitätsprüfungen und Filter
     * *Release-Zeitaufwand (Development & QA): 12 Stunden*
 
