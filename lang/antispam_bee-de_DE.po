@@ -164,6 +164,12 @@ msgstr "Lokale Spamdatenbank einbeziehen"
 msgid "Already marked as spam? Yes? No?"
 msgstr "Suche im Spambestand des eigenen Blogs"
 
+msgid "Trust commentators with a Gravatar"
+msgstr "Kommentatoren mit Gravatar vertrauen"
+
+msgid "Check if commenter has a Gravatar image"
+msgstr "Prüft auf Existenz eines gültigen Gravatars"
+
 msgid "Block comments from specific countries"
 msgstr "Bestimmte Länder blockieren bzw. erlauben"
 

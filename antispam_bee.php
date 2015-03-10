@@ -353,6 +353,7 @@ class Antispam_Bee {
 				'regexp_check'		=> 1,
 				'spam_ip' 			=> 1,
 				'already_commented'	=> 1,
+				'gravatar_check'	=> 0,
 				'time_check'		=> 0,
 				'ignore_pings' 		=> 0,
 				'always_allowed' 	=> 0,
@@ -1387,8 +1388,13 @@ class Antispam_Bee {
 		$options = self::get_options();
 
 		/* Bereits kommentiert? */
-		if ( $options['already_commented'] && !empty($email) && self::_is_approved_email($email) ) {
+		if ( $options['already_commented'] && ! empty($email) && self::_is_approved_email($email) ) {
 			return;
+		}
+
+		/* Check for a Gravatar */
+		if ( $options['gravatar_check'] && ! empty($email) && self::_has_valid_gravatar($email) ) {
+		    return;
 		}
 
 		/* Bot erkannt */
@@ -1462,6 +1468,36 @@ class Antispam_Bee {
 			);
 		}
 	}
+
+
+	/**
+	* Check for a Gravatar image
+	*
+	* @since   2.6.4
+	* @change  2.6.4
+	*
+	* @param   string	$email  Input email
+	* @return  boolean       	Check status (true = Gravatar available)
+	*/
+
+    private static function _has_valid_gravatar($email) {
+        $response = wp_remote_get(
+            sprintf(
+                'http://www.gravatar.com/avatar/%s?d=404',
+                md5( strtolower( trim($email) ) )
+            )
+        );
+
+        if ( is_wp_error($response) ) {
+            return null;
+        }
+
+        if ( wp_remote_retrieve_response_code($response) === 200 ) {
+            return true;
+        }
+
+        return false;
+    }
 
 
 	/**

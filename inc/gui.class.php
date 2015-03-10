@@ -64,6 +64,7 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 			'ignore_reasons' 	=> (array)self::get_key($_POST, 'ab_ignore_reasons'),
 
 			'bbcode_check'		=> (int)(!empty($_POST['ab_bbcode_check'])),
+			'gravatar_check'	=> (int)(!empty($_POST['ab_gravatar_check'])),
 			'dnsbl_check'		=> (int)(!empty($_POST['ab_dnsbl_check'])),
 
 			'country_code' 		=> (int)(!empty($_POST['ab_country_code'])),
@@ -213,6 +214,14 @@ class Antispam_Bee_GUI extends Antispam_Bee {
 								<label for="ab_already_commented">
 									<?php esc_html_e('Trust approved commentators', 'antispam_bee') ?>
 									<span><?php esc_html_e('No check for already commenting users', 'antispam_bee') ?></span>
+								</label>
+							</li>
+
+							<li>
+								<input type="checkbox" name="ab_gravatar_check" id="ab_gravatar_check" value="1" <?php checked($options['gravatar_check'], 1) ?> />
+								<label for="ab_gravatar_check">
+									<?php esc_html_e('Trust commentators with a Gravatar', 'antispam_bee') ?>
+									<span><?php _e('Check if commenter has a Gravatar image', 'antispam_bee') ?></span>
 								</label>
 							</li>
 
