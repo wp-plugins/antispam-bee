@@ -1646,18 +1646,18 @@ class Antispam_Bee {
 
 		/* Default */
 		$filter = array('`comment_author_IP` = %s');
-		$params = array($ip);
+		$params = array( wp_unslash($ip) );
 
 		/* URL abgleichen */
 		if ( ! empty($url) ) {
 			$filter[] = '`comment_author_url` = %s';
-			$params[] = $url;
+			$params[] = wp_unslash($url);
 		}
 
 		/* E-Mail abgleichen */
 		if ( ! empty($email) ) {
 			$filter[] = '`comment_author_email` = %s';
-			$params[] = $email;
+			$params[] = wp_unslash($email);
 		}
 
 		/* Query ausführen */
@@ -1823,7 +1823,7 @@ class Antispam_Bee {
 		$result = $wpdb->get_var(
 			$wpdb->prepare(
 				"SELECT `comment_ID` FROM `$wpdb->comments` WHERE `comment_approved` = '1' AND `comment_author_email` = %s LIMIT 1",
-				(string)$email
+				wp_unslash($email)
 			)
 		);
 
